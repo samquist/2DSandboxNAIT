@@ -205,7 +205,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.toonshader": {
-      "version": "file:C:/Users/samue/Downloads/com.unity.toonshader-0.13.1-preview/package",
+      "version": "file:com.unity.toonshader-0.13.1-preview/package",
       "depth": 0,
       "source": "local",
       "dependencies": {
