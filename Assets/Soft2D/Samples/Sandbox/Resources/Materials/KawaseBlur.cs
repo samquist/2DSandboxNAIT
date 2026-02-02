@@ -1,4 +1,5 @@
 #if SOFT2D_URP_PIPELINE
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -10,10 +11,10 @@ public class KawaseBlur : ScriptableRendererFeature
     {
         public Material blurMaterial;
 
-        [Range(2,15)]
+        [Range(2, 15)]
         public int blurPasses = 2;
 
-        [Range(1,4)]
+        [Range(1, 4)]
         public int downsample = 1;
         public RenderTexture outputTexture;
     }
@@ -47,14 +48,19 @@ public class KawaseBlur : ScriptableRendererFeature
 
             tmpRT1 = new RenderTargetIdentifier(tmpId1);
             tmpRT2 = new RenderTargetIdentifier(tmpId2);
-            
+
             ConfigureTarget(tmpRT1);
             ConfigureTarget(tmpRT2);
         }
 
+        private void ConfigureTarget(RenderTargetIdentifier tmpRT1)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
-            cameraColorTexture = renderingData.cameraData.renderer.cameraColorTarget;
+            cameraColorTexture = renderingData.cameraData.renderer.cameraColorTargetHandle;
             CommandBuffer cmd = CommandBufferPool.Get("KawaseBlur");
 
             RenderTextureDescriptor opaqueDesc = renderingData.cameraData.cameraTargetDescriptor;
@@ -63,7 +69,8 @@ public class KawaseBlur : ScriptableRendererFeature
             cmd.SetGlobalFloat("_offset", 1.5f);
             cmd.Blit(cameraColorTexture, tmpRT1, blurMaterial);
 
-            for (var i=1; i<passes-1; i++) {
+            for (var i = 1; i < passes - 1; i++)
+            {
                 cmd.SetGlobalFloat("_offset", 0.5f + i);
                 cmd.Blit(tmpRT1, tmpRT2, blurMaterial);
                 (tmpRT1, tmpRT2) = (tmpRT2, tmpRT1);

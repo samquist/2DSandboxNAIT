@@ -833,7 +833,7 @@ PlayerSettings:
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
     Android: SOFT2D_URP_PIPELINE
-    Standalone: SOFT2D_URP_PIPELINE
+    Standalone: SOFT2D_URP_PIPELINE;UNITY_PIPELINE_URP
     iPhone: SOFT2D_URP_PIPELINE
   additionalCompilerArguments: {}
   platformArchitecture:
