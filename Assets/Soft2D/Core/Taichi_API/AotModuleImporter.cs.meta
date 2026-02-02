@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0b03411f211e015429d17b0e3c02703d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Core/Taichi_API/AotModuleImporter.cs
+  uploadId: 611938

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4ab5c6cbdc19d8a47bca2ed675797d8e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Samples/URP/Gear/Prism.prefab
+  uploadId: 611938

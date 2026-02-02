@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d2cad984c59befc3787025b8ed7c1649
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Docs/Simplified_Chinese/CustomShader.md
+  uploadId: 611938

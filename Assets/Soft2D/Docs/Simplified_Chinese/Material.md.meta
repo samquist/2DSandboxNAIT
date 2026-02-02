@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a64e6a590e34106fd8010c26de2c5088
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Docs/Simplified_Chinese/Material.md
+  uploadId: 611938

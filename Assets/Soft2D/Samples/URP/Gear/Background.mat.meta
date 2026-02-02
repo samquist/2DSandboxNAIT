@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 587f1bfad71848242acbb89ad1e74a86
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Samples/URP/Gear/Background.mat
+  uploadId: 611938

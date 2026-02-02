@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e40ee7efb0dcb694fba1c66d27ea1bdd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Samples/Sandbox/Scripts/DestinationBase.cs
+  uploadId: 611938

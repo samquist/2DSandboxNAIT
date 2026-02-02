@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f251e317d5627f44cafae26868417619
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Prefabs/Box.prefab
+  uploadId: 611938

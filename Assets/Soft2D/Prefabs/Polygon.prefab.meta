@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4f04962d3d9063b49879e90201de22a0
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Prefabs/Polygon.prefab
+  uploadId: 611938
