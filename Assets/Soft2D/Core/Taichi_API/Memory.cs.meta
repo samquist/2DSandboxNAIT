@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 919e8f15334d4bf4089f547e0e508bd8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Core/Taichi_API/Memory.cs
+  uploadId: 611938

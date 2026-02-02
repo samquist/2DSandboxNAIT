@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 330474375263d8e40addc8aeeca4c63d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Samples/Sandbox/Scripts/GameSettings/LevelData/LevelData.cs
+  uploadId: 611938

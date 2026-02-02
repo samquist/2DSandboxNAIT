@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 20f210336306f2403a34b59bde5bf908
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Docs/Simplified_Chinese/Trigger.md
+  uploadId: 611938

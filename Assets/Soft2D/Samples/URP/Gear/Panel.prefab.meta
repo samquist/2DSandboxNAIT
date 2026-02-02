@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e664a65b4a3fc0041a54fdb49ff79a43
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Samples/URP/Gear/Panel.prefab
+  uploadId: 611938

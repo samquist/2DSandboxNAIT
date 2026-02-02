@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ecb03dc121e96a64fa2fbc5dfd836897
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Prefabs/Circle.prefab
+  uploadId: 611938
