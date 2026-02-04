@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class GravityController : MonoBehaviour
 {
     public Slider gravitySlider;
-    private float baseGravity = -9.81f;
+    [SerializeField] private float baseGravity = -9.81f;
     
     void Start()
     {
