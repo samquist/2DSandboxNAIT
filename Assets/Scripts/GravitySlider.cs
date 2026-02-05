@@ -1,27 +1,51 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GravityController : MonoBehaviour
 {
-    public Slider gravitySlider;
+    [SerializeField] private Slider gravitySlider;
     [SerializeField] private float baseGravity = -9.81f;
-    
-    void Start()
+    [SerializeField] private float maxMultiplier = 10f;
+
+    private void Start()
     {
-        Physics2D.gravity = new Vector2(0, baseGravity);
-        gravitySlider.value = 0;
-        gravitySlider.onValueChanged.AddListener(ChangeGravity);
-        
-        // Print initial gravity
-        Debug.Log("Gravity: " + baseGravity.ToString("F2"));
+        if (gravitySlider == null)
+        {
+            Debug.LogError("Gravity slider not assigned!");
+            return;
+        }
+
+        gravitySlider.minValue = -1f;
+        gravitySlider.maxValue = 1f;
+        gravitySlider.value = 0f;
+
+        gravitySlider.onValueChanged.AddListener(UpdateGravity);
+
+        UpdateGravity(0f);
     }
-    
-    void ChangeGravity(float sliderValue)
+
+    private void UpdateGravity(float sliderValue)
     {
-        float newGravity = baseGravity + sliderValue;
-        Physics2D.gravity = new Vector2(0, newGravity);
-        
-        // Print updated gravity
-        Debug.Log("Gravity: " + newGravity.ToString("F2"));
+        float multiplier;
+
+        if (sliderValue <= 0)
+        {
+            multiplier = 1f + (-sliderValue * (maxMultiplier - 1f));
+        }
+        else
+        {
+            multiplier = 1f - sliderValue;
+        }
+
+        float newGravityY = baseGravity * multiplier;
+        Physics2D.gravity = new Vector2(0f, newGravityY);
+    }
+
+    private void OnDestroy()
+    {
+        if (gravitySlider != null)
+        {
+            gravitySlider.onValueChanged.RemoveListener(UpdateGravity);
+        }
     }
 }
