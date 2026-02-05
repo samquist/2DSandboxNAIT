@@ -18,7 +18,7 @@ public class GravityController : MonoBehaviour
     
     void ChangeGravity(float sliderValue)
     {
-        float newGravity = baseGravity + sliderValue;
+        float newGravity = baseGravity + (sliderValue * 5);
         Physics2D.gravity = new Vector2(0, newGravity);
         
         // Print updated gravity
