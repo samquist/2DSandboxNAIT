@@ -15,9 +15,9 @@ public class GravityController : MonoBehaviour
             return;
         }
 
-        gravitySlider.minValue = -1f;
-        gravitySlider.maxValue = 1f;
-        gravitySlider.value = 0f;
+        gravitySlider.minValue = 0f;
+        gravitySlider.maxValue = 2f;
+        gravitySlider.value = 1f;
 
         gravitySlider.onValueChanged.AddListener(UpdateGravity);
 
@@ -26,17 +26,7 @@ public class GravityController : MonoBehaviour
 
     private void UpdateGravity(float sliderValue)
     {
-        float multiplier;
-
-        if (sliderValue <= 0)
-        {
-            multiplier = 1f + (-sliderValue * (maxMultiplier - 1f));
-        }
-        else
-        {
-            multiplier = 1f - sliderValue;
-        }
-
+        float multiplier = sliderValue;
         float newGravityY = baseGravity * multiplier;
         Physics2D.gravity = new Vector2(0f, newGravityY);
     }
