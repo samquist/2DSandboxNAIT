@@ -3217,6 +3217,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4115069650647026442, guid: 9c94025a49228264c8aa777906460cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4337790661295092135, guid: 9c94025a49228264c8aa777906460cda, type: 3}
       propertyPath: m_Name
       value: mod_sphere
