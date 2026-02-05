@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 280a9d5ee82fe374295d369f502126dc
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Samples/Sandbox/Resources/Prefabs/Quad.prefab
+  uploadId: 611938

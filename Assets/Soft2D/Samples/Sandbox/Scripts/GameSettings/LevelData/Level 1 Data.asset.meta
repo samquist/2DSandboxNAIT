@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: a01f16ee5ac9ef0458b2783e69326a95
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Samples/Sandbox/Scripts/GameSettings/LevelData/Level 1
+    Data.asset
+  uploadId: 611938

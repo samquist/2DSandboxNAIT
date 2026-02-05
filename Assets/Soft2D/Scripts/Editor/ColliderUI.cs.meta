@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 3ab14b024b0c44b696a1c049979aa0ab
+timeCreated: 1679623849
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Scripts/Editor/ColliderUI.cs
+  uploadId: 611938

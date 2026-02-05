@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a9d6a53454a7511d09ee630fa61af54d
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Docs/English/CustomShader.md
+  uploadId: 611938

@@ -1,0 +1,121 @@
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
+
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
+public class DragAndScale : MonoBehaviour
+{
+    [Header("Throw Behaviour")]
+    [SerializeField] private float velocitySmoothing = 8f;
+    [SerializeField] private float minThrowSpeed = 0.5f;
+    [Header("Scale Behaviour")]
+    [SerializeField] public float minScale = 0.5f;
+    [SerializeField] public float maxScale = 5f;
+    [Header("Drag & Scale Bools")]
+    public bool isDragged;
+    public bool isPinched;
+
+    private Camera mainCam;
+    private Rigidbody2D rb;
+    private Vector3 offset;
+    private float grabDepth;
+    private Vector3 lastWorldPos;
+    private Vector2 smoothedVelocity;
+    private float previousPinchDistance;
+
+    private void Awake()
+    {
+        mainCam = Camera.main;
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void OnGrabBegin(Vector2 screenPos)
+    {
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
+        grabDepth = Vector3.Dot(transform.position - mainCam.transform.position, mainCam.transform.forward);
+
+        Vector3 pointerWorld = mainCam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, grabDepth));
+        offset = transform.position - pointerWorld;
+
+        isDragged = true;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+
+        lastWorldPos = transform.position;
+        smoothedVelocity = Vector2.zero;
+    }
+
+    public void OnGrabUpdate(Vector2 screenPos)
+    {
+        if (!isDragged)
+        {
+            return;
+        }
+
+        Vector3 pointerWorld = mainCam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, grabDepth));
+        Vector3 targetPos = pointerWorld + offset;
+        targetPos.z = transform.position.z;
+
+        transform.position = targetPos;
+
+        Vector3 worldDelta = targetPos - lastWorldPos;
+        float dt = Time.deltaTime > 0f ? Time.deltaTime : 0.016f;
+        Vector2 rawVelocity = new Vector2(worldDelta.x, worldDelta.y) / dt;
+
+        smoothedVelocity = Vector2.Lerp(smoothedVelocity, rawVelocity, velocitySmoothing * dt);
+
+        lastWorldPos = targetPos;
+    }
+
+    public void OnGrabEnd()
+    {
+        if (!isDragged)
+        {
+            return;
+        }
+        
+        isDragged = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
+        if (smoothedVelocity.magnitude > minThrowSpeed)
+        {
+            rb.linearVelocity = smoothedVelocity;
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
+
+    public void OnPinchBegin()
+    {
+        isPinched = true;
+        previousPinchDistance = -1f;
+    }
+
+    public void OnPinchUpdate(float currentPinchDistance)
+    {
+        if (!isPinched)
+        {
+            return;
+        }
+        if (previousPinchDistance > 0f)
+        {
+            float delta = currentPinchDistance - previousPinchDistance;
+            float scaleFactor = 1f + delta * 0.015f;
+
+            Vector3 newScale = transform.localScale * scaleFactor;
+            newScale.x = Mathf.Clamp(newScale.x, minScale, maxScale);
+            newScale.y = Mathf.Clamp(newScale.y, minScale, maxScale);
+            transform.localScale = newScale;
+        }
+
+        previousPinchDistance = currentPinchDistance;
+    }
+
+    public void OnPinchEnd()
+    {
+        isPinched = false;
+    }
+}

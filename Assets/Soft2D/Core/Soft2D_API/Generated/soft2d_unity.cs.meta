@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3db50ca3076aec8488f8877768a3b89d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Core/Soft2D_API/Generated/soft2d_unity.cs
+  uploadId: 611938

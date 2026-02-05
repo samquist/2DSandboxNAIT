@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1547b09af329354498de36b6812c3932
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Samples/Scripts/RendererDataWarning.cs
+  uploadId: 611938

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 89703ecc2579af34aa1c156bd7b7eb8b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 256549
+  packageName: Soft2D for Unity
+  packageVersion: 1.0.0
+  assetPath: Assets/Soft2D/Samples/Sandbox/Scripts/UIManager.cs
+  uploadId: 611938
