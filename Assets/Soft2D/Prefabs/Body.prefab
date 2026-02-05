@@ -43,7 +43,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06e0dd0a265c58143901b70bfce3686f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Taichi.Soft2D.Plugin.EBody
   linearVelocity: {x: 0, y: 0}
   angularVelocity: 0
   lifetime: 100
