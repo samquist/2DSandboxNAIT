@@ -14,16 +14,31 @@ public class ConnectionPoint : MonoBehaviour
         GetComponentInChildren<SpriteRenderer>().color = regularColor;
     }
 
-    public void ConnectTo(ConnectionPoint other)
+    public void Connect()
     {
+        Snap();
+    }
+
+    public void Snap()
+    {
+        RotateForSnap();
+
+        Transform parentTransform = gameObject.transform.parent;
+
+        Debug.Log($"Snapping {parentTransform.gameObject.name} to {toConnectTo.transform.parent.gameObject.name}");
+
+        parentTransform.position = new Vector3(parentTransform.position.x + toConnectTo.transform.position.x - transform.position.x, parentTransform.position.y + toConnectTo.transform.position.y - transform.position.y, 0);
+    }
+
+    public void RotateForSnap()
+    {
+
     }
 
     public void HighlightConnection(ConnectionPoint other)
     {
         toConnectTo = other;
         canConnect = true;
-        other.toConnectTo = this;
-        other.canConnect = true;
         Debug.Log($"Highlighting Connection - {gameObject.name}");
         //highlight the connection point and a line between the two points?
         GetComponentInChildren<SpriteRenderer>().color = highlightedColor;
@@ -33,8 +48,6 @@ public class ConnectionPoint : MonoBehaviour
     {
         toConnectTo = null;
         canConnect = false;
-        other.toConnectTo = null;
-        other.canConnect = true;
         Debug.Log($"Unhighlighting Connection - {gameObject.name}");
         //unhighlight the connection point and line between the two points?
         GetComponentInChildren<SpriteRenderer>().color = regularColor;
