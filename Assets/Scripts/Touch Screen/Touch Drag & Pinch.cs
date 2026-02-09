@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Collider2D))]
@@ -22,12 +23,23 @@ public class DragAndScale : MonoBehaviour
     private Vector3 lastWorldPos;
     private Vector2 smoothedVelocity;
     private float previousPinchDistance;
-    private ConnectionPoint p;
+    private List<ConnectionPoint> connectionPoints;
 
     private void Awake()
     {
         mainCam = Camera.main;
         rb = GetComponent<Rigidbody2D>();
+        AddAllConnectionPoints();
+    }
+
+    public void AddAllConnectionPoints()
+    {
+        connectionPoints = new List<ConnectionPoint>();
+        ConnectionPoint[] allConnectionPoints = GetComponentsInChildren<ConnectionPoint>();
+        for (int i = 0; i < allConnectionPoints.Length; i++)
+        {
+            connectionPoints.Add(allConnectionPoints[i]);
+        }
     }
 
     public void OnGrabBegin(Vector2 screenPos)
@@ -85,6 +97,16 @@ public class DragAndScale : MonoBehaviour
         }
         else
         {
+            bool flag = false;
+            for (int i = 0; i < connectionPoints.Count && !flag; i++)
+            {
+                if (connectionPoints[i].canConnect && connectionPoints[i].toConnectTo != null)
+                {
+                    connectionPoints[i].Connect();
+                    flag = true;
+                }
+            }
+
             rb.linearVelocity = Vector2.zero;
         }
     }
