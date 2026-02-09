@@ -12,6 +12,8 @@ public class DragAndScale : MonoBehaviour
     [Header("Scale Behaviour")]
     [SerializeField] public float minScale = 0.5f;
     [SerializeField] public float maxScale = 5f;
+    [SerializeField] public float minPosition = 0.025f;
+    [SerializeField] public float maxPosition = 0.25f;
     [Header("Drag & Scale Bools")]
     public bool isDragged;
     public bool isPinched;
@@ -132,6 +134,10 @@ public class DragAndScale : MonoBehaviour
             newScale.x = Mathf.Clamp(newScale.x, minScale, maxScale);
             newScale.y = Mathf.Clamp(newScale.y, minScale, maxScale);
             transform.localScale = newScale;
+
+            //Vector3 newPosition = transform.localPosition * scaleFactor;
+            //newPosition.z = Mathf.Clamp(newPosition.z, minScale, maxScale);
+            //transform.localPosition = newPosition;
         }
 
         previousPinchDistance = currentPinchDistance;
