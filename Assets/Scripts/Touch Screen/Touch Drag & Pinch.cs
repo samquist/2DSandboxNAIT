@@ -22,6 +22,7 @@ public class DragAndScale : MonoBehaviour
     private Vector3 lastWorldPos;
     private Vector2 smoothedVelocity;
     private float previousPinchDistance;
+    private ConnectionPoint p;
 
     private void Awake()
     {
