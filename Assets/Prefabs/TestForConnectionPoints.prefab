@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8620803140231594747}
     m_Modifications:
+    - target: {fileID: 135199954643536261, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
+      propertyPath: targetTangent
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 2997641490965338816, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_Name
       value: ConnectionPoint (3)
@@ -78,6 +82,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8620803140231594747}
     m_Modifications:
+    - target: {fileID: 135199954643536261, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
+      propertyPath: targetTangent
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 2997641490965338816, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_Name
       value: ConnectionPoint (1)
@@ -210,6 +218,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8620803140231594747}
     m_Modifications:
+    - target: {fileID: 135199954643536261, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
+      propertyPath: targetTangent
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 2997641490965338816, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_Name
       value: ConnectionPoint (2)
@@ -469,5 +481,7 @@ MonoBehaviour:
   minThrowSpeed: 0.5
   minScale: 0.05
   maxScale: 0.5
+  minPosition: 0.025
+  maxPosition: 0.25
   isDragged: 0
   isPinched: 0
