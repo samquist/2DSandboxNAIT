@@ -22,73 +22,24 @@ public class ConnectionPoint : MonoBehaviour
     {
         Snap();
 
+        ConnectObjects();
+
         LockConnection();
         connectedTo.LockConnection();
 
-        DragAndScale thisObject = transform.parent.GetComponent<DragAndScale>();
-        bool thisIsSingleBlock = true;
-        if (!thisObject.enabled)
-        {
-            thisObject = transform.parent.parent.GetComponent<DragAndScale>();
-            thisIsSingleBlock = false;
-        }
-
-        DragAndScale otherObject = connectedTo.transform.parent.GetComponent<DragAndScale>();
-        bool otherIsSingleBlock = true;
-        if (!otherObject.enabled)
-        {
-            otherObject = connectedTo.transform.parent.parent.GetComponent<DragAndScale>();
-            otherIsSingleBlock = false;
-        }
-
-        ConnectObjects(thisObject, thisIsSingleBlock, otherObject, otherIsSingleBlock);
     }
 
-    public void ConnectObjects(MonoBehaviour thisObject, bool thisIsSingleBlock, MonoBehaviour otherObject, bool otherIsSingleBlock)
+    public void ConnectObjects()
     {
-        if (thisIsSingleBlock && otherIsSingleBlock)
+        Transform OtherParent = toConnectTo.transform.parent.parent;
+        Transform thisParent = transform.parent.parent;
+        
+        foreach(var ob in OtherParent.GetComponentsInChildren<Collider2D>())
         {
-            Debug.Log("Connecting 2 Signle Objects");
-            GameObject newParent = new GameObject("ItemParent");
-            newParent.transform.position = thisObject.transform.position;
-
-            thisObject.transform.SetParent(newParent.transform);
-            otherObject.transform.SetParent(newParent.transform);
-
-            newParent.AddComponent<PolygonCollider2D>();
-            newParent.AddComponent<Rigidbody2D>();
-            newParent.AddComponent<DragAndScale>();
-
-            //thisObject.GetComponent<DragAndScale>().enabled = false;
-            thisObject.GetComponent<Rigidbody2D>().simulated = false;
-            thisObject.GetComponent<Collider2D>().enabled = false;
-
-            //otherObject.GetComponent<DragAndScale>().enabled = false;
-            otherObject.GetComponent<Rigidbody2D>().simulated = false;
-            otherObject.GetComponent<Collider2D>().enabled = false;
-            //newParent.GetComponent<DragAndScale>().AddAllConnectionPoints();
-        }
-        else if (thisIsSingleBlock)
-        {
-            thisObject.GetComponent<DragAndScale>().enabled = false;
-            thisObject.GetComponent<Rigidbody2D>().simulated = false;
-            thisObject.GetComponent<Collider2D>().enabled = false;
-
-            thisObject.transform.SetParent(otherObject.transform);
-            otherObject.GetComponent<DragAndScale>().AddAllConnectionPoints();
-        }
-        else if (otherIsSingleBlock)
-        {
-            otherObject.GetComponent<DragAndScale>().enabled = false;
-            otherObject.GetComponent<Rigidbody2D>().simulated = false;
-            otherObject.GetComponent<Collider2D>().enabled = false;
-
-            otherObject.transform.SetParent(thisObject.transform);
-            thisObject.GetComponent<DragAndScale>().AddAllConnectionPoints();
-        }
-        else
-        {
-
+            if (!ob.isTrigger)
+            {
+                ob.transform.SetParent(thisParent);
+            }
         }
     }
 

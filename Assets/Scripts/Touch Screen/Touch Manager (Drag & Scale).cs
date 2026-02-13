@@ -101,7 +101,7 @@ public class TouchDragScaleManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            DragAndScale drag = hit.collider.GetComponent<DragAndScale>();
+            DragAndScale drag = hit.collider.transform.parent.GetComponent<DragAndScale>();
             if (drag != null)
             {
                 selectedObject = drag;

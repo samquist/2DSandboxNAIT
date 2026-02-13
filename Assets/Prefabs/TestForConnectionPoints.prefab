@@ -374,13 +374,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6014247741814290688}
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2484326632876090693}
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2179242098713477850}
   m_SourcePrefab: {fileID: 100100000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
 --- !u!4 &8620803140231594747 stripped
 Transform:
@@ -392,33 +386,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
   m_PrefabInstance: {fileID: 8620803140231731323}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &6014247741814290688
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8620803140231634651}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!61 &2484326632876090693
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -465,23 +432,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2179242098713477850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8620803140231634651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1a5c8b8faf8c14a95020dc31e00995, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TouchDragAndPinch
-  velocitySmoothing: 5
-  minThrowSpeed: 0.5
-  minScale: 0.05
-  maxScale: 0.5
-  minPosition: 0.025
-  maxPosition: 0.25
-  isDragged: 0
-  isPinched: 0
