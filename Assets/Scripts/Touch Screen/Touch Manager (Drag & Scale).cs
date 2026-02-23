@@ -107,15 +107,7 @@ public class TouchDragScaleManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            var pin = hit.collider.GetComponent<PinTriggerCenter>();
-            if (pin != null)
-            {
-                currentPin = pin;
-                pin.OnGrabBegin();
-                return;
-            }
-
-            var drag = hit.collider.GetComponent<DragAndScale>();
+            DragAndScale drag = hit.collider.transform.parent.GetComponent<DragAndScale>();
             if (drag != null)
             {
                 selectedObject = drag;
