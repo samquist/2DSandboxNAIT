@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(Rigidbody2D))]
+//[RequireComponent(typeof(Rigidbody2D))]
 //[RequireComponent(typeof(AudioSource))]
 public class PinTriggerCenter : MonoBehaviour
 {

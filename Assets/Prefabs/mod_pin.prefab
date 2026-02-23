@@ -174,8 +174,6 @@ MonoBehaviour:
   wiggleStartAfter: 0.1
   maxWiggleSpeed: 25
   maxWiggleAmplitude: 25
-  holdSound: {fileID: 0}
-  popSound: {fileID: 0}
 --- !u!4 &1179372254908485708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
