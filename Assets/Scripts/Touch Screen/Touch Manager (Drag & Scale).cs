@@ -13,6 +13,7 @@ public class TouchDragScaleManager : MonoBehaviour
     private InputAction scrollAction;
 
     private DragAndScale selectedObject;
+    private PinTriggerCenter currentPin;
 
     private void Awake()
     {
@@ -32,7 +33,7 @@ public class TouchDragScaleManager : MonoBehaviour
             return;
         }
 
-        pointerPosition = playerMap.FindAction("PointerPosition");
+            pointerPosition = playerMap.FindAction("PointerPosition");
         primaryContact = playerMap.FindAction("PrimaryContact");
         scrollAction = playerMap.FindAction("Scroll");
 
@@ -60,36 +61,41 @@ public class TouchDragScaleManager : MonoBehaviour
 
     private void Update()
     {
-        if (selectedObject == null) return;
-
         Vector2 screenPos = pointerPosition?.ReadValue<Vector2>() ?? Vector2.zero;
 
-        if (selectedObject.isDragged)
+        if (currentPin != null && currentPin.isDragging)
+        {
+            currentPin.OnGrabUpdate(screenPos);
+        }
+        else if (selectedObject != null && selectedObject.isDragged)
         {
             selectedObject.OnGrabUpdate(screenPos);
         }
 
-        if (Touch.activeFingers.Count == 2)
+        if (selectedObject != null)
         {
-            var touch0 = Touch.activeFingers[0].currentTouch;
-            var touch1 = Touch.activeFingers[1].currentTouch;
-            float currentDist = Vector2.Distance(touch0.screenPosition, touch1.screenPosition);
-
-            if (!selectedObject.isPinched)
+            if (Touch.activeFingers.Count == 2)
             {
-                selectedObject.OnPinchBegin();
+                var touch0 = Touch.activeFingers[0].currentTouch;
+                var touch1 = Touch.activeFingers[1].currentTouch;
+                float currentDist = Vector2.Distance(touch0.screenPosition, touch1.screenPosition);
+
+                if (!selectedObject.isPinched)
+                {
+                    selectedObject.OnPinchBegin();
+                }
+                selectedObject.OnPinchUpdate(currentDist);
             }
-            selectedObject.OnPinchUpdate(currentDist);
-        }
-        else if (selectedObject.isPinched)
-        {
-            selectedObject.OnPinchEnd();
+            else if (selectedObject.isPinched)
+            {
+                selectedObject.OnPinchEnd();
+            }
         }
     }
 
     private void OnPrimaryDown(InputAction.CallbackContext ctx)
     {
-        if (selectedObject != null)
+        if (selectedObject != null || currentPin != null)
         {
             return;
         }
@@ -101,7 +107,15 @@ public class TouchDragScaleManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            DragAndScale drag = hit.collider.GetComponent<DragAndScale>();
+            var pin = hit.collider.GetComponent<PinTriggerCenter>();
+            if (pin != null)
+            {
+                currentPin = pin;
+                pin.OnGrabBegin();
+                return;
+            }
+
+            var drag = hit.collider.GetComponent<DragAndScale>();
             if (drag != null)
             {
                 selectedObject = drag;
@@ -115,12 +129,20 @@ public class TouchDragScaleManager : MonoBehaviour
                     selectedObject.OnPinchBegin();
                     selectedObject.OnPinchUpdate(dist);
                 }
+                return;
             }
         }
     }
 
     private void OnPrimaryUp(InputAction.CallbackContext ctx)
     {
+        if (currentPin != null)
+        {
+            currentPin.OnGrabEnd();
+            currentPin = null;
+            return;
+        }
+
         if (selectedObject != null)
         {
             selectedObject.OnGrabEnd();
@@ -131,6 +153,11 @@ public class TouchDragScaleManager : MonoBehaviour
 
     private void OnScrollPerformed(InputAction.CallbackContext ctx)
     {
+        if (selectedObject == null)
+        {
+            return;
+        }
+
         Vector2 scrollDelta = ctx.ReadValue<Vector2>();
         float scrollY = scrollDelta.y;
 
@@ -149,13 +176,11 @@ public class TouchDragScaleManager : MonoBehaviour
 
             selectedObject.transform.localScale = newScale;
 
-            //--- Position ---
             Vector3 currentPosition = selectedObject.transform.localPosition;
             Vector3 newPosition = currentPosition + new Vector3(scaleDelta, scaleDelta, scaleDelta) / 2;
 
             newPosition.z = Mathf.Clamp(newPosition.z, selectedObject.minPosition, selectedObject.maxPosition);
 
-            //newPosition.z = newPosition.x;
             selectedObject.transform.localPosition = newPosition;
 
             if (selectedObject.isPinched)
