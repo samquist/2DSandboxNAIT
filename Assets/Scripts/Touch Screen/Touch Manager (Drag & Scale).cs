@@ -8,12 +8,16 @@ public class TouchDragScaleManager : MonoBehaviour
     [SerializeField] private InputActionAsset inputActions;
     [SerializeField] private float scrollStepSize = 0.01f;
 
-    private InputAction pointerPosition;
-    private InputAction primaryContact;
+    private InputAction touchPosition;
+    private InputAction mousePosition;
+    private InputAction touchContact;
+    private InputAction mouseContact;
     private InputAction scrollAction;
 
     private DragAndScale selectedObject;
     private PinTriggerCenter currentPin;
+
+    private bool isUsingTouch;
 
     private void Awake()
     {
@@ -33,27 +37,37 @@ public class TouchDragScaleManager : MonoBehaviour
             return;
         }
 
-            pointerPosition = playerMap.FindAction("PointerPosition");
-        primaryContact = playerMap.FindAction("PrimaryContact");
+        touchPosition = playerMap.FindAction("TouchPosition");
+        mousePosition = playerMap.FindAction("MousePosition");
+        touchContact = playerMap.FindAction("TouchContact");
+        mouseContact = playerMap.FindAction("MouseContact");
         scrollAction = playerMap.FindAction("Scroll");
 
-        pointerPosition?.Enable();
-        primaryContact?.Enable();
+        touchPosition?.Enable();
+        mousePosition?.Enable();
+        touchContact?.Enable();
+        mouseContact?.Enable();
         scrollAction?.Enable();
 
-        primaryContact.started += OnPrimaryDown;
-        primaryContact.canceled += OnPrimaryUp;
+        touchContact.started += OnTouchDown;
+        touchContact.canceled += OnPrimaryUp;
+        mouseContact.started += OnMouseDown;
+        mouseContact.canceled += OnPrimaryUp;
         scrollAction.performed += OnScrollPerformed;
     }
 
     private void OnDisable()
     {
-        primaryContact.started -= OnPrimaryDown;
-        primaryContact.canceled -= OnPrimaryUp;
+        touchContact.started += OnTouchDown;
+        touchContact.canceled += OnPrimaryUp;
+        mouseContact.started += OnMouseDown;
+        mouseContact.canceled += OnPrimaryUp;
         scrollAction.performed -= OnScrollPerformed;
 
-        pointerPosition?.Disable();
-        primaryContact?.Disable();
+        touchPosition?.Disable();
+        mousePosition?.Disable();
+        touchContact?.Disable();
+        mouseContact?.Disable();
         scrollAction?.Disable();
 
         EnhancedTouchSupport.Disable();
@@ -61,7 +75,15 @@ public class TouchDragScaleManager : MonoBehaviour
 
     private void Update()
     {
-        Vector2 screenPos = pointerPosition?.ReadValue<Vector2>() ?? Vector2.zero;
+        Vector2 screenPos;
+        if (isUsingTouch)
+        {
+            screenPos = touchPosition?.ReadValue<Vector2>() ?? Vector2.zero;
+        }
+        else
+        {
+            screenPos = mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
+        }
 
         if (currentPin != null && currentPin.isDragging)
         {
@@ -93,14 +115,51 @@ public class TouchDragScaleManager : MonoBehaviour
         }
     }
 
-    private void OnPrimaryDown(InputAction.CallbackContext ctx)
+    private void OnTouchDown(InputAction.CallbackContext ctx)
     {
+        isUsingTouch = true;
+
         if (selectedObject != null || currentPin != null)
         {
             return;
         }
 
-        Vector2 screenPos = pointerPosition?.ReadValue<Vector2>() ?? Vector2.zero;
+        Vector2 screenPos = touchPosition?.ReadValue<Vector2>() ?? Vector2.zero;
+
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+
+        if (hit.collider != null)
+        {
+            DragAndScale drag = hit.collider.transform.parent.GetComponent<DragAndScale>();
+            if (drag != null)
+            {
+                selectedObject = drag;
+                selectedObject.OnGrabBegin(screenPos);
+
+                if (Touch.activeFingers.Count == 2)
+                {
+                    var t0 = Touch.activeFingers[0].currentTouch;
+                    var t1 = Touch.activeFingers[1].currentTouch;
+                    float dist = Vector2.Distance(t0.screenPosition, t1.screenPosition);
+                    selectedObject.OnPinchBegin();
+                    selectedObject.OnPinchUpdate(dist);
+                }
+                return;
+            }
+        }
+    }
+
+    private void OnMouseDown(InputAction.CallbackContext ctx)
+    {
+        isUsingTouch = false;
+
+        if (selectedObject != null || currentPin != null)
+        {
+            return;
+        }
+
+        Vector2 screenPos = mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
 
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -163,16 +222,14 @@ public class TouchDragScaleManager : MonoBehaviour
             Vector3 newScale = currentScale + new Vector3(scaleDelta, scaleDelta, scaleDelta);
 
             newScale.x = Mathf.Clamp(newScale.x, selectedObject.minScale, selectedObject.maxScale);
-            newScale.y = Mathf.Clamp(newScale.y, selectedObject.minScale, selectedObject.maxScale);
+            newScale.y = newScale.x;
             newScale.z = newScale.x;
 
             selectedObject.transform.localScale = newScale;
 
             Vector3 currentPosition = selectedObject.transform.localPosition;
             Vector3 newPosition = currentPosition + new Vector3(scaleDelta, scaleDelta, scaleDelta) / 2;
-
-            newPosition.z = Mathf.Clamp(newPosition.z, selectedObject.minPosition, selectedObject.maxPosition);
-
+            newPosition.z = Mathf.Clamp(newPosition.z, selectedObject.minPosition, selectedObject.maxPosition);//keep object within the acceptable z position
             selectedObject.transform.localPosition = newPosition;
 
             if (selectedObject.isPinched)

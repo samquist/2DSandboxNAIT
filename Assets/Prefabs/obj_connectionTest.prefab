@@ -75,8 +75,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TouchDragAndPinch
   velocitySmoothing: 5
   minThrowSpeed: 0.5
-  minScale: 0.05
-  maxScale: 0.5
+  minScale: 0.5
+  maxScale: 5
   minPosition: 0.025
   maxPosition: 0.25
   isDragged: 0
