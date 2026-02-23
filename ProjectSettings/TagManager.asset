@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Static
   - ConnectionPoint
+  - Model
   layers:
   - Default
   - TransparentFX

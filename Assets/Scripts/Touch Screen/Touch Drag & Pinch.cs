@@ -2,8 +2,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(Rigidbody2D))]
+//[RequireComponent(typeof(Collider2D))]
+//[RequireComponent(typeof(Rigidbody2D))]
 public class DragAndScale : MonoBehaviour
 {
     [Header("Throw Behaviour")]
