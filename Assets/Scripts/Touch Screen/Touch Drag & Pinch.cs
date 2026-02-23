@@ -9,14 +9,19 @@ public class DragAndScale : MonoBehaviour
     [Header("Throw Behaviour")]
     [SerializeField] private float velocitySmoothing = 8f;
     [SerializeField] private float minThrowSpeed = 0.5f;
+
     [Header("Scale Behaviour")]
     [SerializeField] public float minScale = 0.5f;
     [SerializeField] public float maxScale = 5f;
     [SerializeField] public float minPosition = 0.025f;
     [SerializeField] public float maxPosition = 0.25f;
+
     [Header("Drag & Scale Bools")]
     public bool isDragged;
     public bool isPinched;
+
+    [Header("Locking")]
+    public bool isLockedByPin { get; private set; } = false;
 
     private Camera mainCam;
     private Rigidbody2D rb;
@@ -37,10 +42,10 @@ public class DragAndScale : MonoBehaviour
     public void AddAllConnectionPoints()
     {
         connectionPoints = new List<ConnectionPoint>();
-        ConnectionPoint[] allConnectionPoints = GetComponentsInChildren<ConnectionPoint>();
-        for (int i = 0; i < allConnectionPoints.Length; i++)
+        ConnectionPoint[] all = GetComponentsInChildren<ConnectionPoint>();
+        for (int i = 0; i < all.Length; i++)
         {
-            connectionPoints.Add(allConnectionPoints[i]);
+            connectionPoints.Add(all[i]);
         }
     }
 
@@ -89,27 +94,38 @@ public class DragAndScale : MonoBehaviour
         {
             return;
         }
-        
-        isDragged = false;
-        rb.bodyType = RigidbodyType2D.Dynamic;
 
-        if (smoothedVelocity.magnitude > minThrowSpeed)
+            isDragged = false;
+
+        if (isLockedByPin)
         {
-            rb.linearVelocity = smoothedVelocity;
+            // Stay frozen if pinned
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
         }
         else
         {
-            bool flag = false;
-            for (int i = 0; i < connectionPoints.Count && !flag; i++)
-            {
-                if (connectionPoints[i].canConnect && connectionPoints[i].toConnectTo != null)
-                {
-                    connectionPoints[i].Connect();
-                    flag = true;
-                }
-            }
+            rb.bodyType = RigidbodyType2D.Dynamic;
 
-            rb.linearVelocity = Vector2.zero;
+            if (smoothedVelocity.magnitude > minThrowSpeed)
+            {
+                rb.linearVelocity = smoothedVelocity;
+            }
+            else
+            {
+                bool flag = false;
+                for (int i = 0; i < connectionPoints.Count && !flag; i++)
+                {
+                    if (connectionPoints[i].canConnect && connectionPoints[i].toConnectTo != null)
+                    {
+                        connectionPoints[i].Connect();
+                        flag = true;
+                    }
+                }
+
+                rb.linearVelocity = Vector2.zero;
+            }
         }
     }
 
@@ -125,6 +141,7 @@ public class DragAndScale : MonoBehaviour
         {
             return;
         }
+
         if (previousPinchDistance > 0f)
         {
             float delta = currentPinchDistance - previousPinchDistance;
@@ -134,10 +151,6 @@ public class DragAndScale : MonoBehaviour
             newScale.x = Mathf.Clamp(newScale.x, minScale, maxScale);
             newScale.y = Mathf.Clamp(newScale.y, minScale, maxScale);
             transform.localScale = newScale;
-
-            //Vector3 newPosition = transform.localPosition * scaleFactor;
-            //newPosition.z = Mathf.Clamp(newPosition.z, minScale, maxScale);
-            //transform.localPosition = newPosition;
         }
 
         previousPinchDistance = currentPinchDistance;
@@ -146,5 +159,27 @@ public class DragAndScale : MonoBehaviour
     public void OnPinchEnd()
     {
         isPinched = false;
+    }
+
+    public void LockByPin()
+    {
+        isLockedByPin = true;
+        if (rb != null)
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+    }
+
+    // Called by Pin when detaching
+    public void UnlockFromPin()
+    {
+        isLockedByPin = false;
+        if (rb != null)
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            //rb.bodyType = RigidbodyType2D.Dynamic;
+        }
     }
 }
