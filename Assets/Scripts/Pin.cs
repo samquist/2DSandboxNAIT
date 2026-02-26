@@ -146,7 +146,7 @@ public class PinTriggerCenter : MonoBehaviour
                 continue;
             }
 
-            var blockCenter = candidate.transform.position;
+            var blockCenter = hit.transform.position;
             var distSq = (transform.position - blockCenter).sqrMagnitude;
 
             if (distSq < bestDistSq)

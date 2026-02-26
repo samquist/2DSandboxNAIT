@@ -18,7 +18,7 @@ public class ConnectionPoint : MonoBehaviour
             SetRelativeAngle();
     }
 
-    public void Connect()
+    public void Connect()//called by Drag & Pinch
     {
         Snap();
 
@@ -41,6 +41,8 @@ public class ConnectionPoint : MonoBehaviour
                 ob.transform.SetParent(thisParent);
             }
         }
+
+        Destroy(OtherParent.gameObject);
     }
 
     public void LockConnection()
@@ -65,7 +67,7 @@ public class ConnectionPoint : MonoBehaviour
 
     public void RotateForSnap()
     {
-        float otherTangent = toConnectTo.transform.parent.localEulerAngles.z + toConnectTo.tangentDegrees;
+        float otherTangent = toConnectTo.transform.parent.localEulerAngles.z + toConnectTo.transform.parent.parent.localEulerAngles.z + toConnectTo.tangentDegrees;
 
         //Debug.Log($"Other Tangent: {otherTangent} Other Parent: {toConnectTo.transform.parent.localEulerAngles.z} Other Local Tangent: {toConnectTo.tangentDegrees}");
         //Debug.Log($"This Tangent: {transform.parent.localEulerAngles.z + tangentDegrees} This Parent: {transform.parent.localEulerAngles.z} This Local Tangent: {tangentDegrees}");

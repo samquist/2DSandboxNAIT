@@ -862,7 +862,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610450405}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -2580,7 +2580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TouchDragScaleManager
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  scrollStepSize: 0.01
+  scrollStepSize: 0.1
 --- !u!4 &1937797677
 Transform:
   m_ObjectHideFlags: 0
@@ -4464,7 +4464,13 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8039700946062798262, guid: 31d2cde2e1a912f4c80dbef0ce9ed46e, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7125172991313432290, guid: 31d2cde2e1a912f4c80dbef0ce9ed46e, type: 3}
+    - {fileID: 8039700946062798262, guid: 31d2cde2e1a912f4c80dbef0ce9ed46e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

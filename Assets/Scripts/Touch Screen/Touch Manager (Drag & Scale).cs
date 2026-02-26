@@ -149,7 +149,7 @@ public class TouchDragScaleManager : MonoBehaviour
             }
         }
     }
-
+    
     private void OnMouseDown(InputAction.CallbackContext ctx)
     {
         isUsingTouch = false;

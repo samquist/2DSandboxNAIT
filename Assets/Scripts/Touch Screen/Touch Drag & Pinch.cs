@@ -149,7 +149,8 @@ public class DragAndScale : MonoBehaviour
 
             Vector3 newScale = transform.localScale * scaleFactor;
             newScale.x = Mathf.Clamp(newScale.x, minScale, maxScale);
-            newScale.y = Mathf.Clamp(newScale.y, minScale, maxScale);
+            newScale.y = newScale.x;
+            newScale.z = newScale.x;
             transform.localScale = newScale;
         }
 
