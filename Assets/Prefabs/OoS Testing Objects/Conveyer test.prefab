@@ -10,23 +10,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.05
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.32
+      value: -0.67
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.364
+      value: 0.902
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -42,11 +42,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -63,7 +63,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 446a214da73626f4599c3c209b89ef97, type: 2}
+      objectReference: {fileID: 2100000, guid: c99c0ebc13ef82e4291022048ab0d65b, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3216098387933645896, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
     - target: {fileID: 919132149155446097, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_Name
       value: Conveyer test
