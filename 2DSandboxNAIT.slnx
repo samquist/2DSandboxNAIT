@@ -1,0 +1,6 @@
+﻿<Solution>
+  <Project Path="Unity.Toonshader.csproj" />
+  <Project Path="Unity.Toonshader.Editor.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+</Solution>
