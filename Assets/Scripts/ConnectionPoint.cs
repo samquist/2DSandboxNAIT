@@ -7,14 +7,14 @@ public class ConnectionPoint : MonoBehaviour
     public bool isConnected = false;
     public bool canConnect = true;
     public bool hasAngle = true;
-    public float tangentDegrees;
+    public float tangentDegrees = -1;
     [SerializeField] private Color regularColor;
     [SerializeField] private Color highlightedColor;
 
     private void Awake()
     {
         GetComponentInChildren<SpriteRenderer>().color = regularColor;
-        if (hasAngle)
+        if (hasAngle && tangentDegrees == -1)
             SetRelativeAngle();
     }
 
@@ -29,7 +29,7 @@ public class ConnectionPoint : MonoBehaviour
 
     }
 
-    public void ConnectObjects()
+    public void ConnectObjects()//set all objects with a non-trigger collider inside the other object to be parented to this object
     {
         Transform OtherParent = toConnectTo.transform.parent.parent;
         Transform thisParent = transform.parent.parent;
@@ -58,7 +58,7 @@ public class ConnectionPoint : MonoBehaviour
         if (hasAngle && toConnectTo.hasAngle)
             RotateForSnap();
 
-        Transform parentTransform = gameObject.transform.parent;
+        Transform parentTransform = gameObject.transform.parent.parent;
 
         Debug.Log($"Snapping {parentTransform.gameObject.name} to {toConnectTo.transform.parent.gameObject.name}");
 
@@ -72,7 +72,7 @@ public class ConnectionPoint : MonoBehaviour
         //Debug.Log($"Other Tangent: {otherTangent} Other Parent: {toConnectTo.transform.parent.localEulerAngles.z} Other Local Tangent: {toConnectTo.tangentDegrees}");
         //Debug.Log($"This Tangent: {transform.parent.localEulerAngles.z + tangentDegrees} This Parent: {transform.parent.localEulerAngles.z} This Local Tangent: {tangentDegrees}");
 
-        transform.parent.localEulerAngles = new Vector3(0, 0, otherTangent - 180 - tangentDegrees);
+        transform.parent.parent.localEulerAngles = new Vector3(0, 0, otherTangent - 180 - tangentDegrees);
 
         //Debug.Log($"This Tangent: {transform.parent.localEulerAngles.z + tangentDegrees} This Parent: {transform.parent.localEulerAngles.z} This Local Tangent: {tangentDegrees}");
     }

@@ -91,19 +91,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1135702735665916435, guid: 4dd8adf548671fa4190a9c72a8f51a01, type: 3}
       propertyPath: tangentDegrees
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2850682378747228935, guid: 4dd8adf548671fa4190a9c72a8f51a01, type: 3}
       propertyPath: tangentDegrees
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7444247237860424517, guid: 4dd8adf548671fa4190a9c72a8f51a01, type: 3}
       propertyPath: tangentDegrees
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8208867323631670916, guid: 4dd8adf548671fa4190a9c72a8f51a01, type: 3}
       propertyPath: tangentDegrees
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8620803140231594747, guid: 4dd8adf548671fa4190a9c72a8f51a01, type: 3}
       propertyPath: m_LocalScale.x

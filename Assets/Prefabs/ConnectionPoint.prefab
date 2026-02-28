@@ -87,7 +87,7 @@ MonoBehaviour:
   isConnected: 0
   canConnect: 1
   hasAngle: 1
-  tangentDegrees: 0
+  tangentDegrees: -1
   regularColor: {r: 0, g: 0.34509805, b: 1, a: 0.5019608}
   highlightedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &3747212241394456892
