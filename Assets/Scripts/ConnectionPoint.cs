@@ -33,8 +33,8 @@ public class ConnectionPoint : MonoBehaviour
     {
         Transform OtherParent = toConnectTo.transform.parent.parent;
         Transform thisParent = transform.parent.parent;
-        
-        foreach(var ob in OtherParent.GetComponentsInChildren<Collider2D>())
+
+        foreach (var ob in OtherParent.GetComponentsInChildren<Collider2D>())
         {
             if (!ob.isTrigger)
             {
