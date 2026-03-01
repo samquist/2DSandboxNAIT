@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-//[RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class DragAndScale : MonoBehaviour
 {
@@ -99,7 +98,6 @@ public class DragAndScale : MonoBehaviour
 
         if (isLockedByPin)
         {
-            // Stay frozen if pinned
             rb.bodyType = RigidbodyType2D.Kinematic;
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
@@ -173,14 +171,13 @@ public class DragAndScale : MonoBehaviour
         }
     }
 
-    // Called by Pin when detaching
     public void UnlockFromPin()
     {
         isLockedByPin = false;
         if (rb != null)
         {
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            //rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.bodyType = RigidbodyType2D.Kinematic; //Object stays 'Kinematic' when pin is removed     (Behaviour: Stays in place, changes to Dynamic ONLY when grabbed again)
+            //rb.bodyType = RigidbodyType2D.Dynamic; //Object changes to 'Dynamic' when pin is removed  (Behaviour: Falls immediately)
         }
     }
 }

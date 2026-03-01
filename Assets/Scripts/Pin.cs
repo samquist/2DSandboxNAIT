@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-//[RequireComponent(typeof(Rigidbody2D))]
-//[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(AudioSource))]
 public class PinTriggerCenter : MonoBehaviour
 {
     [Header("Snapping")]
@@ -10,7 +10,7 @@ public class PinTriggerCenter : MonoBehaviour
     [SerializeField] private LayerMask blockLayer;
 
     [Header("Behavior")]
-    [SerializeField] private float placedLocalZ = 0f; // Prevents Pin Z Axis from centering on block
+    [SerializeField] private float placedLocalZ = 0f;
 
     [Header("Removal (Long Hold)")]
     [SerializeField] private float holdToRemoveDuration = 0f;
@@ -19,11 +19,13 @@ public class PinTriggerCenter : MonoBehaviour
     [SerializeField] private float maxWiggleAmplitude = 0f;
 
     [Header("Audio")]
-    //[SerializeField] private AudioClip holdSound;
-    //[SerializeField] private AudioClip popSound;
+    [SerializeField] private AudioClip clickSound;
+    [SerializeField] private AudioClip placeSound;
+    [SerializeField] private AudioClip wiggleSound;
+    [SerializeField] private AudioClip popSound;
 
     private Rigidbody2D rb;
-    //private AudioSource audioSource;
+    private AudioSource audioSource;
     public bool isDragging { get; private set; }
     private bool isPlaced;
     private DragAndScale lockedBlock;
@@ -38,7 +40,7 @@ public class PinTriggerCenter : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
 
-        //audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
         originalRotation = transform.localRotation;
         originalScale = transform.localScale;
@@ -50,6 +52,13 @@ public class PinTriggerCenter : MonoBehaviour
         {
             isDragging = true;
             rb.linearVelocity = Vector2.zero;
+            
+            if (clickSound != null)
+            {
+                audioSource.clip = clickSound;
+                audioSource.loop = false;
+                audioSource.Play();
+            }
             return;
         }
 
@@ -58,12 +67,12 @@ public class PinTriggerCenter : MonoBehaviour
         holdTimer = 0f;
         transform.localRotation = originalRotation;
 
-        //if (holdSound != null)
-        //{
-        //    audioSource.clip = holdSound;
-        //    audioSource.loop = true;
-        //    audioSource.Play();
-        //}
+        if (wiggleSound != null)
+        {
+            audioSource.clip = wiggleSound;
+            audioSource.loop = false;
+            audioSource.Play();
+        }
     }
 
     public void OnGrabUpdate(Vector2 screenPos)
@@ -108,10 +117,10 @@ public class PinTriggerCenter : MonoBehaviour
             return;
         }
 
-        //if (audioSource.isPlaying)
-        //{
-        //    audioSource.Stop();
-        //}
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
 
         isHoldingForRemoval = false;
         holdTimer = 0f;
@@ -171,6 +180,11 @@ public class PinTriggerCenter : MonoBehaviour
 
         rb.bodyType = RigidbodyType2D.Kinematic;
         block.LockByPin();
+
+        if (placeSound != null)
+        {
+            audioSource.PlayOneShot(placeSound);
+        }
     }
 
     public void DetachFromBlock()
@@ -185,7 +199,7 @@ public class PinTriggerCenter : MonoBehaviour
         transform.SetParent(null, true);
         transform.localRotation = originalRotation;
 
-        transform.position = new Vector3(worldPosBefore.x, worldPosBefore.y, 0f);
+        transform.position = new Vector3(worldPosBefore.x, worldPosBefore.y, worldPosBefore.z);
         transform.localScale = originalScale;
 
         isPlaced = false;
@@ -197,9 +211,9 @@ public class PinTriggerCenter : MonoBehaviour
         }
         lockedBlock = null;
 
-        //if (popSound != null)
-        //{
-        //    audioSource.PlayOneShot(popSound);
-        //}
+        if (popSound != null)
+        {
+            audioSource.PlayOneShot(popSound);
+        }
     }
 }
