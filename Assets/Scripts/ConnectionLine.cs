@@ -16,7 +16,6 @@ public class ConnectionLine : MonoBehaviour
         SetMidpointPosition();
         SetScale();
         SetRotation();
-        //GetComponent<LineRenderer>().SetPositions(new Vector3[] { p1.position, p2.position });
     }
 
     private void SetMidpointPosition()
@@ -26,15 +25,6 @@ public class ConnectionLine : MonoBehaviour
 
     private void SetRotation()
     {
-        //float xRot = GetAngle(new Vector2(p1.position.y, p1.position.z), new Vector2(p2.position.y, p2.position.z));
-        //if (p1.position.x < p2.position.x)
-        //    xRot += 180;
-        //float yRot = GetAngle(new Vector2(p1.position.x, -p1.position.z), new Vector2(p2.position.x, -p2.position.z));
-        //if (p1.position.y < p2.position.y)
-        //    yRot += 180;
-        //float zRot = GetAngle(new Vector2(p1.position.x, p1.position.y), new Vector2(p2.position.x, p2.position.y));
-        //transform.eulerAngles = new Vector3(xRot, yRot, zRot);
-
         transform.rotation = Quaternion.LookRotation(p2.position - p1.position);
     }
 
