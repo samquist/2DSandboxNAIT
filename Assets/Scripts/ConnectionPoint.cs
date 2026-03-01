@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ConnectionPoint : MonoBehaviour
@@ -10,6 +11,8 @@ public class ConnectionPoint : MonoBehaviour
     public float tangentDegrees = -1;
     [SerializeField] private Color regularColor;
     [SerializeField] private Color highlightedColor;
+    [SerializeField] private GameObject connectionLinePrefab;
+    private GameObject connectionLine;
 
     private void Awake()
     {
@@ -27,6 +30,7 @@ public class ConnectionPoint : MonoBehaviour
         LockConnection();
         connectedTo.LockConnection();
 
+        Destroy(connectionLine);
     }
 
     public void ConnectObjects()//set all objects with a non-trigger collider inside the other object to be parented to this object
@@ -91,18 +95,37 @@ public class ConnectionPoint : MonoBehaviour
 
     public void HighlightConnection(ConnectionPoint other)
     {
+        UnHighlightAllConnections();
         toConnectTo = other;
         Debug.Log($"Highlighting Connection - {gameObject.name}");
         //highlight the connection point and a line between the two points?
         GetComponentInChildren<SpriteRenderer>().color = highlightedColor;
+        if (transform.parent.parent.GetComponent<DragAndScale>().isDragged)
+        {
+            connectionLine = Instantiate(connectionLinePrefab);
+            connectionLine.GetComponent<ConnectionLine>().Initialize(transform, other.transform);
+        }
     }
 
-    public void UnHighlightConnection(ConnectionPoint other)
+    public void UnHighlightConnection()
     {
         toConnectTo = null;
         Debug.Log($"Unhighlighting Connection - {gameObject.name}");
         //unhighlight the connection point and line between the two points?
         GetComponentInChildren<SpriteRenderer>().color = regularColor;
+        Destroy(connectionLine);
+    }
+
+    public void UnHighlightAllConnections()
+    {
+        foreach(ConnectionPoint point in transform.parent.parent.GetComponentsInChildren<ConnectionPoint>())
+        {
+            if (!point.isConnected && point.toConnectTo != null)
+            {
+                point.toConnectTo.UnHighlightConnection();
+                point.UnHighlightConnection();
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -121,7 +144,7 @@ public class ConnectionPoint : MonoBehaviour
         {
             ConnectionPoint other = collision.GetComponent<ConnectionPoint>();
             if (canConnect && other.canConnect)
-                UnHighlightConnection(other);
+                UnHighlightConnection();
         }
     }
 }

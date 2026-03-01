@@ -119,7 +119,7 @@ public class DragAndScale : MonoBehaviour
                 {
                     if (connectionPoints[i].canConnect && connectionPoints[i].toConnectTo != null)
                     {
-                        connectionPoints[i].Connect();
+                        //connectionPoints[i].Connect();
                         flag = true;
                     }
                 }
