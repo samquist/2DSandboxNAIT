@@ -58,10 +58,10 @@ public class TouchDragScaleManager : MonoBehaviour
 
     private void OnDisable()
     {
-        touchContact.started += OnTouchDown;
-        touchContact.canceled += OnPrimaryUp;
-        mouseContact.started += OnMouseDown;
-        mouseContact.canceled += OnPrimaryUp;
+        touchContact.started -= OnTouchDown;
+        touchContact.canceled -= OnPrimaryUp;
+        mouseContact.started -= OnMouseDown;
+        mouseContact.canceled -= OnPrimaryUp;
         scrollAction.performed -= OnScrollPerformed;
 
         touchPosition?.Disable();
@@ -115,74 +115,56 @@ public class TouchDragScaleManager : MonoBehaviour
         }
     }
 
+    private void HandlePointerDown(Vector2 screenPos)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+
+        if (hit.collider == null) return;
+
+        PinTriggerCenter pin = hit.collider.GetComponent<PinTriggerCenter>();
+        if (pin != null)
+        {
+            currentPin = pin;
+            currentPin.OnGrabBegin();
+            return;
+        }
+
+        DragAndScale drag = hit.collider.GetComponentInParent<DragAndScale>();
+        if (drag != null)
+        {
+            selectedObject = drag;
+            selectedObject.OnGrabBegin(screenPos);
+
+            if (Touch.activeFingers.Count == 2)
+            {
+                var t0 = Touch.activeFingers[0].currentTouch;
+                var t1 = Touch.activeFingers[1].currentTouch;
+                float dist = Vector2.Distance(t0.screenPosition, t1.screenPosition);
+                selectedObject.OnPinchBegin();
+                selectedObject.OnPinchUpdate(dist);
+            }
+        }
+    }
+
     private void OnTouchDown(InputAction.CallbackContext ctx)
     {
         isUsingTouch = true;
 
-        if (selectedObject != null || currentPin != null)
-        {
-            return;
-        }
+        if (selectedObject != null || currentPin != null) return;
 
         Vector2 screenPos = touchPosition?.ReadValue<Vector2>() ?? Vector2.zero;
-
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
-        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-
-        if (hit.collider != null)
-        {
-            DragAndScale drag = hit.collider.transform.parent.GetComponent<DragAndScale>();
-            if (drag != null)
-            {
-                selectedObject = drag;
-                selectedObject.OnGrabBegin(screenPos);
-
-                if (Touch.activeFingers.Count == 2)
-                {
-                    var t0 = Touch.activeFingers[0].currentTouch;
-                    var t1 = Touch.activeFingers[1].currentTouch;
-                    float dist = Vector2.Distance(t0.screenPosition, t1.screenPosition);
-                    selectedObject.OnPinchBegin();
-                    selectedObject.OnPinchUpdate(dist);
-                }
-                return;
-            }
-        }
+        HandlePointerDown(screenPos);
     }
     
     private void OnMouseDown(InputAction.CallbackContext ctx)
     {
         isUsingTouch = false;
 
-        if (selectedObject != null || currentPin != null)
-        {
-            return;
-        }
+        if (selectedObject != null || currentPin != null) return;
 
         Vector2 screenPos = mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
-
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
-        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-
-        if (hit.collider != null)
-        {
-            DragAndScale drag = hit.collider.transform.parent.GetComponent<DragAndScale>();
-            if (drag != null)
-            {
-                selectedObject = drag;
-                selectedObject.OnGrabBegin(screenPos);
-
-                if (Touch.activeFingers.Count == 2)
-                {
-                    var t0 = Touch.activeFingers[0].currentTouch;
-                    var t1 = Touch.activeFingers[1].currentTouch;
-                    float dist = Vector2.Distance(t0.screenPosition, t1.screenPosition);
-                    selectedObject.OnPinchBegin();
-                    selectedObject.OnPinchUpdate(dist);
-                }
-                return;
-            }
-        }
+        HandlePointerDown(screenPos);
     }
 
     private void OnPrimaryUp(InputAction.CallbackContext ctx)
@@ -204,10 +186,7 @@ public class TouchDragScaleManager : MonoBehaviour
 
     private void OnScrollPerformed(InputAction.CallbackContext ctx)
     {
-        if (selectedObject == null)
-        {
-            return;
-        }
+        if (selectedObject == null) return;
 
         Vector2 scrollDelta = ctx.ReadValue<Vector2>();
         float scrollY = scrollDelta.y;
@@ -229,7 +208,7 @@ public class TouchDragScaleManager : MonoBehaviour
 
             Vector3 currentPosition = selectedObject.transform.localPosition;
             Vector3 newPosition = currentPosition + new Vector3(scaleDelta, scaleDelta, scaleDelta) / 2;
-            newPosition.z = Mathf.Clamp(newPosition.z, selectedObject.minPosition, selectedObject.maxPosition);//keep object within the acceptable z position
+            newPosition.z = Mathf.Clamp(newPosition.z, selectedObject.minPosition, selectedObject.maxPosition);
             selectedObject.transform.localPosition = newPosition;
 
             if (selectedObject.isPinched)

@@ -13,7 +13,6 @@ public class AudioOnCollision : MonoBehaviour
     {
         if (audioSource != null)
         {
-            //audioSource.Play();
              audioSource.PlayOneShot(audioSource.clip);
         }
     }
