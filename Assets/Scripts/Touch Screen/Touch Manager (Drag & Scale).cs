@@ -34,6 +34,7 @@ public class TouchDragScaleManager : MonoBehaviour
         var playerMap = inputActions?.FindActionMap("Player");
         if (playerMap == null)
         {
+            Debug.LogWarning("[TouchDragScaleManager] Player action map not found!");
             return;
         }
 
@@ -58,11 +59,20 @@ public class TouchDragScaleManager : MonoBehaviour
 
     private void OnDisable()
     {
-        touchContact.started += OnTouchDown;
-        touchContact.canceled += OnPrimaryUp;
-        mouseContact.started += OnMouseDown;
-        mouseContact.canceled += OnPrimaryUp;
-        scrollAction.performed -= OnScrollPerformed;
+        if (touchContact != null)
+        {
+            touchContact.started -= OnTouchDown;
+            touchContact.canceled -= OnPrimaryUp;
+        }
+        if (mouseContact != null)
+        {
+            mouseContact.started -= OnMouseDown;
+            mouseContact.canceled -= OnPrimaryUp;
+        }
+        if (scrollAction != null)
+        {
+            scrollAction.performed -= OnScrollPerformed;
+        }
 
         touchPosition?.Disable();
         mousePosition?.Disable();
@@ -75,15 +85,9 @@ public class TouchDragScaleManager : MonoBehaviour
 
     private void Update()
     {
-        Vector2 screenPos;
-        if (isUsingTouch)
-        {
-            screenPos = touchPosition?.ReadValue<Vector2>() ?? Vector2.zero;
-        }
-        else
-        {
-            screenPos = mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
-        }
+        Vector2 screenPos = isUsingTouch
+            ? touchPosition?.ReadValue<Vector2>() ?? Vector2.zero
+            : mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
 
         if (currentPin != null && currentPin.isDragging)
         {
@@ -115,80 +119,61 @@ public class TouchDragScaleManager : MonoBehaviour
         }
     }
 
+    private void HandlePointerDown(Vector2 screenPos)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+
+        if (hit.collider == null) return;
+
+        PinTriggerCenter pin = hit.collider.GetComponent<PinTriggerCenter>();
+        if (pin != null)
+        {
+            currentPin = pin;
+            currentPin.OnGrabBegin();
+            return;
+        }
+
+        DragAndScale drag = hit.collider.GetComponent<DragAndScale>();
+        if (drag == null)
+        {
+            drag = hit.collider.GetComponentInParent<DragAndScale>();
+        }
+
+        if (drag != null)
+        {
+            selectedObject = drag;
+            selectedObject.OnGrabBegin(screenPos);
+
+            if (Touch.activeFingers.Count == 2)
+            {
+                var t0 = Touch.activeFingers[0].currentTouch;
+                var t1 = Touch.activeFingers[1].currentTouch;
+                float dist = Vector2.Distance(t0.screenPosition, t1.screenPosition);
+                selectedObject.OnPinchBegin();
+                selectedObject.OnPinchUpdate(dist);
+            }
+        }
+    }
+
     private void OnTouchDown(InputAction.CallbackContext ctx)
     {
         isUsingTouch = true;
 
-        if (selectedObject != null || currentPin != null)
-        {
-            return;
-        }
+        if (selectedObject != null || currentPin != null) return;
 
         Vector2 screenPos = touchPosition?.ReadValue<Vector2>() ?? Vector2.zero;
-
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
-        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-
-        if (hit.collider != null)
-        {
-            DragAndScale drag = hit.collider.transform.GetComponent<DragAndScale>();
-            if (drag == null)
-                drag = hit.collider.transform.parent.GetComponent<DragAndScale>();
-
-            if (drag != null)
-            {
-                selectedObject = drag;
-                selectedObject.OnGrabBegin(screenPos);
-
-                if (Touch.activeFingers.Count == 2)
-                {
-                    var t0 = Touch.activeFingers[0].currentTouch;
-                    var t1 = Touch.activeFingers[1].currentTouch;
-                    float dist = Vector2.Distance(t0.screenPosition, t1.screenPosition);
-                    selectedObject.OnPinchBegin();
-                    selectedObject.OnPinchUpdate(dist);
-                }
-                return;
-            }
-        }
+        HandlePointerDown(screenPos);
     }
-    
+
     private void OnMouseDown(InputAction.CallbackContext ctx)
     {
         isUsingTouch = false;
 
-        if (selectedObject != null || currentPin != null)
-        {
-            return;
-        }
+        if (selectedObject != null || currentPin != null) return;
 
         Vector2 screenPos = mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
-
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
-        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-
-        if (hit.collider != null)
-        {
-            DragAndScale drag = hit.collider.transform.GetComponent<DragAndScale>();
-            if (drag == null)
-                drag = hit.collider.transform.parent.GetComponent<DragAndScale>();
-
-            if (drag != null)
-            {
-                selectedObject = drag;
-                selectedObject.OnGrabBegin(screenPos);
-
-                if (Touch.activeFingers.Count == 2)
-                {
-                    var t0 = Touch.activeFingers[0].currentTouch;
-                    var t1 = Touch.activeFingers[1].currentTouch;
-                    float dist = Vector2.Distance(t0.screenPosition, t1.screenPosition);
-                    selectedObject.OnPinchBegin();
-                    selectedObject.OnPinchUpdate(dist);
-                }
-                return;
-            }
-        }
+        HandlePointerDown(screenPos);
     }
 
     private void OnPrimaryUp(InputAction.CallbackContext ctx)
@@ -210,38 +195,34 @@ public class TouchDragScaleManager : MonoBehaviour
 
     private void OnScrollPerformed(InputAction.CallbackContext ctx)
     {
-        if (selectedObject == null)
-        {
-            return;
-        }
+        if (selectedObject == null) return;
 
         Vector2 scrollDelta = ctx.ReadValue<Vector2>();
         float scrollY = scrollDelta.y;
 
-        if (Mathf.Abs(scrollY) > 0.1f)
+        if (Mathf.Abs(scrollY) <= 0.1f) return;
+
+        //float direction = -Mathf.Sign(scrollY); //Uncomment line to swap scroll scale direction
+        float direction = Mathf.Sign(scrollY);    //Comment line to ^
+        float scaleDelta = direction * scrollStepSize;
+
+        Vector3 currentScale = selectedObject.transform.localScale;
+        Vector3 newScale = currentScale + new Vector3(scaleDelta, scaleDelta, scaleDelta);
+
+        newScale.x = Mathf.Clamp(newScale.x, selectedObject.minScale, selectedObject.maxScale);
+        newScale.y = newScale.x;
+        newScale.z = newScale.x;
+
+        selectedObject.transform.localScale = newScale;
+
+        Vector3 currentPosition = selectedObject.transform.localPosition;
+        Vector3 newPosition = currentPosition + new Vector3(scaleDelta, scaleDelta, scaleDelta) / 2f;
+        newPosition.z = Mathf.Clamp(newPosition.z, selectedObject.minPosition, selectedObject.maxPosition);//keep object within the acceptable z position
+        selectedObject.transform.localPosition = newPosition;
+
+        if (selectedObject.isPinched)
         {
-            //float direction = -Mathf.Sign(scrollY); //Uncomment line to swap scroll scale direction
-            float direction = Mathf.Sign(scrollY);    //Comment line to ^
-            float scaleDelta = direction * scrollStepSize;
-
-            Vector3 currentScale = selectedObject.transform.localScale;
-            Vector3 newScale = currentScale + new Vector3(scaleDelta, scaleDelta, scaleDelta);
-
-            newScale.x = Mathf.Clamp(newScale.x, selectedObject.minScale, selectedObject.maxScale);
-            newScale.y = newScale.x;
-            newScale.z = newScale.x;
-
-            selectedObject.transform.localScale = newScale;
-
-            Vector3 currentPosition = selectedObject.transform.localPosition;
-            Vector3 newPosition = currentPosition + new Vector3(scaleDelta, scaleDelta, scaleDelta) / 2;
-            newPosition.z = Mathf.Clamp(newPosition.z, selectedObject.minPosition, selectedObject.maxPosition);//keep object within the acceptable z position
-            selectedObject.transform.localPosition = newPosition;
-
-            if (selectedObject.isPinched)
-            {
-                selectedObject.OnPinchEnd();
-            }
+            selectedObject.OnPinchEnd();
         }
     }
 }
