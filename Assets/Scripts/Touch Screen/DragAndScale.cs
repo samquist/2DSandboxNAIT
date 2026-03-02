@@ -177,8 +177,8 @@ public class DragAndScale : MonoBehaviour
         isLockedByPin = false;
         if (rb != null)
         {
-            rb.bodyType = RigidbodyType2D.Kinematic; //Object stays 'Kinematic' when pin is removed     (Behaviour: Stays in place, changes to Dynamic ONLY when grabbed again)
-            //rb.bodyType = RigidbodyType2D.Dynamic; //Object changes to 'Dynamic' when pin is removed  (Behaviour: Falls immediately)
+            //rb.bodyType = RigidbodyType2D.Kinematic; //Object stays 'Kinematic' when pin is removed     (Behaviour: Stays in place, changes to Dynamic ONLY when grabbed again)
+            rb.bodyType = RigidbodyType2D.Dynamic; //Object changes to 'Dynamic' when pin is removed  (Behaviour: Falls immediately)
         }
     }
 }

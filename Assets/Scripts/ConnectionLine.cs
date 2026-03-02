@@ -3,6 +3,7 @@ using UnityEngine;
 public class ConnectionLine : MonoBehaviour
 {
     [SerializeField] private Transform p1, p2;
+    [SerializeField] private Transform body, arrow;
 
     public void Initialize(Transform p1, Transform p2)
     {
@@ -14,6 +15,7 @@ public class ConnectionLine : MonoBehaviour
     private void Update()
     {
         SetMidpointPosition();
+        SetArrowHeadPosition();
         SetScale();
         SetRotation();
     }
@@ -23,6 +25,11 @@ public class ConnectionLine : MonoBehaviour
         transform.position = (p1.position + p2.position) / 2;
     }
 
+    private void SetArrowHeadPosition()
+    {
+        arrow.position = p2.position;
+    }
+
     private void SetRotation()
     {
         transform.rotation = Quaternion.LookRotation(p2.position - p1.position);
@@ -30,7 +37,7 @@ public class ConnectionLine : MonoBehaviour
 
     private void SetScale()
     {
-        transform.localScale = new Vector3(transform.localScale.x,  transform.localScale.y, (p1.position - p2.position).magnitude);
+        body.transform.localScale = new Vector3((p1.position - p2.position).magnitude,  body.transform.localScale.y, body.transform.localScale.z);
     }
 
     public float GetAngle(Vector3 p1, Vector3 p2)

@@ -215,10 +215,10 @@ public class TouchDragScaleManager : MonoBehaviour
 
         selectedObject.transform.localScale = newScale;
 
-        Vector3 currentPosition = selectedObject.transform.localPosition;
-        Vector3 newPosition = currentPosition + new Vector3(scaleDelta, scaleDelta, scaleDelta) / 2f;
-        newPosition.z = Mathf.Clamp(newPosition.z, selectedObject.minPosition, selectedObject.maxPosition);//keep object within the acceptable z position
-        selectedObject.transform.localPosition = newPosition;
+        Vector3 currentPosition = selectedObject.transform.position;
+        Vector3 newPosition = currentPosition + new Vector3(scaleDelta, scaleDelta, 0) / 2f;
+        //newPosition.z = Mathf.Clamp(newPosition.z, selectedObject.minPosition, selectedObject.maxPosition);//keep object within the acceptable z position
+        selectedObject.transform.position = newPosition;
 
         if (selectedObject.isPinched)
         {

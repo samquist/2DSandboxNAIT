@@ -27,10 +27,23 @@ public class ConnectionPoint : MonoBehaviour
 
         ConnectObjects();
 
+        CheckForPin();
+
         LockConnection();
         connectedTo.LockConnection();
 
         Destroy(connectionLine);
+    }
+
+    public void CheckForPin()
+    {
+        PinTriggerCenter pin = transform.parent.parent.GetComponentInChildren<PinTriggerCenter>();
+        if (pin != null)
+        {
+            pin.transform.SetParent(transform.parent.parent, true);
+            pin.lockedBlock = transform.parent.parent.GetComponent<DragAndScale>();
+            transform.parent.parent.GetComponent<DragAndScale>().LockByPin();
+        }
     }
 
     public void ConnectObjects()//set all objects with a non-trigger collider inside the other object to be parented to this object

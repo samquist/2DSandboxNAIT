@@ -28,7 +28,7 @@ public class PinTriggerCenter : MonoBehaviour
     private AudioSource audioSource;
     public bool isDragging { get; private set; }
     private bool isPlaced;
-    private DragAndScale lockedBlock;
+    public DragAndScale lockedBlock;
 
     private float holdTimer;
     private bool isHoldingForRemoval;
@@ -126,18 +126,18 @@ public class PinTriggerCenter : MonoBehaviour
         holdTimer = 0f;
         transform.localRotation = originalRotation;
 
-        if (!isPlaced && TryGetNearestBlockCenter(out var block, out _))
+        if (!isPlaced && TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter))
         {
-            AttachToBlock(block);
+            AttachToBlock(blockParent, hitCenter);
         }
 
         isDragging = false;
     }
 
-    private bool TryGetNearestBlockCenter(out DragAndScale block, out Vector3 centerPos)
+    private bool TryGetNearestBlockCenter(out DragAndScale blockParent, out Vector3 hitCenter)
     {
-        block = null;
-        centerPos = Vector3.zero;
+        blockParent = null;
+        hitCenter = new Vector3();
 
         var hits = Physics2D.OverlapCircleAll(transform.position, maxSnapDistance, blockLayer);
         if (hits.Length == 0)
@@ -161,25 +161,25 @@ public class PinTriggerCenter : MonoBehaviour
             if (distSq < bestDistSq)
             {
                 bestDistSq = distSq;
-                block = candidate;
-                centerPos = blockCenter;
+                blockParent = candidate;
+                hitCenter = blockCenter;
             }
         }
 
-        return block != null;
+        return blockParent != null;
     }
 
-    private void AttachToBlock(DragAndScale block)
+    public void AttachToBlock(DragAndScale blockParent, Vector3 hitCenter)
     {
-        transform.SetParent(block.transform, true);
-        transform.localPosition = new Vector3(0f, 0f, placedLocalZ);
+        transform.SetParent(blockParent.transform, true);
+        transform.position = new Vector3(hitCenter.x, hitCenter.y, placedLocalZ);
         transform.localRotation = originalRotation;
 
         isPlaced = true;
-        lockedBlock = block;
+        lockedBlock = blockParent;
 
         rb.bodyType = RigidbodyType2D.Kinematic;
-        block.LockByPin();
+        blockParent.LockByPin();
 
         if (placeSound != null)
         {
