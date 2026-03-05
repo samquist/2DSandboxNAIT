@@ -15,7 +15,7 @@ public class TouchDragScaleManager : MonoBehaviour
     private InputAction scrollAction;
 
     private DragAndScale selectedObject;
-    private PinTriggerCenter currentPin;
+    private InteractableObject currentInteractableObject;
 
     private bool isUsingTouch;
 
@@ -89,9 +89,9 @@ public class TouchDragScaleManager : MonoBehaviour
             ? touchPosition?.ReadValue<Vector2>() ?? Vector2.zero
             : mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
 
-        if (currentPin != null && currentPin.isDragging)
+        if (currentInteractableObject != null && currentInteractableObject.isDragging)
         {
-            currentPin.OnGrabUpdate(screenPos);
+            currentInteractableObject.OnGrabUpdate(screenPos);
         }
         else if (selectedObject != null && selectedObject.isDragged)
         {
@@ -119,7 +119,7 @@ public class TouchDragScaleManager : MonoBehaviour
         }
     }
 
-    private void HandlePointerDown(Vector2 screenPos)
+    private void OnPrimaryDown(Vector2 screenPos)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -129,8 +129,8 @@ public class TouchDragScaleManager : MonoBehaviour
         PinTriggerCenter pin = hit.collider.GetComponent<PinTriggerCenter>();
         if (pin != null)
         {
-            currentPin = pin;
-            currentPin.OnGrabBegin();
+            currentInteractableObject = pin;
+            currentInteractableObject.OnGrabBegin();
             return;
         }
 
@@ -160,28 +160,28 @@ public class TouchDragScaleManager : MonoBehaviour
     {
         isUsingTouch = true;
 
-        if (selectedObject != null || currentPin != null) return;
+        if (selectedObject != null || currentInteractableObject != null) return;
 
         Vector2 screenPos = touchPosition?.ReadValue<Vector2>() ?? Vector2.zero;
-        HandlePointerDown(screenPos);
+        OnPrimaryDown(screenPos);
     }
 
     private void OnMouseDown(InputAction.CallbackContext ctx)
     {
         isUsingTouch = false;
 
-        if (selectedObject != null || currentPin != null) return;
+        if (selectedObject != null || currentInteractableObject != null) return;
 
         Vector2 screenPos = mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
-        HandlePointerDown(screenPos);
+        OnPrimaryDown(screenPos);
     }
 
     private void OnPrimaryUp(InputAction.CallbackContext ctx)
     {
-        if (currentPin != null)
+        if (currentInteractableObject != null)
         {
-            currentPin.OnGrabEnd();
-            currentPin = null;
+            currentInteractableObject.OnGrabEnd();
+            currentInteractableObject = null;
             return;
         }
 

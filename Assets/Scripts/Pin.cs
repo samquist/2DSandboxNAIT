@@ -3,7 +3,7 @@
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(AudioSource))]
-public class PinTriggerCenter : MonoBehaviour
+public class PinTriggerCenter : InteractableObject
 {
     [Header("Snapping")]
     [SerializeField] private float maxSnapDistance = 0f;
@@ -26,7 +26,7 @@ public class PinTriggerCenter : MonoBehaviour
 
     private Rigidbody2D rb;
     private AudioSource audioSource;
-    public bool isDragging { get; private set; }
+    public override bool isDragging { get; protected set; }
     private bool isPlaced;
     public DragAndScale lockedBlock;
 
@@ -46,7 +46,7 @@ public class PinTriggerCenter : MonoBehaviour
         originalScale = transform.localScale;
     }
 
-    public void OnGrabBegin()
+    public override void OnGrabBegin()
     {
         if (!isPlaced)
         {
@@ -75,7 +75,7 @@ public class PinTriggerCenter : MonoBehaviour
         }
     }
 
-    public void OnGrabUpdate(Vector2 screenPos)
+    public override void OnGrabUpdate(Vector2 screenPos)
     {
         if (!isDragging)
         {
@@ -110,7 +110,7 @@ public class PinTriggerCenter : MonoBehaviour
         }
     }
 
-    public void OnGrabEnd()
+    public override void OnGrabEnd()
     {
         if (!isDragging)
         {
