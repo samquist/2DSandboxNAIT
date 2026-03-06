@@ -150,7 +150,7 @@ public class PinTriggerCenter : InteractableObject
         foreach (var hit in hits)
         {
             var candidate = hit.GetComponentInParent<DragAndScale>();
-            if (candidate == null)
+            if (candidate == null || hit.isTrigger)
             {
                 continue;
             }

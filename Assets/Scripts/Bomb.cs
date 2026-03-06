@@ -85,7 +85,7 @@ public class Bomb : InteractableObject
                 Vector2 closestPoint = obj.ClosestPoint(new Vector2(transform.position.x, transform.position.y));
                 Vector2 forceVector = (closestPoint - new Vector2(transform.position.x, transform.position.y));
                 float distance = forceVector.magnitude;
-                forceVector = forceVector.normalized / distance * ;
+                forceVector = forceVector.normalized / distance * forceValue;
                 obj.AddForceAtPosition(closestPoint - new Vector2(transform.position.x, transform.position.y), closestPoint, ForceMode2D.Impulse);
                 usedObjs.Add(obj);
             }
