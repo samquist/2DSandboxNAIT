@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class Bomb : InteractableObject
 {
     [Header("Detonation (Long Hold)")]
-    [SerializeField] private float holdToRemoveDuration = 1f;
+    [SerializeField] private float holdToDetonateDuration = 1f;
 
     [Header("Audio")]
     [SerializeField] private AudioClip lightSound;
@@ -20,7 +20,7 @@ public class Bomb : MonoBehaviour
     private AudioSource audioSource;
 
     public float forceValue = 20f;
-    public bool isDragging { get; private set; }
+    public override bool isDragging { get; protected set; }
     private float holdTimer;
     private bool isHoldingForDetonation;
 
@@ -32,6 +32,47 @@ public class Bomb : MonoBehaviour
 
         effectArea.isTrigger = true;
         effectArea.radius = effectAreaRadius;
+    }
+
+    public override void OnGrabBegin()
+    {
+        isDragging = true;
+        isHoldingForDetonation = true;
+        holdTimer = 0f;
+    }
+    public override void OnGrabUpdate(Vector2 screenPos)
+    {
+        if (!isDragging)
+        {
+            return;
+        }
+
+        if (isHoldingForDetonation)
+        {
+            holdTimer += Time.deltaTime;
+
+            if (holdTimer >= holdToDetonateDuration)
+            {
+                LightBomb();
+                isHoldingForDetonation = false;
+            }
+        }
+    }
+    public override void OnGrabEnd()
+    {
+        if (!isDragging)
+        {
+            return;
+        }
+    }
+    public override void OnPinchEnd()
+    {
+        return;
+    }
+
+    private IEnumerator LightBomb()
+    {
+        yield return null;
     }
 
     private IEnumerator Explode()

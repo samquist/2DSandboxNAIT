@@ -134,6 +134,14 @@ public class TouchDragScaleManager : MonoBehaviour
             return;
         }
 
+        Bomb bomb = hit.collider.GetComponent<Bomb>();
+        if (bomb != null)
+        {
+            currentInteractableObject = bomb;
+            currentInteractableObject.OnGrabBegin();
+            return;
+        }
+
         DragAndScale drag = hit.collider.GetComponent<DragAndScale>();
         if (drag == null)
         {
