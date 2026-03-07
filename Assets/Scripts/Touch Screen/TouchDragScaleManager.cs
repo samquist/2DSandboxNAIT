@@ -142,6 +142,14 @@ public class TouchDragScaleManager : MonoBehaviour
             return;
         }
 
+        Wheel wheel = hit.collider.GetComponent<Wheel>();
+        if (wheel != null)
+        {
+            currentInteractableObject = wheel;
+            currentInteractableObject.OnGrabBegin();
+            return;
+        }
+
         DragAndScale drag = hit.collider.GetComponent<DragAndScale>();
         if (drag == null)
         {

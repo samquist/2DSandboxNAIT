@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2126346098107598870}
   - component: {fileID: 7202453626164369529}
   - component: {fileID: 7321671690941756964}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: obj_pin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: m_LocalScale.x
@@ -203,6 +203,7 @@ MonoBehaviour:
   placeSound: {fileID: 8300000, guid: 193fce2e03003a1459aeb8efe9790751, type: 3}
   wiggleSound: {fileID: 8300000, guid: 2c26b97e2fcda7947bf4b02ba2a476ad, type: 3}
   popSound: {fileID: 8300000, guid: 4532648b90d9dcc479e433af45739909, type: 3}
+  lockedBlock: {fileID: 0}
 --- !u!50 &5343820169008506974
 Rigidbody2D:
   serializedVersion: 5
@@ -386,7 +387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2997641490965338816, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2997641490965338816, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_IsActive
@@ -446,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3747212241394456892, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5046394189447452615, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_Offset.x
