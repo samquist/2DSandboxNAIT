@@ -5,7 +5,7 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class TouchDragScaleManager : MonoBehaviour
 {
-    [SerializeField] private InputActionAsset inputActions;
+    [SerializeField] public InputActionAsset inputActions;
     [SerializeField] private float scrollStepSize = 0.01f;
 
     private InputAction touchPosition;
@@ -146,6 +146,14 @@ public class TouchDragScaleManager : MonoBehaviour
         if (wheel != null)
         {
             currentInteractableObject = wheel;
+            currentInteractableObject.OnGrabBegin();
+            return;
+        }
+
+        Jetpack jetpack = hit.collider.GetComponent<Jetpack>();
+        if (jetpack != null)
+        {
+            currentInteractableObject = jetpack;
             currentInteractableObject.OnGrabBegin();
             return;
         }

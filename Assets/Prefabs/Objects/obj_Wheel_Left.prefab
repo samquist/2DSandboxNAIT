@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1e5a10f178c0f4799d3cb4efc80c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wheel
-  maxSnapDistance: 1.5
+  maxSnapDistance: 0.25
   blockLayer:
     serializedVersion: 2
     m_Bits: 1
