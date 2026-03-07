@@ -2823,6 +2823,10 @@ PrefabInstance:
       propertyPath: maxShortTapDuration
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4147649387083159278, guid: 83a1d400b4a6b3e45a5e8ead8505d8a3, type: 3}
+      propertyPath: thrustLocalDirection.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 5167257796879621104, guid: 83a1d400b4a6b3e45a5e8ead8505d8a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
