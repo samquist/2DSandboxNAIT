@@ -138,7 +138,7 @@ public class TouchDragScaleManager : MonoBehaviour
         if (bomb != null)
         {
             currentInteractableObject = bomb;
-            currentInteractableObject.OnGrabBegin();
+            currentInteractableObject.OnGrabBegin(screenPos);
             return;
         }
 

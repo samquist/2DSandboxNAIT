@@ -26,7 +26,6 @@ public class PinTriggerCenter : InteractableObject
 
     private Rigidbody2D rb;
     private AudioSource audioSource;
-    public override bool isDragging { get; protected set; }
     private bool isPlaced;
     public DragAndScale lockedBlock;
 

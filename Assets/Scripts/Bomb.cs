@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Bomb : InteractableObject
 {
-    [Header("Detonation (Long Hold)")]
-    [SerializeField] private float holdToDetonateDuration = 1f;
-
     [Header("Audio")]
     [SerializeField] private AudioClip lightSound;
     [SerializeField] private AudioClip fuseSound;
@@ -15,31 +12,33 @@ public class Bomb : InteractableObject
     private List<Rigidbody2D> objsWithinRange = new List<Rigidbody2D>();
 
     private Rigidbody2D rb;
-    [SerializeField] private CircleCollider2D effectArea;
     [SerializeField] private float effectAreaRadius;
     private AudioSource audioSource;
 
     public float forceValue = 20f;
-    public override bool isDragging { get; protected set; }
-    private float holdTimer;
-    private bool isHoldingForDetonation;
+    [SerializeField] private float holdTimer;
+
+    [SerializeField] private DragAndScale dragAndScale;
+
+    private Vector3 startPos;
+    private float thresholdTime = 0.15f, thresholdVelocity = 0.25f;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponentInParent<Rigidbody2D>();
 
         audioSource = GetComponent<AudioSource>();
-
-        effectArea.isTrigger = true;
-        effectArea.radius = effectAreaRadius;
     }
 
-    public override void OnGrabBegin()
+    public override void OnGrabBegin(Vector2 screenPos)
     {
+        dragAndScale.OnGrabBegin(screenPos);
+
+        startPos = transform.position;
         isDragging = true;
-        isHoldingForDetonation = true;
         holdTimer = 0f;
     }
+
     public override void OnGrabUpdate(Vector2 screenPos)
     {
         if (!isDragging)
@@ -47,24 +46,26 @@ public class Bomb : InteractableObject
             return;
         }
 
-        if (isHoldingForDetonation)
-        {
-            holdTimer += Time.deltaTime;
+        dragAndScale.OnGrabUpdate(screenPos);
 
-            if (holdTimer >= holdToDetonateDuration)
-            {
-                LightBomb();
-                isHoldingForDetonation = false;
-            }
-        }
+        holdTimer += Time.deltaTime;
     }
+
     public override void OnGrabEnd()
     {
         if (!isDragging)
         {
             return;
         }
+
+        dragAndScale.OnGrabEnd();
+
+        if (holdTimer < thresholdTime && rb.linearVelocity.magnitude < thresholdVelocity)
+        {
+            StartCoroutine(LightBomb());
+        }
     }
+
     public override void OnPinchEnd()
     {
         return;
@@ -72,46 +73,48 @@ public class Bomb : InteractableObject
 
     private IEnumerator LightBomb()
     {
-        yield return null;
+        //audioSource.Stop();
+        //audioSource.clip = fuseSound;
+        //audioSource.loop = false;
+        //audioSource.Play();
+        //yield return new WaitForSeconds(fuseSound.length);
+        yield return new WaitForSeconds(1);
+        StartCoroutine(Explode());
     }
 
     private IEnumerator Explode()
     {
-        List<Rigidbody2D> usedObjs = new List<Rigidbody2D>();
-        foreach(var obj in objsWithinRange)
+        var hits = Physics2D.OverlapCircleAll(transform.position, effectAreaRadius);
+        foreach (var hit in hits)//gets all rigidbodies within effectAreaRadius
         {
-            if (!usedObjs.Contains(obj))
+            if (!hit.isTrigger)
+            {
+                objsWithinRange.Add(hit.attachedRigidbody);
+            }
+        }
+
+        List<Rigidbody2D> usedObjs = new List<Rigidbody2D>();
+        foreach(var obj in objsWithinRange)//apply the force to each unique rigidbody only once
+        {
+            if (!usedObjs.Contains(obj) && obj.bodyType == RigidbodyType2D.Dynamic && obj != rb)
             {
                 Vector2 closestPoint = obj.ClosestPoint(new Vector2(transform.position.x, transform.position.y));
                 Vector2 forceVector = (closestPoint - new Vector2(transform.position.x, transform.position.y));
                 float distance = forceVector.magnitude;
                 forceVector = forceVector.normalized / distance * forceValue;
-                obj.AddForceAtPosition(closestPoint - new Vector2(transform.position.x, transform.position.y), closestPoint, ForceMode2D.Impulse);
+                obj.AddForceAtPosition(forceVector, closestPoint, ForceMode2D.Impulse);
                 usedObjs.Add(obj);
             }
         }
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
+        //audioSource.Stop();
+        //audioSource.clip = boomSound;
+        //audioSource.loop = false;
+        //audioSource.Play();
+        //yield return new WaitForSeconds(boomSound.length);
+        yield return new WaitForSeconds(1);
 
-        audioSource.clip = boomSound;
-        audioSource.loop = false;
-        audioSource.Play();
-        yield return new WaitForSeconds(boomSound.length);
-
-        Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.attachedRigidbody != null)
-        {
-            objsWithinRange.Add(other.attachedRigidbody);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.attachedRigidbody != null)
-        {
-            objsWithinRange.Remove(other.attachedRigidbody);
-        }
+        Destroy(transform.parent.gameObject);
     }
 }
