@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class InteractableObject : MonoBehaviour
 {
     public virtual bool isDragging { get; protected set; }
+    public virtual bool isPinched { get; protected set; }
 
     public virtual void OnGrabBegin()
     { return; }
@@ -13,11 +14,11 @@ public abstract class InteractableObject : MonoBehaviour
     public abstract void OnGrabUpdate(Vector2 screenPos);
     public abstract void OnGrabEnd();
 
-    public virtual void OnPinchStart()
+    public virtual void OnPinchBegin()
     { return; }
 
     public virtual void OnPinchUpdate(float currentDist)
     { return; }
     public virtual void OnPinchEnd()
-    {  return; }
+    { return; }
 }

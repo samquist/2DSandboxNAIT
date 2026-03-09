@@ -116,7 +116,27 @@ public class TouchDragScaleManager : MonoBehaviour
             {
                 selectedObject.OnPinchEnd();
             }
-        }
+        }//normal object pinching
+
+        if (currentInteractableObject != null)
+        {
+            if (Touch.activeFingers.Count == 2)
+            {
+                var touch0 = Touch.activeFingers[0].currentTouch;
+                var touch1 = Touch.activeFingers[1].currentTouch;
+                float currentDist = Vector2.Distance(touch0.screenPosition, touch1.screenPosition);
+
+                if (!selectedObject.isPinched)
+                {
+                    currentInteractableObject.OnPinchBegin();
+                }
+                currentInteractableObject.OnPinchUpdate(currentDist);
+            }
+            else if (currentInteractableObject.isPinched)
+            {
+                currentInteractableObject.OnPinchEnd();
+            }
+        }//interactableObject pinching
     }
 
     private void OnPrimaryDown(Vector2 screenPos)
