@@ -482,7 +482,7 @@ Material:
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineMaskColor: {r: 0, g: 0, b: 0, a: 1}
     - _Outline_Color: {r: 0, g: 0, b: 0, a: 0}
-    - _RimLightColor: {r: 0.5661765, g: 0.5661765, b: 0.5661765, a: 1}
+    - _RimLightColor: {r: 0.5245282, g: 0.5245282, b: 0.5245282, a: 1}
     - _RimLightMaskColor: {r: 1, g: 0, b: 1, a: 1}
     - _SecondShadeMaskColor: {r: 0, g: 0, b: 1, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
