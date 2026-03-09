@@ -111,9 +111,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7b1af6b5825869a41b0b4104961b204d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 69db0124201a1014dafd569e7118fa91, type: 3}
+        m_Scale: {x: 3.1, y: 3.05}
+        m_Offset: {x: -0.09, y: -0.03}
     - _MainTexSynthesized:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -131,9 +131,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 1b7556603ae72af45a5b3cbed9b25865, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: c8b0ea93bc54b104aa61a9833840b13f, type: 3}
+        m_Scale: {x: 3.1, y: 3.1}
+        m_Offset: {x: -0.09, y: -0.03}
     - _NormalMapForMatCap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -332,8 +332,8 @@ Material:
     - _Is_LightColor_Outline: 1
     - _Is_LightColor_RimLight: 1
     - _Is_NormalMapForMatCap: 0
-    - _Is_NormalMapToBase: 0
-    - _Is_NormalMapToHighColor: 0
+    - _Is_NormalMapToBase: 1
+    - _Is_NormalMapToHighColor: 1
     - _Is_NormalMapToRimLight: 0
     - _Is_Ortho: 0
     - _Is_OutlineTex: 0
