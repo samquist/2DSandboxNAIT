@@ -1,9 +1,11 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(Rigidbody2D))]
+//[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(AudioSource))]
 public class Jetpack : InteractableObject
 {
@@ -37,6 +39,7 @@ public class Jetpack : InteractableObject
     private DragAndScale lockedBlock;
     private InputAction scrollAction;
     private Coroutine loopStartCoroutine;
+    private float previousPinchDistance;
 
     private void Awake()
     {
@@ -96,6 +99,22 @@ public class Jetpack : InteractableObject
         float rotationThisStep = Mathf.Sign(scrollY) * scrollRotationDegreesPerStep;
         transform.Rotate(0f, 0f, rotationThisStep, Space.Self);
     }
+
+    //public override void OnPinchUpdate(float currentPinchDistance)
+    //{
+    //    if (!isDragging && !isPlaced) return;
+
+    //    if (previousPinchDistance > 0f)
+    //    {
+    //        float delta = currentPinchDistance - previousPinchDistance;
+    //        float pinchFactor = 1f + delta * 0.015f;
+
+    //        float rotationThisStep = Mathf.Sign(pinchFactor) * scrollRotationDegreesPerStep;
+    //        transform.Rotate(0f, 0f, rotationThisStep, Space.Self);
+    //    }
+
+    //    previousPinchDistance = currentPinchDistance;
+    //}
 
     public override void OnGrabBegin()
     {
