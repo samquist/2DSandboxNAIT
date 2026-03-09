@@ -10,6 +10,14 @@ public class Wheel : InteractableObject
     [SerializeField] private float maxSnapDistance = 1.5f;
     [SerializeField] private LayerMask blockLayer;
 
+    [Header("Rolling Sound")]
+    [SerializeField] private AudioSource rollingAudioSource;
+    [SerializeField] private AudioClip rollingClip;
+    [SerializeField] private float minSpeedForSound = 0.3f;
+    [SerializeField] private float maxSpeed = 8f;
+    [SerializeField] private float maxVolume = 0.9f;
+    [SerializeField] private float volumeChangeSpeed = 10f;
+
     private Rigidbody2D rb;
     private WheelJoint2D wheelJoint;
     private CircleCollider2D col;
@@ -17,6 +25,8 @@ public class Wheel : InteractableObject
     private bool isAttached;
     private DragAndScale attachedBlock;
     private List<Collider2D> ignoredColliders = new List<Collider2D>();
+
+    private bool wasPlayingSound;
 
     private void Awake()
     {
@@ -26,6 +36,22 @@ public class Wheel : InteractableObject
 
         rb.bodyType = RigidbodyType2D.Kinematic;
         wheelJoint.enabled = false;
+
+        if (rollingAudioSource == null)
+        {
+            rollingAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+        if (rollingClip != null)
+        {
+            rollingAudioSource.clip = rollingClip;
+            rollingAudioSource.loop = true;
+            rollingAudioSource.playOnAwake = false;
+            rollingAudioSource.volume = 0f;
+        }
+        else
+        {
+            Debug.LogWarning("Wheel rolling sound: No AudioClip assigned!", this);
+        }
     }
 
     public override void OnGrabBegin()
@@ -33,6 +59,11 @@ public class Wheel : InteractableObject
         isDragging = true;
         rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
+
+        if (rollingAudioSource != null && rollingAudioSource.isPlaying)
+        {
+            rollingAudioSource.Stop();
+        }
 
         if (isAttached)
         {
@@ -50,7 +81,7 @@ public class Wheel : InteractableObject
 
         Camera cam = Camera.main;
         float depth = Vector3.Dot(transform.position - cam.transform.position, cam.transform.forward);
-        Vector3 world = cam.ScreenToWorldPoint( new Vector3(screenPos.x, screenPos.y, depth));
+        Vector3 world = cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, depth));
         transform.position = new Vector3(world.x, world.y, transform.position.z);
     }
 
@@ -141,6 +172,15 @@ public class Wheel : InteractableObject
 
         isAttached = false;
         attachedBlock = null;
+
+        if (rollingAudioSource != null)
+        {
+            rollingAudioSource.volume = 0f;
+            if (rollingAudioSource.isPlaying)
+            {
+                rollingAudioSource.Stop();
+            }
+        }
     }
 
     private void IgnoreAllBlockColliders(bool ignore)
@@ -169,6 +209,70 @@ public class Wheel : InteractableObject
             {
                 ignoredColliders.Remove(blockCol);
             }
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (!isAttached) return;
+        if (rb == null || rb.isKinematic) return;
+        if (rollingAudioSource == null || rollingClip == null) return;
+
+        float speed = rb.linearVelocity.magnitude;
+
+        if (speed > minSpeedForSound && collision.contactCount > 0)
+        {
+            float t = Mathf.Clamp01((speed - minSpeedForSound) / (maxSpeed - minSpeedForSound));
+            float targetVolume = Mathf.Lerp(0f, maxVolume, t);
+
+            rollingAudioSource.volume = Mathf.Lerp(rollingAudioSource.volume, targetVolume, Time.deltaTime * volumeChangeSpeed);
+
+            if (!rollingAudioSource.isPlaying)
+            {
+                rollingAudioSource.Play();
+            }
+            wasPlayingSound = true;
+        }
+        else
+        {
+            rollingAudioSource.volume = Mathf.Lerp(rollingAudioSource.volume, 0f, Time.deltaTime * volumeChangeSpeed * 1.5f);
+
+            if (rollingAudioSource.volume < 0.01f && rollingAudioSource.isPlaying)
+            {
+                rollingAudioSource.Stop();
+            }
+            wasPlayingSound = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (wasPlayingSound && rollingAudioSource != null)
+        {
+            rollingAudioSource.volume = Mathf.Lerp(rollingAudioSource.volume, 0f, Time.deltaTime * volumeChangeSpeed * 2f);
+        }
+    }
+
+    private void Update()
+    {
+        if (isDragging || !isAttached)
+        {
+            if (rollingAudioSource != null)
+            {
+                rollingAudioSource.volume = 0f;
+                if (rollingAudioSource.isPlaying)
+                {
+                    rollingAudioSource.Stop();
+                }
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (rollingAudioSource != null && rollingAudioSource.isPlaying)
+        {
+            rollingAudioSource.Stop();
         }
     }
 }

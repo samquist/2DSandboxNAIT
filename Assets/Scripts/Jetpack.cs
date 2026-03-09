@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -23,7 +24,9 @@ public class Jetpack : InteractableObject
     [Header("Audio & VFX")]
     [SerializeField] private AudioClip attachSound;
     [SerializeField] private AudioClip thrustStartSound;
+    [SerializeField] private AudioClip thrustLoopSound;
     [SerializeField] private AudioClip thrustStopSound;
+    [SerializeField] private float thrustLoopStartDelay = 1.0f;
     [SerializeField] private ParticleSystem flameEffect;
 
     private Rigidbody2D rb;
@@ -33,6 +36,7 @@ public class Jetpack : InteractableObject
     private bool isThrustActive;
     private DragAndScale lockedBlock;
     private InputAction scrollAction;
+    private Coroutine loopStartCoroutine;
 
     private void Awake()
     {
@@ -41,7 +45,9 @@ public class Jetpack : InteractableObject
         audioSource = GetComponent<AudioSource>();
 
         if (flameEffect != null)
+        {
             flameEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
 
         var manager = FindFirstObjectByType<TouchDragScaleManager>();
         if (manager != null && manager.inputActions != null)
@@ -69,6 +75,12 @@ public class Jetpack : InteractableObject
         {
             scrollAction.performed -= OnScrollPerformed;
             scrollAction.Disable();
+        }
+
+        if (loopStartCoroutine != null)
+        {
+            StopCoroutine(loopStartCoroutine);
+            loopStartCoroutine = null;
         }
     }
 
@@ -187,6 +199,16 @@ public class Jetpack : InteractableObject
             {
                 audioSource.PlayOneShot(thrustStartSound);
             }
+
+            if (thrustLoopSound != null)
+            {
+                if (loopStartCoroutine != null)
+                {
+                    StopCoroutine(loopStartCoroutine);
+                }
+                loopStartCoroutine = StartCoroutine(StartLoopAfterDelay());
+            }
+
             if (flameEffect != null)
             {
                 flameEffect.Play();
@@ -194,14 +216,41 @@ public class Jetpack : InteractableObject
         }
         else
         {
+            if (loopStartCoroutine != null)
+            {
+                StopCoroutine(loopStartCoroutine);
+                loopStartCoroutine = null;
+            }
+
+            if (audioSource.isPlaying && audioSource.clip == thrustLoopSound)
+            {
+                audioSource.Stop();
+                audioSource.loop = false;
+            }
+
             if (thrustStopSound != null)
             {
                 audioSource.PlayOneShot(thrustStopSound);
             }
+
             if (flameEffect != null)
             {
                 flameEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
         }
+    }
+
+    private IEnumerator StartLoopAfterDelay()
+    {
+        yield return new WaitForSeconds(thrustLoopStartDelay);
+
+        if (isThrustActive && thrustLoopSound != null)
+        {
+            audioSource.clip = thrustLoopSound;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+
+        loopStartCoroutine = null;
     }
 }

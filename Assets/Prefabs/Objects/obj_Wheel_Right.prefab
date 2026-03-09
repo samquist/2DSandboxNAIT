@@ -571,6 +571,12 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 1
+  rollingAudioSource: {fileID: 7492710926251884737}
+  rollingClip: {fileID: 8300000, guid: 25a32c4ad4f67d942886419a8746a0f8, type: 3}
+  minSpeedForSound: 0.3
+  maxSpeed: 8
+  maxVolume: 0.9
+  volumeChangeSpeed: 10
 --- !u!50 &2162388535197745660
 Rigidbody2D:
   serializedVersion: 5
@@ -643,7 +649,7 @@ AudioSource:
   m_GameObject: {fileID: 32581864878043579}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -6403259655572154764, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
+  OutputAudioMixerGroup: {fileID: -1713160578619973324, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
