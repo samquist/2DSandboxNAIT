@@ -2,7 +2,7 @@
 - Project name: 2DSandboxNAIT
 - Unity version: Unity 6000.3.5f2
 - Active game object:
-  - Name: obj_Jetpack_Test
+  - Name: mod_bomb
   - Tag: Untagged
-  - Layer: Pin Trigger
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
