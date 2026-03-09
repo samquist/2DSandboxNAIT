@@ -2620,7 +2620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TouchDragScaleManager
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  scrollStepSize: 0.5
+  scrollStepSize: 0.1
 --- !u!4 &1937797677
 Transform:
   m_ObjectHideFlags: 0
@@ -4707,11 +4707,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 749119794544228024, guid: fe0109a26b9d60d4683f08347b8c2470, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 749119794544228024, guid: fe0109a26b9d60d4683f08347b8c2470, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.77
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3447460934591711023, guid: fe0109a26b9d60d4683f08347b8c2470, type: 3}
       propertyPath: m_Name
@@ -4719,11 +4719,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5270170554098456664, guid: fe0109a26b9d60d4683f08347b8c2470, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.15
+      value: -2.08
       objectReference: {fileID: 0}
     - target: {fileID: 5270170554098456664, guid: fe0109a26b9d60d4683f08347b8c2470, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.07
+      value: 4.68
       objectReference: {fileID: 0}
     - target: {fileID: 5270170554098456664, guid: fe0109a26b9d60d4683f08347b8c2470, type: 3}
       propertyPath: m_LocalPosition.z

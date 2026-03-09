@@ -119,13 +119,17 @@ public class Bomb : InteractableObject
                 Vector2 closestPoint = obj.ClosestPoint(new Vector2(transform.position.x, transform.position.y));
                 Vector2 forceVector = (closestPoint - new Vector2(transform.position.x, transform.position.y));
                 float distance = forceVector.magnitude;
-                forceVector = forceVector.normalized / distance * forceValue;
+                forceVector = forceVector.normalized / (distance + 0.001f) * forceValue;
                 obj.AddForceAtPosition(forceVector, closestPoint, ForceMode2D.Impulse);
                 usedObjs.Add(obj);
             }
         }
+
         GetComponent<Collider2D>().enabled = false;
-        GetComponent<MeshRenderer>().enabled = false;
+        foreach (var obj in GetComponentsInChildren<MeshRenderer>())
+        {
+            obj.enabled = false;
+        }
         //audioSource.Stop();
         //audioSource.clip = boomSound;
         //audioSource.loop = false;
