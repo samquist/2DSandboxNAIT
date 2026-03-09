@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Bomb : InteractableObject
 {
+    [Header("Effects")]
+    [SerializeField] private ParticleSystem explosionParticleEffect;
+    
     [Header("Audio")]
     [SerializeField] private AudioClip lightSound;
     [SerializeField] private AudioClip fuseSound;
@@ -84,6 +87,21 @@ public class Bomb : InteractableObject
 
     private IEnumerator Explode()
     {
+        //store explosion position
+        Vector3 explosionPosition = transform.position;
+    
+        //detach and play particle effect at explosion position
+        if (explosionParticleEffect != null)
+        {
+            //detach and play particle
+            explosionParticleEffect.transform.SetParent(null);
+            explosionParticleEffect.transform.position = explosionPosition;
+            explosionParticleEffect.Play();
+            
+            //destroy particle
+            Destroy(explosionParticleEffect.gameObject, explosionParticleEffect.main.duration);
+        }
+
         var hits = Physics2D.OverlapCircleAll(transform.position, effectAreaRadius);
         foreach (var hit in hits)//gets all rigidbodies within effectAreaRadius
         {
