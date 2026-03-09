@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_foam
+  m_Name: mat_ice
   m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -31,11 +31,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _1st_ShadeMap:
-        m_Texture: {fileID: 2800000, guid: a74cb7a8e32f2f141bb036f6b4a3e454, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7b1af6b5825869a41b0b4104961b204d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _2nd_ShadeMap:
-        m_Texture: {fileID: 2800000, guid: a74cb7a8e32f2f141bb036f6b4a3e454, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7b1af6b5825869a41b0b4104961b204d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AngelRing_Sampler:
@@ -111,7 +111,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b94feb7f5d0da9d4f99ba98a75a06075, type: 3}
+        m_Texture: {fileID: 2800000, guid: 91ca0da2df15a9c4bbce227ae3c98954, type: 3}
         m_Scale: {x: 3.1, y: 3.05}
         m_Offset: {x: -0.09, y: -0.03}
     - _MainTexSynthesized:
@@ -131,9 +131,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 1c36a942e298cec429607d96ad28d6a2, type: 3}
-        m_Scale: {x: 3.1, y: 3.1}
-        m_Offset: {x: -0.09, y: -0.03}
+        m_Texture: {fileID: 2800000, guid: 91912a8a4615746489fd26f3557b3cda, type: 3}
+        m_Scale: {x: 3.4, y: 3.4}
+        m_Offset: {x: 0, y: 0}
     - _NormalMapForMatCap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -290,7 +290,7 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
-    - _Farthest_Distance: 1000
+    - _Farthest_Distance: 100
     - _FirstShadeOverridden: 0
     - _FirstShadeVisible: 1
     - _GI_Intensity: 0
@@ -332,8 +332,8 @@ Material:
     - _Is_LightColor_Outline: 1
     - _Is_LightColor_RimLight: 1
     - _Is_NormalMapForMatCap: 0
-    - _Is_NormalMapToBase: 1
-    - _Is_NormalMapToHighColor: 1
+    - _Is_NormalMapToBase: 0
+    - _Is_NormalMapToHighColor: 0
     - _Is_NormalMapToRimLight: 0
     - _Is_Ortho: 0
     - _Is_OutlineTex: 0
@@ -348,7 +348,7 @@ Material:
     - _MatCap: 0
     - _MaterialID: 1
     - _Metallic: 0
-    - _Nearest_Distance: 0.01
+    - _Nearest_Distance: 0.5
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _OUTLINE: 0
@@ -462,7 +462,7 @@ Material:
     - _2nd_ShadeColor: {r: 1, g: 1, b: 1, a: 0}
     - _AngelRingMaskColor: {r: 0, g: 1, b: 0, a: 1}
     - _AngelRing_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Ap_RimLightColor: {r: 1, g: 0.35172424, b: 0, a: 1}
+    - _Ap_RimLightColor: {r: 0.6679245, g: 0.5784479, b: 0.6518445, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
