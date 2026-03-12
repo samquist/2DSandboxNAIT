@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3040583156903784000}
   - component: {fileID: 5046394189447452615}
   - component: {fileID: 135199954643536261}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ConnectionPoint
   m_TagString: ConnectionPoint
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6784900834388503671}
   - component: {fileID: 6297713242216029498}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
