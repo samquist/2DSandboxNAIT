@@ -18,6 +18,9 @@ public class Wheel : InteractableObject
     [SerializeField] private float maxVolume = 0.9f;
     [SerializeField] private float volumeChangeSpeed = 10f;
 
+    [Header("Trigger Behavior")]
+    [SerializeField] private bool isTriggerWhenNotAttached = true;
+
     private Rigidbody2D rb;
     private WheelJoint2D wheelJoint;
     private CircleCollider2D col;
@@ -36,6 +39,11 @@ public class Wheel : InteractableObject
 
         rb.bodyType = RigidbodyType2D.Kinematic;
         wheelJoint.enabled = false;
+
+        if (col != null)
+        {
+            col.isTrigger = isTriggerWhenNotAttached;
+        }
 
         if (rollingAudioSource == null)
         {
@@ -63,6 +71,11 @@ public class Wheel : InteractableObject
         if (rollingAudioSource != null && rollingAudioSource.isPlaying)
         {
             rollingAudioSource.Stop();
+        }
+
+        if (col != null && !isAttached)
+        {
+            col.isTrigger = true;
         }
 
         if (isAttached)
@@ -99,6 +112,11 @@ public class Wheel : InteractableObject
         {
             IgnoreAllBlockColliders(false);
             rb.bodyType = RigidbodyType2D.Kinematic;
+
+            if (col != null)
+            {
+                col.isTrigger = isTriggerWhenNotAttached;
+            }
         }
     }
 
@@ -152,6 +170,11 @@ public class Wheel : InteractableObject
 
         isAttached = true;
         attachedBlock = block;
+
+        if (col != null)
+        {
+            col.isTrigger = false;
+        }
     }
 
     private void DetachFromBlock()
@@ -172,6 +195,11 @@ public class Wheel : InteractableObject
 
         isAttached = false;
         attachedBlock = null;
+
+        if (col != null)
+        {
+            col.isTrigger = isTriggerWhenNotAttached;
+        }
 
         if (rollingAudioSource != null)
         {
@@ -215,8 +243,9 @@ public class Wheel : InteractableObject
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (!isAttached) return;
-        if (rb == null || rb.isKinematic) return;
+        if (rb == null || rb.bodyType == RigidbodyType2D.Kinematic) return;
         if (rollingAudioSource == null || rollingClip == null) return;
+        if (col.isTrigger) return;
 
         float speed = rb.linearVelocity.magnitude;
 
@@ -264,6 +293,35 @@ public class Wheel : InteractableObject
                 {
                     rollingAudioSource.Stop();
                 }
+            }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (!isAttached || attachedBlock == null) return;
+
+        bool parentIsDragged = attachedBlock.isDragged;
+
+        wheelJoint.enabled = !parentIsDragged;
+
+        if (parentIsDragged)
+        {
+            if (col != null) col.enabled = false;
+            if (rb.bodyType == RigidbodyType2D.Kinematic)
+            {
+                rb.bodyType = RigidbodyType2D.Kinematic;
+            }
+
+            Vector2 desired = attachedBlock.transform.TransformPoint(wheelJoint.connectedAnchor);
+            transform.position = new Vector3(desired.x, desired.y, transform.position.z);
+        }
+        else
+        {
+            if (col != null) col.enabled = true;
+            if (rb.bodyType == RigidbodyType2D.Kinematic)
+            {
+                rb.bodyType = RigidbodyType2D.Dynamic;
             }
         }
     }

@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Collider2D))]
-//[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(AudioSource))]
 public class Jetpack : InteractableObject
 {
@@ -31,6 +28,10 @@ public class Jetpack : InteractableObject
     [SerializeField] private float thrustLoopStartDelay = 1.0f;
     [SerializeField] private ParticleSystem flameEffect;
 
+    [Header("Tap vs Drag detection")]
+    [SerializeField] private float maxTapMovementDistance = 0.45f;
+    [SerializeField] private float maxTapDuration = 0.28f;
+
     private Rigidbody2D rb;
     private AudioSource audioSource;
     private Rigidbody2D attachedBlockRb;
@@ -39,7 +40,10 @@ public class Jetpack : InteractableObject
     private DragAndScale lockedBlock;
     private InputAction scrollAction;
     private Coroutine loopStartCoroutine;
-    private float previousPinchDistance;
+
+    private Vector3 grabStartWorldPosition;
+    private float grabStartTime;
+    private bool mightBeTap = false;
 
     private void Awake()
     {
@@ -100,32 +104,14 @@ public class Jetpack : InteractableObject
         transform.Rotate(0f, 0f, rotationThisStep, Space.Self);
     }
 
-    //public override void OnPinchUpdate(float currentPinchDistance)
-    //{
-    //    if (!isDragging && !isPlaced) return;
-
-    //    if (previousPinchDistance > 0f)
-    //    {
-    //        float delta = currentPinchDistance - previousPinchDistance;
-    //        float pinchFactor = 1f + delta * 0.015f;
-
-    //        float rotationThisStep = Mathf.Sign(pinchFactor) * scrollRotationDegreesPerStep;
-    //        transform.Rotate(0f, 0f, rotationThisStep, Space.Self);
-    //    }
-
-    //    previousPinchDistance = currentPinchDistance;
-    //}
-
     public override void OnGrabBegin()
     {
-        if (isPlaced)
-        {
-            ToggleThrust();
-            return;
-        }
-
         isDragging = true;
         rb.linearVelocity = Vector2.zero;
+
+        grabStartWorldPosition = transform.position;
+        grabStartTime = Time.time;
+        mightBeTap = true;
 
         if (attachSound != null)
         {
@@ -140,6 +126,13 @@ public class Jetpack : InteractableObject
         var cam = Camera.main;
         float depth = Vector3.Dot(transform.position - cam.transform.position, cam.transform.forward);
         var worldPos = cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, depth));
+
+        float dist = Vector3.Distance(worldPos, grabStartWorldPosition);
+        if (dist > maxTapMovementDistance * 0.7f)
+        {
+            mightBeTap = false;
+        }
+
         transform.position = new Vector3(worldPos.x, worldPos.y, transform.position.z);
     }
 
@@ -149,10 +142,28 @@ public class Jetpack : InteractableObject
 
         isDragging = false;
 
+        if (isPlaced && mightBeTap && WasQuickTap())
+        {
+            ToggleThrust();
+        }
+
+        mightBeTap = false;
+
         if (!isPlaced && TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter))
         {
             AttachToBlock(blockParent, hitCenter);
         }
+    }
+
+    private bool WasQuickTap()
+    {
+        if (!mightBeTap) return false;
+
+        float duration = Time.time - grabStartTime;
+        float distance = Vector3.Distance(transform.position, grabStartWorldPosition);
+
+        return duration <= maxTapDuration &&
+               distance <= maxTapMovementDistance;
     }
 
     private bool TryGetNearestBlockCenter(out DragAndScale blockParent, out Vector3 hitCenter)
