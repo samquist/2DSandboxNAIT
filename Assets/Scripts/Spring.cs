@@ -4,7 +4,7 @@ public class Spring : MonoBehaviour
 {
     public float K;
     public float friction;
-    public float LRest { get => transform.localScale.y; }
+    public float LRest { get => topRB.transform.localScale.y; }
     public Transform topBlock, bottomBlock, springModel;
     public Rigidbody2D bottomRB, topRB;
 
@@ -12,7 +12,7 @@ public class Spring : MonoBehaviour
     {
         Vector3 forceVector = bottomBlock.position - topBlock.position;
         bottomRB.AddForce(-forceVector.normalized * CalculateRestorativeForce(forceVector.magnitude) * (1 - friction) * Time.deltaTime / 2);
-        topRB.AddForce(forceVector.normalized * CalculateRestorativeForce(forceVector.magnitude) * (1 - friction) * Time.deltaTime / 2);
+        topRB.AddForceAtPosition(forceVector.normalized * CalculateRestorativeForce(forceVector.magnitude) * (1 - friction) * Time.deltaTime / 2, new Vector2(topBlock.position.x, topBlock.position.y));
 
         springModel.localScale = new Vector3(springModel.localScale.x, forceVector.magnitude / topBlock.localScale.y / LRest, springModel.localScale.x);
         springModel.localPosition = new Vector3(springModel.localPosition.x, -0.55f * springModel.localScale.y, springModel.localPosition.z);

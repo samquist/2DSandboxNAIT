@@ -28,6 +28,7 @@ public class ConnectionPoint : MonoBehaviour
         ConnectObjects();
 
         CheckForPin();
+        CheckForSpring();
 
         LockConnection();
         connectedTo.LockConnection();
@@ -46,6 +47,15 @@ public class ConnectionPoint : MonoBehaviour
         }
     }
 
+    public void CheckForSpring()
+    {
+        Spring spring = transform.parent.parent.GetComponentInChildren<Spring>();
+        if (spring != null)
+        {
+            spring.topRB = transform.parent.parent.GetComponent<Rigidbody2D>();
+        }
+    }
+
     public void ConnectObjects()//set all objects with a non-trigger collider inside the other object to be parented to this object
     {
         Transform OtherParent = toConnectTo.transform.parent.parent;
@@ -53,7 +63,7 @@ public class ConnectionPoint : MonoBehaviour
 
         foreach (var ob in OtherParent.GetComponentsInChildren<Collider2D>())
         {
-            if (!ob.isTrigger)
+            if (!ob.isTrigger && !ob.gameObject.CompareTag("DontMoveOnConnect"))
             {
                 ob.transform.SetParent(thisParent);
             }
