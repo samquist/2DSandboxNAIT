@@ -54,6 +54,14 @@ MonoBehaviour:
   maxPosition: 0.25
   isDragged: 0
   isPinched: 0
+  longPressDuration: 0.55
+  rotateDeadZonePixels: 20
+  rotateSpeedTouchDrag: 180
+  twistSensitivity: 1.2
+  invertTwistDirection: 0
+  rotateLeftKey: 113
+  rotateRightKey: 101
+  rotateSpeedKeyboard: 180
 --- !u!50 &3702860895396812775
 Rigidbody2D:
   serializedVersion: 5
