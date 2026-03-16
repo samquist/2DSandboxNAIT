@@ -54,6 +54,12 @@ MonoBehaviour:
   maxPosition: 0.25
   isDragged: 0
   isPinched: 0
+  longPressDuration: 0.55
+  rotateDeadZonePixels: 20
+  rotateSpeedTouchDrag: 180
+  twistSensitivity: 1.2
+  invertTwistDirection: 0
+  rotateSpeedKeyboard: 180
 --- !u!50 &2900864338805262745
 Rigidbody2D:
   serializedVersion: 5
@@ -228,7 +234,7 @@ AudioSource:
   m_GameObject: {fileID: 1912982420614266358}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2458310100724175795, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
+  OutputAudioMixerGroup: {fileID: -147198138269064304, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: b62ef92c26e296d4fb5f47ceabe92640, type: 3}
   m_PlayOnAwake: 1

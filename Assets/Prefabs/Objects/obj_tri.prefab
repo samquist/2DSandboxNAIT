@@ -59,8 +59,6 @@ MonoBehaviour:
   rotateSpeedTouchDrag: 180
   twistSensitivity: 1.2
   invertTwistDirection: 0
-  rotateLeftKey: 113
-  rotateRightKey: 101
   rotateSpeedKeyboard: 180
 --- !u!50 &5753627687111554681
 Rigidbody2D:
@@ -237,7 +235,7 @@ AudioSource:
   m_GameObject: {fileID: 7035479201922644888}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2458310100724175795, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
+  OutputAudioMixerGroup: {fileID: -147198138269064304, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 2685822deace9744ab171272ff19fa8b, type: 3}
   m_PlayOnAwake: 1
