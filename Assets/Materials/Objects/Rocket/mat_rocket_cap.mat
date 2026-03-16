@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_rocket
+  m_Name: mat_rocket_cap
   m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -111,7 +111,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3431bae9a551b944a95d97b1dd0ac0ad, type: 3}
+        m_Texture: {fileID: 2800000, guid: 539ab79eee61cff4597ea839e64c40e9, type: 3}
         m_Scale: {x: 3, y: 3}
         m_Offset: {x: -4.1, y: 0}
     - _MainTexSynthesized:
@@ -131,7 +131,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: f71d6cde022e7864ebb491ddf69899f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: d3e83804e4a514941b2c593d566979aa, type: 3}
         m_Scale: {x: 3, y: 0}
         m_Offset: {x: 0, y: 0}
     - _NormalMapForMatCap:
