@@ -299,7 +299,7 @@ MonoBehaviour:
   fuseSound: {fileID: 0}
   boomSound: {fileID: 0}
   effectAreaRadius: 4
-  forceValue: 20
+  forceValue: 7.5
   holdTimer: 0
   dragAndScale: {fileID: 974360576747281880}
   scrollStepSize: 0.1

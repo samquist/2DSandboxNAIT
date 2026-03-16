@@ -222,7 +222,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2310253610521479799, guid: 0d40dff630ab3d747ba5eaada86a5a63, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3541501439111887310, guid: 0d40dff630ab3d747ba5eaada86a5a63, type: 3}
       propertyPath: m_Name
@@ -278,11 +278,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6977192284352328658, guid: 0d40dff630ab3d747ba5eaada86a5a63, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7762776259266403892, guid: 0d40dff630ab3d747ba5eaada86a5a63, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8268748133722480899, guid: 0d40dff630ab3d747ba5eaada86a5a63, type: 3}
       propertyPath: tangentDegrees
