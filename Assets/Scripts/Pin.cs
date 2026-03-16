@@ -2,15 +2,15 @@
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-//[RequireComponent(typeof(AudioSource))]
-public class PinTriggerCenter : MonoBehaviour
+[RequireComponent(typeof(AudioSource))]
+public class PinTriggerCenter : InteractableObject
 {
     [Header("Snapping")]
     [SerializeField] private float maxSnapDistance = 0f;
     [SerializeField] private LayerMask blockLayer;
 
     [Header("Behavior")]
-    [SerializeField] private float placedLocalZ = 0f; // Prevents Pin Z Axis from centering on block
+    [SerializeField] private float placedLocalZ = 0f;
 
     [Header("Removal (Long Hold)")]
     [SerializeField] private float holdToRemoveDuration = 0f;
@@ -19,14 +19,15 @@ public class PinTriggerCenter : MonoBehaviour
     [SerializeField] private float maxWiggleAmplitude = 0f;
 
     [Header("Audio")]
-    //[SerializeField] private AudioClip holdSound;
-    //[SerializeField] private AudioClip popSound;
+    [SerializeField] private AudioClip clickSound;
+    [SerializeField] private AudioClip placeSound;
+    [SerializeField] private AudioClip wiggleSound;
+    [SerializeField] private AudioClip popSound;
 
     private Rigidbody2D rb;
-    //private AudioSource audioSource;
-    public bool isDragging { get; private set; }
+    private AudioSource audioSource;
     private bool isPlaced;
-    private DragAndScale lockedBlock;
+    public DragAndScale lockedBlock;
 
     private float holdTimer;
     private bool isHoldingForRemoval;
@@ -38,18 +39,25 @@ public class PinTriggerCenter : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
 
-        //audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
         originalRotation = transform.localRotation;
         originalScale = transform.localScale;
     }
 
-    public void OnGrabBegin()
+    public override void OnGrabBegin()
     {
         if (!isPlaced)
         {
             isDragging = true;
             rb.linearVelocity = Vector2.zero;
+            
+            if (clickSound != null)
+            {
+                audioSource.clip = clickSound;
+                audioSource.loop = false;
+                audioSource.Play();
+            }
             return;
         }
 
@@ -58,15 +66,15 @@ public class PinTriggerCenter : MonoBehaviour
         holdTimer = 0f;
         transform.localRotation = originalRotation;
 
-        //if (holdSound != null)
-        //{
-        //    audioSource.clip = holdSound;
-        //    audioSource.loop = true;
-        //    audioSource.Play();
-        //}
+        if (wiggleSound != null)
+        {
+            audioSource.clip = wiggleSound;
+            audioSource.loop = false;
+            audioSource.Play();
+        }
     }
 
-    public void OnGrabUpdate(Vector2 screenPos)
+    public override void OnGrabUpdate(Vector2 screenPos)
     {
         if (!isDragging)
         {
@@ -101,34 +109,34 @@ public class PinTriggerCenter : MonoBehaviour
         }
     }
 
-    public void OnGrabEnd()
+    public override void OnGrabEnd()
     {
         if (!isDragging)
         {
             return;
         }
 
-        //if (audioSource.isPlaying)
-        //{
-        //    audioSource.Stop();
-        //}
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
 
         isHoldingForRemoval = false;
         holdTimer = 0f;
         transform.localRotation = originalRotation;
 
-        if (!isPlaced && TryGetNearestBlockCenter(out var block, out _))
+        if (!isPlaced && TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter))
         {
-            AttachToBlock(block);
+            AttachToBlock(blockParent, hitCenter);
         }
 
         isDragging = false;
     }
 
-    private bool TryGetNearestBlockCenter(out DragAndScale block, out Vector3 centerPos)
+    private bool TryGetNearestBlockCenter(out DragAndScale blockParent, out Vector3 hitCenter)
     {
-        block = null;
-        centerPos = Vector3.zero;
+        blockParent = null;
+        hitCenter = new Vector3();
 
         var hits = Physics2D.OverlapCircleAll(transform.position, maxSnapDistance, blockLayer);
         if (hits.Length == 0)
@@ -141,36 +149,41 @@ public class PinTriggerCenter : MonoBehaviour
         foreach (var hit in hits)
         {
             var candidate = hit.GetComponentInParent<DragAndScale>();
-            if (candidate == null)
+            if (candidate == null || hit.isTrigger)
             {
                 continue;
             }
 
-            var blockCenter = candidate.transform.position;
+            var blockCenter = hit.transform.position;
             var distSq = (transform.position - blockCenter).sqrMagnitude;
 
             if (distSq < bestDistSq)
             {
                 bestDistSq = distSq;
-                block = candidate;
-                centerPos = blockCenter;
+                blockParent = candidate;
+                hitCenter = blockCenter;
             }
         }
 
-        return block != null;
+        return blockParent != null;
     }
 
-    private void AttachToBlock(DragAndScale block)
+    public void AttachToBlock(DragAndScale blockParent, Vector3 hitCenter)
     {
-        transform.SetParent(block.transform, true);
-        transform.localPosition = new Vector3(0f, 0f, placedLocalZ);
+        transform.SetParent(blockParent.transform, true);
+        transform.position = new Vector3(hitCenter.x, hitCenter.y, placedLocalZ);
         transform.localRotation = originalRotation;
 
         isPlaced = true;
-        lockedBlock = block;
+        lockedBlock = blockParent;
 
         rb.bodyType = RigidbodyType2D.Kinematic;
-        block.LockByPin();
+        blockParent.LockByPin();
+
+        if (placeSound != null)
+        {
+            audioSource.PlayOneShot(placeSound);
+        }
     }
 
     public void DetachFromBlock()
@@ -185,7 +198,7 @@ public class PinTriggerCenter : MonoBehaviour
         transform.SetParent(null, true);
         transform.localRotation = originalRotation;
 
-        transform.position = new Vector3(worldPosBefore.x, worldPosBefore.y, 0f);
+        transform.position = new Vector3(worldPosBefore.x, worldPosBefore.y, worldPosBefore.z);
         transform.localScale = originalScale;
 
         isPlaced = false;
@@ -197,9 +210,9 @@ public class PinTriggerCenter : MonoBehaviour
         }
         lockedBlock = null;
 
-        //if (popSound != null)
-        //{
-        //    audioSource.PlayOneShot(popSound);
-        //}
+        if (popSound != null)
+        {
+            audioSource.PlayOneShot(popSound);
+        }
     }
 }

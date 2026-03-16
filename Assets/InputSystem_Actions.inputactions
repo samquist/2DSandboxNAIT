@@ -88,7 +88,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PointerPosition",
+                    "name": "TouchPosition",
                     "type": "Value",
                     "id": "8feff177-86b8-4ed7-8028-118c7d1fb293",
                     "expectedControlType": "Vector2",
@@ -97,9 +97,27 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "PrimaryContact",
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "b9baac7d-25a5-4e3f-888a-607cd234afcd",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "TouchContact",
                     "type": "Button",
                     "id": "6e44babc-c5d7-4041-99b7-613fea8973ad",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseContact",
+                    "type": "Button",
+                    "id": "e752f279-6759-41dc-9f92-3de08772d9d3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -110,6 +128,15 @@
                     "type": "Value",
                     "id": "03b5620d-6e12-4c76-965a-044a001185d3",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Rotate",
+                    "type": "Value",
+                    "id": "c2b55922-abbc-48ee-bfab-0d5c6e909022",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -504,22 +531,44 @@
                 {
                     "name": "",
                     "id": "2dece40f-3693-4bc1-93f4-c69afb9619d5",
-                    "path": "<Pointer>/position",
+                    "path": "<Touchscreen>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PointerPosition",
+                    "action": "TouchPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e5b24913-41c6-4e36-aac7-e18693a850de",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "7352bb0e-8c65-4543-95a2-799f71934583",
-                    "path": "<Pointer>/press",
+                    "path": "<Touchscreen>/Press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PrimaryContact",
+                    "action": "TouchContact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07719771-f602-4971-8e81-df27bf13463e",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseContact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -533,6 +582,39 @@
                     "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "9715ad6c-2902-40ab-915d-fbb9b569e294",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "9b5f964d-533e-4c20-9b40-e0536c09459d",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "17ae86a4-f9c0-4727-8c8d-618136398ed2",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

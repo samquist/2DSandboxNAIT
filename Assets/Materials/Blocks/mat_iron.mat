@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_iron
   m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
-  m_Parent: {fileID: 2100000, guid: cde563954cbba3b4da79d942363b3208, type: 2}
+  m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
@@ -30,11 +30,90 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
-<<<<<<< Updated upstream
+    - _1st_ShadeMap:
         m_Texture: {fileID: 2800000, guid: 7b1af6b5825869a41b0b4104961b204d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _2nd_ShadeMap:
+        m_Texture: {fileID: 2800000, guid: 7b1af6b5825869a41b0b4104961b204d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AngelRing_Sampler:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AnisotropyMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BakedNormal:
+        m_Texture: {fileID: 2800000, guid: 41f4b2ae13a44b97915ab32682043168, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BentNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BentNormalMapOS:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ClippingMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CoatMaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionVectorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissiveColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emissive_Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HeightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HighColor_Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HighColor_TexSynthesized:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _IridescenceMaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _IridescenceThicknessMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 69db0124201a1014dafd569e7118fa91, type: 3}
+        m_Scale: {x: 3.1, y: 3.05}
+        m_Offset: {x: -0.09, y: -0.03}
     - _MainTexSynthesized:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -52,9 +131,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 1b7556603ae72af45a5b3cbed9b25865, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: c8b0ea93bc54b104aa61a9833840b13f, type: 3}
+        m_Scale: {x: 3.1, y: 3.1}
+        m_Offset: {x: -0.09, y: -0.03}
     - _NormalMapForMatCap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -253,8 +332,8 @@ Material:
     - _Is_LightColor_Outline: 1
     - _Is_LightColor_RimLight: 1
     - _Is_NormalMapForMatCap: 0
-    - _Is_NormalMapToBase: 0
-    - _Is_NormalMapToHighColor: 0
+    - _Is_NormalMapToBase: 1
+    - _Is_NormalMapToHighColor: 1
     - _Is_NormalMapToRimLight: 0
     - _Is_Ortho: 0
     - _Is_OutlineTex: 0
@@ -363,8 +442,8 @@ Material:
     - _Unlit_Intensity: 0.5
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
-    - _Use_1stAs2nd: 0
-    - _Use_BaseAs1st: 0
+    - _Use_1stAs2nd: 1
+    - _Use_BaseAs1st: 1
     - _ZOverDrawMode: 0
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 4
@@ -414,19 +493,5 @@ Material:
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
     - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
     - emissive: {r: 0, g: 0, b: 0, a: 1}
-=======
-        m_Texture: {fileID: 2800000, guid: 69db0124201a1014dafd569e7118fa91, type: 3}
-        m_Scale: {x: 3.1, y: 3.05}
-        m_Offset: {x: -0.09, y: -0.03}
-    - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: c8b0ea93bc54b104aa61a9833840b13f, type: 3}
-        m_Scale: {x: 3.1, y: 3.1}
-        m_Offset: {x: -0.09, y: -0.03}
-    m_Ints: []
-    m_Floats:
-    - _Is_NormalMapToBase: 1
-    - _Is_NormalMapToHighColor: 1
-    m_Colors: []
->>>>>>> Stashed changes
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -6,16 +6,18 @@ TagManager:
   tags:
   - Static
   - ConnectionPoint
+  - Model
+  - DontMoveOnConnect
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Pin Trigger
   - Water
   - UI
-  - Pin Trigger
-  - 
-  - Soft2D
+  - Wheel
+  - Spring
+  - SpringGuide
   - 
   - 
   - 

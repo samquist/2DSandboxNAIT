@@ -111,9 +111,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a74cb7a8e32f2f141bb036f6b4a3e454, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: b94feb7f5d0da9d4f99ba98a75a06075, type: 3}
+        m_Scale: {x: 3.1, y: 3.05}
+        m_Offset: {x: -0.09, y: -0.03}
     - _MainTexSynthesized:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -131,9 +131,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 278e25976ed7d124c83547f3182f6827, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 1c36a942e298cec429607d96ad28d6a2, type: 3}
+        m_Scale: {x: 3.1, y: 3.1}
+        m_Offset: {x: -0.09, y: -0.03}
     - _NormalMapForMatCap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -442,8 +442,8 @@ Material:
     - _Unlit_Intensity: 0.5
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
-    - _Use_1stAs2nd: 0
-    - _Use_BaseAs1st: 0
+    - _Use_1stAs2nd: 1
+    - _Use_BaseAs1st: 1
     - _ZOverDrawMode: 0
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 4
@@ -482,7 +482,7 @@ Material:
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineMaskColor: {r: 0, g: 0, b: 0, a: 1}
     - _Outline_Color: {r: 0, g: 0, b: 0, a: 0}
-    - _RimLightColor: {r: 0.5661765, g: 0.5661765, b: 0.5661765, a: 1}
+    - _RimLightColor: {r: 0.5245282, g: 0.5245282, b: 0.5245282, a: 1}
     - _RimLightMaskColor: {r: 1, g: 0, b: 1, a: 1}
     - _SecondShadeMaskColor: {r: 0, g: 0, b: 1, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
