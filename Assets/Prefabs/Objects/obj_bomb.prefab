@@ -149,6 +149,7 @@ MonoBehaviour:
   forceValue: 20
   holdTimer: 0
   dragAndScale: {fileID: 974360576747281880}
+  scrollStepSize: 0.01
 --- !u!1 &6178603481963717532
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,8 +237,6 @@ MonoBehaviour:
   rotateSpeedTouchDrag: 180
   twistSensitivity: 1.2
   invertTwistDirection: 0
-  rotateLeftKey: 113
-  rotateRightKey: 101
   rotateSpeedKeyboard: 180
 --- !u!1001 &98983728777039958
 PrefabInstance:
@@ -521,3 +520,4 @@ MonoBehaviour:
   forceValue: 20
   holdTimer: 0
   dragAndScale: {fileID: 974360576747281880}
+  scrollStepSize: 0.1

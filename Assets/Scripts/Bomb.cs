@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Bomb : InteractableObject
 {
@@ -20,11 +21,13 @@ public class Bomb : InteractableObject
 
     public float forceValue = 20f;
     [SerializeField] private float holdTimer;
+    private float thresholdTime = 0.15f, thresholdVelocity = 0.25f;
 
     [SerializeField] private DragAndScale dragAndScale;
 
     private Vector3 startPos;
-    private float thresholdTime = 0.15f, thresholdVelocity = 0.25f;
+
+    [SerializeField] private float scrollStepSize = 0.01f;
 
     private void Awake()
     {
@@ -69,9 +72,49 @@ public class Bomb : InteractableObject
         }
     }
 
+    public override void OnPinchBegin()
+    { 
+        dragAndScale.OnPinchBegin(); 
+    }
+
+    public override void OnPinchUpdate(float deltaDistance, float deltaRotationDegrees) 
+    { 
+        dragAndScale.OnPinchUpdate(deltaDistance, deltaRotationDegrees); 
+    }
+
     public override void OnPinchEnd()
     {
-        return;
+        dragAndScale.OnPinchEnd();
+    }
+
+    public override void OnScrollPerformed(InputAction.CallbackContext ctx)
+    {
+        Vector2 scrollDelta = ctx.ReadValue<Vector2>();
+        float scrollY = scrollDelta.y;
+
+        if (Mathf.Abs(scrollY) <= 0.1f)
+            return;
+
+        float direction = Mathf.Sign(scrollY);
+        float scaleDelta = direction * scrollStepSize;
+
+        Vector3 currentScale = dragAndScale.transform.localScale;
+        Vector3 newScale = currentScale + new Vector3(scaleDelta, scaleDelta, scaleDelta);
+
+        newScale.x = Mathf.Clamp(newScale.x, dragAndScale.minScale, dragAndScale.maxScale);
+        newScale.y = newScale.x;
+        newScale.z = newScale.x;
+
+        dragAndScale.transform.localScale = newScale;
+
+        Vector3 currentPosition = dragAndScale.transform.position;
+        Vector3 newPosition = currentPosition + new Vector3(scaleDelta, scaleDelta, 0) / 2f;
+        dragAndScale.transform.position = newPosition;
+
+        if (isPinched)
+        {
+            OnPinchEnd();
+        }
     }
 
     private IEnumerator LightBomb()
@@ -102,7 +145,7 @@ public class Bomb : InteractableObject
             Destroy(explosionParticleEffect.gameObject, explosionParticleEffect.main.duration);
         }
 
-        var hits = Physics2D.OverlapCircleAll(transform.position, effectAreaRadius);
+        var hits = Physics2D.OverlapCircleAll(transform.position, effectAreaRadius * transform.localScale.x);
         foreach (var hit in hits)//gets all rigidbodies within effectAreaRadius
         {
             if (!hit.isTrigger)
@@ -119,7 +162,7 @@ public class Bomb : InteractableObject
                 Vector2 closestPoint = obj.ClosestPoint(new Vector2(transform.position.x, transform.position.y));
                 Vector2 forceVector = (closestPoint - new Vector2(transform.position.x, transform.position.y));
                 float distance = forceVector.magnitude;
-                forceVector = forceVector.normalized / (distance + 0.001f) * forceValue;
+                forceVector = forceVector.normalized * forceValue * transform.localScale.magnitude * transform.localScale.magnitude / (distance + 0.001f);
                 obj.AddForceAtPosition(forceVector, closestPoint, ForceMode2D.Impulse);
                 usedObjs.Add(obj);
             }

@@ -146,6 +146,51 @@ public class TouchDragScaleManager : MonoBehaviour
                 }
             }
         }
+
+        if (currentInteractableObject != null)
+        {
+            if (Touch.activeFingers.Count == 2)
+            {
+                var finger0 = Touch.activeFingers[0].currentTouch;
+                var finger1 = Touch.activeFingers[1].currentTouch;
+
+                Vector2 currPos0 = finger0.screenPosition;
+                Vector2 currPos1 = finger1.screenPosition;
+                float currentDistance = Vector2.Distance(currPos0, currPos1);
+
+                if (!currentInteractableObject.isPinched)
+                {
+                    currentInteractableObject.OnPinchBegin();
+                }
+
+                float deltaDistance = 0f;
+                float deltaRotationDegrees = 0f;
+
+                if (wasTwoFingersPreviousFrame)
+                {
+                    float prevDistance = Vector2.Distance(prevFinger0ScreenPos, prevFinger1ScreenPos);
+                    deltaDistance = currentDistance - prevDistance;
+
+                    Vector2 prevVec = prevFinger1ScreenPos - prevFinger0ScreenPos;
+                    Vector2 currVec = currPos1 - currPos0;
+                    deltaRotationDegrees = Vector2.SignedAngle(prevVec, currVec);
+                }
+
+                currentInteractableObject.OnPinchUpdate(deltaDistance, deltaRotationDegrees);
+
+                prevFinger0ScreenPos = currPos0;
+                prevFinger1ScreenPos = currPos1;
+                wasTwoFingersPreviousFrame = true;
+            }
+            else
+            {
+                wasTwoFingersPreviousFrame = false;
+                if (currentInteractableObject.isPinched)
+                {
+                    currentInteractableObject.OnPinchEnd();
+                }
+            }
+        }
     }
 
     private void OnTouchDown(InputAction.CallbackContext ctx)
@@ -225,6 +270,7 @@ public class TouchDragScaleManager : MonoBehaviour
         if (currentInteractableObject != null)
         {
             currentInteractableObject.OnGrabEnd();
+            currentInteractableObject.OnPinchEnd();
             currentInteractableObject = null;
             return;
         }
@@ -239,7 +285,15 @@ public class TouchDragScaleManager : MonoBehaviour
 
     private void OnScrollPerformed(InputAction.CallbackContext ctx)
     {
-        if (selectedObject == null) return;
+        if (selectedObject == null)
+        {
+
+            if (currentInteractableObject != null)
+            {
+                currentInteractableObject.OnScrollPerformed(ctx);
+            }
+            return;
+        }
 
         Vector2 scrollDelta = ctx.ReadValue<Vector2>();
         float scrollY = scrollDelta.y;

@@ -17,7 +17,7 @@ public class Spring : MonoBehaviour
         springModel.localScale = new Vector3(springModel.localScale.x, forceVector.magnitude / topBlock.localScale.y / LRest, springModel.localScale.x);
         springModel.localPosition = new Vector3(springModel.localPosition.x, -0.55f * springModel.localScale.y, springModel.localPosition.z);
 
-        //RotateObjectsFaceEachOtherY(topBlock, bottomBlock);
+        bottomBlock.localEulerAngles = Vector3.zero;
     }
 
     public float CalculateRestorativeForce(float l)
