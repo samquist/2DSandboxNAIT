@@ -145,7 +145,7 @@ public class Bomb : InteractableObject
             Destroy(explosionParticleEffect.gameObject, explosionParticleEffect.main.duration);
         }
 
-        var hits = Physics2D.OverlapCircleAll(transform.position, effectAreaRadius * transform.localScale.x);
+        var hits = Physics2D.OverlapCircleAll(transform.position, effectAreaRadius * transform.lossyScale.x);
         foreach (var hit in hits)//gets all rigidbodies within effectAreaRadius
         {
             if (!hit.isTrigger)
@@ -162,7 +162,7 @@ public class Bomb : InteractableObject
                 Vector2 closestPoint = obj.ClosestPoint(new Vector2(transform.position.x, transform.position.y));
                 Vector2 forceVector = (closestPoint - new Vector2(transform.position.x, transform.position.y));
                 float distance = forceVector.magnitude;
-                forceVector = forceVector.normalized * forceValue * transform.localScale.magnitude * transform.localScale.magnitude / (distance + 0.001f);
+                forceVector = forceVector.normalized * forceValue * transform.lossyScale.magnitude * transform.lossyScale.magnitude / (distance + 0.001f);
                 obj.AddForceAtPosition(forceVector, closestPoint, ForceMode2D.Impulse);
                 usedObjs.Add(obj);
             }

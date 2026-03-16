@@ -4829,7 +4829,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 105568571419659760, guid: fe0109a26b9d60d4683f08347b8c2470, type: 3}
       propertyPath: m_ColliderMask.m_Bits
-      value: 55
+      value: 183
       objectReference: {fileID: 0}
     - target: {fileID: 749119794544228024, guid: fe0109a26b9d60d4683f08347b8c2470, type: 3}
       propertyPath: m_LocalPosition.x
