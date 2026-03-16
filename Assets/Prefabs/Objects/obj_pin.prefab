@@ -59,8 +59,6 @@ MonoBehaviour:
   rotateSpeedTouchDrag: 180
   twistSensitivity: 1.2
   invertTwistDirection: 0
-  rotateLeftKey: 113
-  rotateRightKey: 101
   rotateSpeedKeyboard: 180
 --- !u!50 &7321671690941756964
 Rigidbody2D:
@@ -255,7 +253,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 385
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
