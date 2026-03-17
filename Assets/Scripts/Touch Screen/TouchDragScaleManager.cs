@@ -303,8 +303,20 @@ public class TouchDragScaleManager : MonoBehaviour
         float direction = Mathf.Sign(scrollY);
         float scaleDelta = direction * scrollStepSize;
 
+        float scaleFactor = (selectedObject.transform.localScale.x + scaleDelta) / selectedObject.transform.localScale.x;
+        if (scaleFactor * selectedObject.highestScale > selectedObject.maxScale)
+        {
+            scaleFactor = selectedObject.maxScale / selectedObject.highestScale;
+        }
+        else if (scaleFactor * selectedObject.lowestScale < selectedObject.minScale)
+        {
+            scaleFactor = selectedObject.minScale / selectedObject.lowestScale;
+        }
+
         Vector3 currentScale = selectedObject.transform.localScale;
-        Vector3 newScale = currentScale + new Vector3(scaleDelta, scaleDelta, scaleDelta);
+        Vector3 newScale = currentScale * scaleFactor;
+        selectedObject.highestScale *= scaleFactor;
+        selectedObject.lowestScale *= scaleFactor;
 
         newScale.x = Mathf.Clamp(newScale.x, selectedObject.minScale, selectedObject.maxScale);
         newScale.y = newScale.x;
