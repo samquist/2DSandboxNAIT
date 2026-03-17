@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7300920975053364832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2044588209333523130}
+  - component: {fileID: 4379366905234790681}
+  - component: {fileID: 3860441641986804786}
+  m_Layer: 0
+  m_Name: Zibra Liquid Analytic Collider Box
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2044588209333523130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7300920975053364832}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 515979681039233562}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4379366905234790681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7300920975053364832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12e1948b31becfb4a9cc7647516c70e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZibraAI.ZibraEffects::com.zibra.common.SDFObjects.AnalyticSDF
+  InvertSDF: 0
+  SurfaceDistance: 0
+  ChosenSDFType: 1
+--- !u!114 &3860441641986804786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7300920975053364832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa33ef4a18052b40b7b1ccd35d822a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Manipulators.ZibraLiquidCollider
+  CurrentInteractionMode: 0
+  ParticleSpecies: 0
+  Friction: 0
+  ForceInteraction: 0
+  ForceInteractionCallback:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7473017395274714033
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,6 +121,12 @@ MonoBehaviour:
   maxPosition: 0.25
   isDragged: 0
   isPinched: 0
+  longPressDuration: 0.55
+  rotateDeadZonePixels: 20
+  rotateSpeedTouchDrag: 180
+  twistSensitivity: 1.2
+  invertTwistDirection: 0
+  rotateSpeedKeyboard: 180
 --- !u!50 &6594666811761716645
 Rigidbody2D:
   serializedVersion: 5
@@ -132,14 +205,17 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 5e4ce2af2b2160346b398e36d684c0e9, type: 2}
+      objectReference: {fileID: 2100000, guid: 9747555612697b140aabadb7bf24c6ca, type: 2}
     - target: {fileID: 919132149155446097, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_Name
       value: mod_rect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2044588209333523130}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       insertIndex: 1
@@ -228,7 +304,7 @@ AudioSource:
   m_GameObject: {fileID: 892539995525081248}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2458310100724175795, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
+  OutputAudioMixerGroup: {fileID: 4381035048968147484, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: a54ef37d36f4bd74f8c61d5913d2dc0a, type: 3}
   m_PlayOnAwake: 1

@@ -30,7 +30,7 @@ public class DragAndScale : MonoBehaviour
     [Tooltip("Deadzone, how still finger needs to be to trigger rotate")]
     [SerializeField] private float rotateDeadZonePixels = 20f;
 
-    [Tooltip("Rotation speed when rotating")]
+    [Tooltip("Rotation speed for Touch")]
     [SerializeField] private float rotateSpeedTouchDrag = 180f;
 
     [Tooltip("Rotation speed for two-finger twist gesture")] //Hopefully works
