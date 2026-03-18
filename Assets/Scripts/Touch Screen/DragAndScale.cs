@@ -14,6 +14,7 @@ public class DragAndScale : MonoBehaviour
     [SerializeField] public float maxScale = 5f;
     [SerializeField] public float minPosition = 0.025f;
     [SerializeField] public float maxPosition = 0.25f;
+    [HideInInspector] public float lowestScale, highestScale;
 
     [Header("Drag & Scale Bools")]
     public bool isDragged;
@@ -60,6 +61,9 @@ public class DragAndScale : MonoBehaviour
         mainCam = Camera.main;
         rb = GetComponent<Rigidbody2D>();
         AddAllConnectionPoints();
+
+        lowestScale = transform.localScale.x;
+        highestScale = transform.localScale.x;
     }
 
     public void AddAllConnectionPoints()
@@ -179,7 +183,18 @@ public class DragAndScale : MonoBehaviour
 
         // Scale
         float scaleFactor = 1f + deltaDistance * 0.015f;
+        if (scaleFactor * highestScale > maxScale)
+        {
+            scaleFactor = maxScale / highestScale;
+        }
+        else if (scaleFactor * lowestScale < minScale)
+        {
+            scaleFactor = minScale / lowestScale;
+        }
+
         Vector3 newScale = transform.localScale * scaleFactor;
+        highestScale *= scaleFactor;
+        lowestScale *= scaleFactor;
         newScale.x = Mathf.Clamp(newScale.x, minScale, maxScale);
         newScale.y = newScale.x;
         newScale.z = newScale.x;

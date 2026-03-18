@@ -21,7 +21,7 @@ public class ConnectionPoint : MonoBehaviour
             SetRelativeAngle();
     }
 
-    public void Connect()//called by Drag & Pinch
+    public void Connect()//called by Drag & Scale
     {
         Snap();
 
@@ -58,18 +58,27 @@ public class ConnectionPoint : MonoBehaviour
 
     public void ConnectObjects()//set all objects with a non-trigger collider inside the other object to be parented to this object
     {
-        Transform OtherParent = toConnectTo.transform.parent.parent;
+        Transform otherParent = toConnectTo.transform.parent.parent;
         Transform thisParent = transform.parent.parent;
+        DragAndScale thisDrag = thisParent.GetComponent<DragAndScale>();
+        DragAndScale otherDrag = otherParent.GetComponent<DragAndScale>();
 
-        foreach (var ob in OtherParent.GetComponentsInChildren<Collider2D>())
+        if (thisDrag != null && otherDrag != null)
         {
-            if (!ob.isTrigger && !ob.gameObject.CompareTag("DontMoveOnConnect"))
+            thisDrag.lowestScale = Mathf.Min(thisDrag.lowestScale, otherDrag.lowestScale);
+            thisDrag.highestScale = Mathf.Max(thisDrag.highestScale, otherDrag.highestScale);
+            thisDrag.GetComponent<Rigidbody2D>().mass += otherDrag.GetComponent<Rigidbody2D>().mass;
+
+            foreach (var ob in otherParent.GetComponentsInChildren<Collider2D>())
             {
-                ob.transform.SetParent(thisParent);
+                if (!ob.isTrigger && !ob.gameObject.CompareTag("DontMoveOnConnect"))
+                {
+                    ob.transform.SetParent(thisParent);
+                }
             }
         }
 
-        Destroy(OtherParent.gameObject);
+        Destroy(otherParent.gameObject);
     }
 
     public void LockConnection()
@@ -120,7 +129,6 @@ public class ConnectionPoint : MonoBehaviour
     {
         UnHighlightAllConnections();
         toConnectTo = other;
-        Debug.Log($"Highlighting Connection - {gameObject.name}");
         //highlight the connection point and a line between the two points?
         GetComponentInChildren<SpriteRenderer>().color = highlightedColor;
         if (transform.parent.parent.GetComponent<DragAndScale>().isDragged)
@@ -133,7 +141,6 @@ public class ConnectionPoint : MonoBehaviour
     public void UnHighlightConnection()
     {
         toConnectTo = null;
-        Debug.Log($"Unhighlighting Connection - {gameObject.name}");
         //unhighlight the connection point and line between the two points?
         GetComponentInChildren<SpriteRenderer>().color = regularColor;
         Destroy(connectionLine);
