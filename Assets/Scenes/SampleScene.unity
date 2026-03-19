@@ -1759,7 +1759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &968986930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1922,7 +1922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6ee375c01c3754092bcd25096894ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Solver.ZibraLiquid
-  MaxNumParticles: 4999999
+  MaxNumParticles: 499999
   EnableDownscale: 0
   DownscaleFactor: 0.5
   InitialState: 0
@@ -1934,7 +1934,7 @@ MonoBehaviour:
   MaxFramesInFlight: 3
   SimulationTimeScale: 40
   SimulationIterationsPerFrame: 1
-  GridResolution: 240
+  GridResolution: 128
   RunSimulation: 1
   RunRendering: 1
   EnableContainerMovementFeedback: 1
