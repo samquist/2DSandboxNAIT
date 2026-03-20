@@ -33,15 +33,13 @@ public class DragAndScale : MonoBehaviour
     [Tooltip("Rotation speed for Touch")]
     [SerializeField] private float rotateSpeedTouchDrag = 180f;
 
-    [Tooltip("Rotation speed for two-finger twist gesture")] //Hopefully works
+    [Tooltip("Rotation speed for two-finger twist gesture")]
     [SerializeField] private float twistSensitivity = 1.2f;
 
-    [Tooltip("Invert twist direction")] // Depending which way feels better
+    [Tooltip("Invert twist direction")]
     [SerializeField] private bool invertTwistDirection = false;
 
     [Header("PC Keyboard Rotation")]
-    private KeyCode rotateLeftKey = KeyCode.Q;
-    private KeyCode rotateRightKey = KeyCode.E;
     [SerializeField] private float rotateSpeedKeyboard = 180f;
 
     private Camera mainCam;
@@ -55,6 +53,8 @@ public class DragAndScale : MonoBehaviour
     private bool isRotateMode;
     private float longPressTimer;
     private Vector2 longPressStartScreenPos;
+
+    private bool hasExceededDeadZone;
 
     private void Awake()
     {
@@ -95,6 +95,7 @@ public class DragAndScale : MonoBehaviour
         isRotateMode = false;
         longPressTimer = 0f;
         longPressStartScreenPos = screenPos;
+        hasExceededDeadZone = false;
     }
 
     public void OnGrabUpdate(Vector2 screenPos)
@@ -118,9 +119,16 @@ public class DragAndScale : MonoBehaviour
             transform.position = targetPos;
 
             float screenDistMoved = Vector2.Distance(screenPos, longPressStartScreenPos);
-            if (longPressTimer >= longPressDuration && screenDistMoved < rotateDeadZonePixels)
+
+            if (screenDistMoved >= rotateDeadZonePixels)
+            {
+                hasExceededDeadZone = true;
+            }
+
+            if (longPressTimer >= longPressDuration && !hasExceededDeadZone)
             {
                 isRotateMode = true;
+                longPressStartScreenPos = screenPos;
             }
 
             Vector3 worldDelta = targetPos - lastWorldPos;
@@ -139,6 +147,7 @@ public class DragAndScale : MonoBehaviour
         isDragged = false;
         isRotateMode = false;
         longPressTimer = 0f;
+        hasExceededDeadZone = false;
 
         if (isLockedByPin)
         {
@@ -241,11 +250,11 @@ public class DragAndScale : MonoBehaviour
     {
         if (!isDragged) return;
 
-        if (Input.GetKey(rotateLeftKey))
+        if (Input.GetKey(KeyCode.Q))
         {
             transform.Rotate(0f, 0f, rotateSpeedKeyboard * Time.deltaTime, Space.Self);
         }
-        if (Input.GetKey(rotateRightKey))
+        if (Input.GetKey(KeyCode.E))
         {
             transform.Rotate(0f, 0f, -rotateSpeedKeyboard * Time.deltaTime, Space.Self);
         }
