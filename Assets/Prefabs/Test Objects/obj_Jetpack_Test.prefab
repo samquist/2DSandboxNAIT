@@ -52,6 +52,8 @@ MonoBehaviour:
   maxScale: 5
   minPosition: 0.025
   maxPosition: 0.25
+  lowestScale: 0
+  highestScale: 0
   isDragged: 0
   isPinched: 0
   longPressDuration: 0.55
@@ -255,9 +257,6 @@ PrefabInstance:
       addedObject: {fileID: 1551693371287248298}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 06140506d9bce5049b05e55ef2091d22, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6834566038205467877}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 06140506d9bce5049b05e55ef2091d22, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3782460924660233811}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 06140506d9bce5049b05e55ef2091d22, type: 3}
       insertIndex: -1
@@ -299,18 +298,6 @@ MonoBehaviour:
   flameEffect: {fileID: 4854979216914782962}
   maxTapMovementDistance: 0.45
   maxTapDuration: 0.28
---- !u!114 &6834566038205467877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220617097231677002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d958e03795efae4e8cc603dd21d92f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioOnCollision
 --- !u!50 &3782460924660233811
 Rigidbody2D:
   serializedVersion: 5
