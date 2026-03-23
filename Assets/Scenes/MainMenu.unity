@@ -696,26 +696,37 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Nathan Footz - Programmer
+  m_text: '-Programming-
 
-    Justyn Fontaine - Programmer
+    Nathan Footz
+
+    Justyn Fontaine
+
+
+    -Design & Art-
+
+    Zoe
+    Hay
+
+    Jacob Sacrey
 
     Sam Quist
-    - Game Designer
 
-    Jacob Sacrey - Game Designer
+    Paul Blaine
 
-    Zoe Hay - Lead Artist
-    / Designer
 
-    Paul Blaine - Artist / Designer
+    Audio - MingYu Xia
 
-    MingYu Xia - Audio Designer
+    Business
+    Analyst - Asma Mohamud
 
-    Asma
-    Mohamud - Business Analyst
+    Product Owner - John Winski
 
-    John Winski - Product Owner'
+
+    Kevin Iglesias
+    - Ragdoll model
+
+    Zibra AI - Zibra Liquid'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac512547107ba2d4293c5cd80c275809, type: 2}
   m_sharedMaterial: {fileID: 7771177551140725715, guid: ac512547107ba2d4293c5cd80c275809, type: 2}
@@ -742,8 +753,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52
-  m_fontSizeBase: 52
+  m_fontSize: 38
+  m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
