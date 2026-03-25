@@ -147,6 +147,8 @@ MonoBehaviour:
   maxScale: 5
   minPosition: 0.025
   maxPosition: 0.25
+  lowestScale: 0
+  highestScale: 0
   isDragged: 0
   isPinched: 0
   longPressDuration: 0.55
