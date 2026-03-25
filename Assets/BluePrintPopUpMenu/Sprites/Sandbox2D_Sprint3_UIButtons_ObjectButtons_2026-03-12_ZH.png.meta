@@ -1,0 +1,809 @@
+fileFormatVersion: 2
+guid: 7e974a298a48e4446b21c3dea2458dd9
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_0
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 2666
+        width: 421
+        height: 441
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a9978483d2ed31449920b441d012077
+      internalID: -52085348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_1
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 2671
+        width: 420
+        height: 438
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44c503cf542e6a94c88e2951795a3287
+      internalID: -1972965206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_2
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 2733
+        width: 386
+        height: 389
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2619b33a89fd20419a377f149eda2ca
+      internalID: 1561953130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_3
+      rect:
+        serializedVersion: 2
+        x: 2028
+        y: 2733
+        width: 384
+        height: 389
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6a853c6deaf4c449a6f1ed27145848a
+      internalID: -867217399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_4
+      rect:
+        serializedVersion: 2
+        x: 2678
+        y: 2733
+        width: 175
+        height: 391
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44d9a8e2d92a7ef4ca042ffdacd2b7ef
+      internalID: -1903297809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_5
+      rect:
+        serializedVersion: 2
+        x: 2967
+        y: 2704
+        width: 174
+        height: 391
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eed5f39d1079ba4884e277f45a812ef
+      internalID: -1797644221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_6
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 2168
+        width: 538
+        height: 366
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fdfc54ca1a685b4bbbc442ba9e6f954
+      internalID: -1044867361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_7
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 2171
+        width: 538
+        height: 363
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09d7bda2c0eb3f5439c0edb79bf29f07
+      internalID: -680337910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_8
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 2203
+        width: 386
+        height: 383
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d304b93587e20e45b920304ad56475a
+      internalID: 15805469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_9
+      rect:
+        serializedVersion: 2
+        x: 2026
+        y: 2213
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c7ad45bdc3398040af3001c3f3ff479
+      internalID: -1289909677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_10
+      rect:
+        serializedVersion: 2
+        x: 2706
+        y: 2248
+        width: 171
+        height: 391
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cc57ebc0a70f0b4f8945422d6f00987
+      internalID: 281519476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_11
+      rect:
+        serializedVersion: 2
+        x: 3004
+        y: 2248
+        width: 175
+        height: 391
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 698adaa2b20789244958bbdfec29c3a5
+      internalID: -348446545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_12
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 1364
+        width: 436
+        height: 518
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e76ca1c725346d9459d9046a8eea670c
+      internalID: 1068984341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_13
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 1367
+        width: 433
+        height: 517
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b1b675aff30e334abce94431ada6180
+      internalID: 439138343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_14
+      rect:
+        serializedVersion: 2
+        x: 1463
+        y: 1433
+        width: 416
+        height: 461
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3b23eae68a8a794ab0ae7fc3c424f91
+      internalID: 1759081883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_15
+      rect:
+        serializedVersion: 2
+        x: 1921
+        y: 1433
+        width: 416
+        height: 461
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bede8c87cd361374b98647b14f56605e
+      internalID: -1387015064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_16
+      rect:
+        serializedVersion: 2
+        x: 2544
+        y: 1453
+        width: 342
+        height: 421
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1232bd8f5030e484aa7da5aa7c7a919f
+      internalID: -1266140931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_17
+      rect:
+        serializedVersion: 2
+        x: 2895
+        y: 1457
+        width: 341
+        height: 422
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d77887ce409fdf4fa13b72a2f44aa84
+      internalID: 1739748225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_18
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 681
+        width: 466
+        height: 426
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c627bd2f982a5a34cbd0fdc28b1b8dcf
+      internalID: 1259215825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_19
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 681
+        width: 465
+        height: 426
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74774ad3aac2a2b46b4b92298b01e38c
+      internalID: -819939977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_20
+      rect:
+        serializedVersion: 2
+        x: 1515
+        y: 741
+        width: 401
+        height: 483
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df1760a1913fc2f4ba13139a8d828f16
+      internalID: -1058728777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_21
+      rect:
+        serializedVersion: 2
+        x: 1981
+        y: 741
+        width: 401
+        height: 483
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a31ccf78e5c88874cad89c532de4b104
+      internalID: 1054771970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_22
+      rect:
+        serializedVersion: 2
+        x: 2544
+        y: 741
+        width: 398
+        height: 483
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6297713faa5a71646be6709e316a94c3
+      internalID: -1969243191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_23
+      rect:
+        serializedVersion: 2
+        x: 3005
+        y: 741
+        width: 400
+        height: 483
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09e32c44c175ed445af5583faa9d4cc8
+      internalID: 1229955599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_24
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 118
+        width: 613
+        height: 404
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1ec52e4a0606e6498c561179c3d0087
+      internalID: 1013430744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_25
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 118
+        width: 612
+        height: 404
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 914ec3fd9d92cc641ab9e07de0866d66
+      internalID: 1197820647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_26
+      rect:
+        serializedVersion: 2
+        x: 1602
+        y: 111
+        width: 613
+        height: 403
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 269adecdc7db1ec428e98c69bdb337d9
+      internalID: -439729145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_27
+      rect:
+        serializedVersion: 2
+        x: 2280
+        y: 106
+        width: 612
+        height: 403
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df47fe75547875c46a8928e7c369729d
+      internalID: 1223345534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_28
+      rect:
+        serializedVersion: 2
+        x: 3119
+        y: 83
+        width: 249
+        height: 396
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3059a9612417ea4883ffcb42e89fa00
+      internalID: -419783916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_29
+      rect:
+        serializedVersion: 2
+        x: 3458
+        y: 83
+        width: 251
+        height: 396
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 560894a08289e2c4b8104fa9f9ec19d3
+      internalID: -278056839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d4c495a67d8d4c641bb1250714919642
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_0: -52085348
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_1: -1972965206
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_10: 281519476
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_11: -348446545
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_12: 1068984341
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_13: 439138343
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_14: 1759081883
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_15: -1387015064
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_16: -1266140931
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_17: 1739748225
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_18: 1259215825
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_19: -819939977
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_2: 1561953130
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_20: -1058728777
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_21: 1054771970
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_22: -1969243191
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_23: 1229955599
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_24: 1013430744
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_25: 1197820647
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_26: -439729145
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_27: 1223345534
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_28: -419783916
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_29: -278056839
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_3: -867217399
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_4: -1903297809
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_5: -1797644221
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_6: -1044867361
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_7: -680337910
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_8: 15805469
+      Sandbox2D_Sprint3_UIButtons_ObjectButtons_2026-03-12_ZH_9: -1289909677
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

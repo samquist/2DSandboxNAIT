@@ -91,7 +91,7 @@ public class Jetpack : InteractableObject
         }
     }
 
-    private void OnScrollPerformed(InputAction.CallbackContext ctx)
+    public override void OnScrollPerformed(InputAction.CallbackContext ctx)
     {
         if (!isDragging && !isPlaced) return;
 
