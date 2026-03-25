@@ -333,4 +333,18 @@ public class TouchDragScaleManager : MonoBehaviour
             selectedObject.OnPinchEnd();
         }
     }
+
+    public void LoadObjectOnPointer(GameObject obj)
+    {
+        if (selectedObject != null || currentInteractableObject != null) return;
+
+        Vector2 screenPos = isUsingTouch
+            ? touchPosition?.ReadValue<Vector2>() ?? Vector2.zero
+            : mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
+            
+        obj.transform.position = new Vector3(screenPos.x, screenPos.y, 0);
+        obj.SetActive(true);
+
+        OnPrimaryDown(screenPos);
+    }
 }
