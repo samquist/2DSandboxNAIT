@@ -24,15 +24,6 @@ public class DragAndScale : MonoBehaviour
     public bool isLockedByPin { get; private set; } = false;
 
     [Header("Rotation Controls")]
-    [Tooltip("Time to hold finger still to trigger rotate")]
-    [SerializeField] private float longPressDuration = 0.55f;
-
-    [Tooltip("Deadzone, how still finger needs to be to trigger rotate")]
-    [SerializeField] private float rotateDeadZonePixels = 20f;
-
-    [Tooltip("Rotation speed for Touch")]
-    [SerializeField] private float rotateSpeedTouchDrag = 180f;
-
     [Tooltip("Rotation speed for two-finger twist gesture")]
     [SerializeField] private float twistSensitivity = 1.2f;
 
@@ -49,12 +40,6 @@ public class DragAndScale : MonoBehaviour
     private Vector3 lastWorldPos;
     private Vector2 smoothedVelocity;
     private List<ConnectionPoint> connectionPoints;
-
-    private bool isRotateMode;
-    private float longPressTimer;
-    private Vector2 longPressStartScreenPos;
-
-    private bool hasExceededDeadZone;
 
     private void Awake()
     {
@@ -91,53 +76,24 @@ public class DragAndScale : MonoBehaviour
 
         lastWorldPos = transform.position;
         smoothedVelocity = Vector2.zero;
-
-        isRotateMode = false;
-        longPressTimer = 0f;
-        longPressStartScreenPos = screenPos;
-        hasExceededDeadZone = false;
     }
 
     public void OnGrabUpdate(Vector2 screenPos)
     {
         if (!isDragged) return;
 
-        longPressTimer += Time.deltaTime;
-
         Vector3 pointerWorld = mainCam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, grabDepth));
         Vector3 targetPos = pointerWorld + offset;
         targetPos.z = transform.position.z;
 
-        if (isRotateMode)
-        {
-            float deltaX = screenPos.x - longPressStartScreenPos.x;
-            float rotationThisFrame = deltaX * rotateSpeedTouchDrag * Time.deltaTime / Screen.width * 100f;
-            transform.Rotate(0f, 0f, -rotationThisFrame, Space.Self);
-        }
-        else
-        {
-            transform.position = targetPos;
+        transform.position = targetPos;
 
-            float screenDistMoved = Vector2.Distance(screenPos, longPressStartScreenPos);
+        Vector3 worldDelta = targetPos - lastWorldPos;
+        float dt = Time.deltaTime > 0f ? Time.deltaTime : 0.016f;
+        Vector2 rawVelocity = new Vector2(worldDelta.x, worldDelta.y) / dt;
+        smoothedVelocity = Vector2.Lerp(smoothedVelocity, rawVelocity, velocitySmoothing * dt);
 
-            if (screenDistMoved >= rotateDeadZonePixels)
-            {
-                hasExceededDeadZone = true;
-            }
-
-            if (longPressTimer >= longPressDuration && !hasExceededDeadZone)
-            {
-                isRotateMode = true;
-                longPressStartScreenPos = screenPos;
-            }
-
-            Vector3 worldDelta = targetPos - lastWorldPos;
-            float dt = Time.deltaTime > 0f ? Time.deltaTime : 0.016f;
-            Vector2 rawVelocity = new Vector2(worldDelta.x, worldDelta.y) / dt;
-            smoothedVelocity = Vector2.Lerp(smoothedVelocity, rawVelocity, velocitySmoothing * dt);
-
-            lastWorldPos = targetPos;
-        }
+        lastWorldPos = targetPos;
     }
 
     public void OnGrabEnd()
@@ -145,9 +101,6 @@ public class DragAndScale : MonoBehaviour
         if (!isDragged) return;
 
         isDragged = false;
-        isRotateMode = false;
-        longPressTimer = 0f;
-        hasExceededDeadZone = false;
 
         if (isLockedByPin)
         {
@@ -204,6 +157,7 @@ public class DragAndScale : MonoBehaviour
         Vector3 newScale = transform.localScale * scaleFactor;
         highestScale *= scaleFactor;
         lowestScale *= scaleFactor;
+
         newScale.x = Mathf.Clamp(newScale.x, minScale, maxScale);
         newScale.y = newScale.x;
         newScale.z = newScale.x;
@@ -248,15 +202,16 @@ public class DragAndScale : MonoBehaviour
 
     private void Update()
     {
-        if (!isDragged) return;
-
-        if (Input.GetKey(KeyCode.Q))
+        if (isDragged && !isLockedByPin)
         {
-            transform.Rotate(0f, 0f, rotateSpeedKeyboard * Time.deltaTime, Space.Self);
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            transform.Rotate(0f, 0f, -rotateSpeedKeyboard * Time.deltaTime, Space.Self);
+            if (Input.GetKey(KeyCode.Q))
+            {
+                transform.Rotate(0f, 0f, rotateSpeedKeyboard * Time.deltaTime, Space.Self);
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                transform.Rotate(0f, 0f, -rotateSpeedKeyboard * Time.deltaTime, Space.Self);
+            }
         }
     }
 }
