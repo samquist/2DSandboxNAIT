@@ -28,7 +28,6 @@ public class ConnectionPoint : MonoBehaviour
         ConnectObjects();
 
         CheckForPin();
-        CheckForSpring();
 
         LockConnection();
         connectedTo.LockConnection();
@@ -44,15 +43,6 @@ public class ConnectionPoint : MonoBehaviour
             pin.transform.SetParent(transform.parent.parent, true);
             pin.lockedBlock = transform.parent.parent.GetComponent<DragAndScale>();
             transform.parent.parent.GetComponent<DragAndScale>().LockByPin();
-        }
-    }
-
-    public void CheckForSpring()
-    {
-        Spring spring = transform.parent.parent.GetComponentInChildren<Spring>();
-        if (spring != null)
-        {
-            spring.topRB = transform.parent.parent.GetComponent<Rigidbody2D>();
         }
     }
 

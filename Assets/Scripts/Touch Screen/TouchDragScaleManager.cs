@@ -334,17 +334,25 @@ public class TouchDragScaleManager : MonoBehaviour
         }
     }
 
-    public void LoadObjectOnPointer(GameObject obj)
+    public void LoadObjectOnPointer(GameObject fullObj)
     {
         if (selectedObject != null || currentInteractableObject != null) return;
+
+        if (fullObj == null)
+        {
+            Debug.Log("No object could be loaded");
+            return;
+        }
 
         Vector2 screenPos = isUsingTouch
             ? touchPosition?.ReadValue<Vector2>() ?? Vector2.zero
             : mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
-            
-        obj.transform.position = new Vector3(screenPos.x, screenPos.y, 0);
-        obj.SetActive(true);
 
-        OnPrimaryDown(screenPos);
+        Vector3 pointerWorld = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 10));
+
+        fullObj.transform.position = new Vector3(pointerWorld.x, pointerWorld.y, 0);
+        fullObj.SetActive(true);
+
+        //OnPrimaryDown(screenPos);
     }
 }

@@ -9,11 +9,10 @@ public class Bomb : InteractableObject
     [SerializeField] private ParticleSystem explosionParticleEffect;
     
     [Header("Audio")]
-    [SerializeField] private AudioClip lightSound;
     [SerializeField] private AudioClip fuseSound;
     [SerializeField] private AudioClip boomSound;
 
-    private List<Rigidbody2D> objsWithinRange = new List<Rigidbody2D>();
+    private List<Rigidbody2D> objsWithinRange;
 
     private Rigidbody2D rb;
     [SerializeField] private float effectAreaRadius;
@@ -23,24 +22,28 @@ public class Bomb : InteractableObject
     [SerializeField] private float holdTimer;
     private float thresholdTime = 0.15f, thresholdVelocity = 0.25f;
 
-    [SerializeField] private DragAndScale dragAndScale;
-
-    private Vector3 startPos;
+    private DragAndScale dragAndScale;
 
     [SerializeField] private float scrollStepSize = 0.01f;
 
     private void Awake()
     {
         rb = GetComponentInParent<Rigidbody2D>();
+        dragAndScale = GetComponentInParent<DragAndScale>();
 
         audioSource = GetComponent<AudioSource>();
+        objsWithinRange = new List<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        Awake();
     }
 
     public override void OnGrabBegin(Vector2 screenPos)
     {
         dragAndScale.OnGrabBegin(screenPos);
 
-        startPos = transform.position;
         isDragging = true;
         holdTimer = 0f;
     }
@@ -119,12 +122,9 @@ public class Bomb : InteractableObject
 
     private IEnumerator LightBomb()
     {
-        //audioSource.Stop();
-        //audioSource.clip = fuseSound;
-        //audioSource.loop = false;
-        //audioSource.Play();
-        //yield return new WaitForSeconds(fuseSound.length);
-        yield return new WaitForSeconds(1);
+        PlaySound(fuseSound);
+        yield return new WaitForSeconds(fuseSound.length);
+        //yield return new WaitForSeconds(1);
         StartCoroutine(Explode());
     }
 
@@ -168,18 +168,57 @@ public class Bomb : InteractableObject
             }
         }
 
-        GetComponent<Collider2D>().enabled = false;
-        foreach (var obj in GetComponentsInChildren<MeshRenderer>())
+        DisableBomb();
+        
+        PlaySound(boomSound);
+        yield return new WaitForSeconds(boomSound.length);
+        //yield return new WaitForSeconds(1);
+
+        ResetBomb();
+    }
+
+    private void DisableBomb()
+    {
+        //remove all attached objects
+        PinTriggerCenter pin = transform.parent.GetComponentInChildren<PinTriggerCenter>();
+        if (pin != null)
+        {
+            pin.DetachFromBlock();
+        }
+
+        Jetpack jet = transform.parent.GetComponentInChildren<Jetpack>();
+        if (jet != null)
+        {
+            jet.DetachFromBlock();
+        }
+
+        foreach (var obj in GetComponentsInChildren<MeshRenderer>())//disable all bomb meshes
         {
             obj.enabled = false;
         }
-        //audioSource.Stop();
-        //audioSource.clip = boomSound;
-        //audioSource.loop = false;
-        //audioSource.Play();
-        //yield return new WaitForSeconds(boomSound.length);
-        yield return new WaitForSeconds(1);
+        GetComponent<Collider2D>().enabled = false;
 
-        Destroy(transform.parent.gameObject);
+        Transform parent = transform.parent;
+        transform.parent = null;
+        Destroy(parent.gameObject);
+    }
+
+    private void ResetBomb()
+    {
+        gameObject.SetActive(false);
+        foreach (var obj in GetComponentsInChildren<MeshRenderer>())//re-enable all bomb meshes
+        {
+            obj.enabled = true;
+        }
+        audioSource.clip = null;
+        GetComponent<Collider2D>().enabled = true;
+    }
+
+    public void PlaySound(AudioClip sound, bool shouldLoop = false)
+    {
+        audioSource.Stop();
+        audioSource.clip = sound;
+        audioSource.loop = shouldLoop;
+        audioSource.Play();
     }
 }

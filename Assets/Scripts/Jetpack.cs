@@ -283,4 +283,23 @@ public class Jetpack : InteractableObject
 
         loopStartCoroutine = null;
     }
+
+    public void DetachFromBlock()
+    {
+        if (!isPlaced)
+        {
+            return;
+        }
+
+        var worldPosBefore = transform.position;
+
+        transform.SetParent(null, true);
+
+        transform.position = new Vector3(worldPosBefore.x, worldPosBefore.y, worldPosBefore.z);
+
+        isPlaced = false;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+
+        lockedBlock = null;
+    }
 }

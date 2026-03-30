@@ -100,7 +100,7 @@ PrefabInstance:
     - target: {fileID: -599921668195307679, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: fdd581d7187a163419e7e878e237fe24, type: 2}
+      objectReference: {fileID: 2100000, guid: 4922196d4da97324fbe6d887d9466bf7, type: 2}
     - target: {fileID: 100000, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: m_Name
       value: mod_pin

@@ -9,9 +9,11 @@ public class SpawnManager : MonoBehaviour
     public ObjectMaterial material = ObjectMaterial.METAL;
     public TMP_Text materialText;
     public TouchDragScaleManager dragManager;
+    public GameObject prefabParent;
 
     [Header("Object Pools")]
-    public GameObject[] cubes, rectangles, triangles, spheres, wheels, conveyors, rockets, springs, pins, bombs;
+
+    public Collider2D[] cubes, rectangles, triangles, spheres, wheels, conveyors, rockets, springs, pins, bombs;
 
     private void Awake()
     {
@@ -26,7 +28,7 @@ public class SpawnManager : MonoBehaviour
     public void SpawnObject(string objName)
     {
         ObjectType type;
-        if (!Enum.TryParse(objName, out type))
+        if (!Enum.TryParse(objName.ToUpper(), out type))
         {
             return;
         }
@@ -34,22 +36,64 @@ public class SpawnManager : MonoBehaviour
         switch (type)
         {
             case ObjectType.WHEEL:
-                dragManager.LoadObjectOnPointer(GetNextObject(wheels));
+                try
+                {
+                    dragManager.LoadObjectOnPointer(GetNextObject(wheels));
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
                 break;
             case ObjectType.CONVEYOR:
-                dragManager.LoadObjectOnPointer(GetNextObject(conveyors));
+                try
+                {
+                    dragManager.LoadObjectOnPointer(GetNextObject(conveyors));
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
                 break;
             case ObjectType.ROCKET:
-                dragManager.LoadObjectOnPointer(GetNextObject(rockets));
+                try
+                {
+                    dragManager.LoadObjectOnPointer(GetNextObject(rockets));
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
                 break;
             case ObjectType.SPRING:
-                dragManager.LoadObjectOnPointer(GetNextObject(springs));
+                try
+                {
+                    dragManager.LoadObjectOnPointer(GetNextObject(springs));
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
                 break;
             case ObjectType.PIN:
-                dragManager.LoadObjectOnPointer(GetNextObject(pins));
+                try
+                {
+                    dragManager.LoadObjectOnPointer(GetNextObject(pins));
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
                 break;
             case ObjectType.BOMB:
-                dragManager.LoadObjectOnPointer(GetNextObject(bombs));
+                try
+                {
+                    dragManager.LoadObjectOnPointer(GetNextObject(bombs));
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
                 break;
             default:
 
@@ -57,21 +101,27 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public GameObject GetNextObject(GameObject[] objs)
+    public GameObject GetNextObject(Collider2D[] objs)
     {
         GameObject obj = null;
 
         bool flag = false;
         for (int i = 0; i < objs.Length && !flag; i++)
         {
-            if (!objs[i].activeSelf)
+            if (!objs[i].gameObject.activeSelf)
             {
-                obj = objs[i];
+                obj = objs[i].gameObject;
                 flag = true;
             }
         }
+        if (!flag)
+            return null;
 
-        return obj;
+        GameObject fullObj = Instantiate(prefabParent);
+        obj.transform.parent = fullObj.transform;
+        obj.transform.localPosition = Vector3.zero;
+        obj.gameObject.SetActive(true);
+        return fullObj;
     }
 
     public void NextMaterial()
