@@ -23,6 +23,7 @@ public class Bomb : InteractableObject
     private float thresholdTime = 0.15f, thresholdVelocity = 0.25f;
 
     private DragAndScale dragAndScale;
+    private bool isExploding = false;
 
     [SerializeField] private float scrollStepSize = 0.01f;
 
@@ -33,6 +34,7 @@ public class Bomb : InteractableObject
 
         audioSource = GetComponent<AudioSource>();
         objsWithinRange = new List<Rigidbody2D>();
+        isExploding = false;
     }
 
     private void OnEnable()
@@ -69,7 +71,7 @@ public class Bomb : InteractableObject
 
         dragAndScale.OnGrabEnd();
 
-        if (holdTimer < thresholdTime && rb.linearVelocity.magnitude < thresholdVelocity)
+        if (holdTimer < thresholdTime && rb.linearVelocity.magnitude < thresholdVelocity && !isExploding)
         {
             StartCoroutine(LightBomb());
         }
@@ -122,6 +124,7 @@ public class Bomb : InteractableObject
 
     private IEnumerator LightBomb()
     {
+        isExploding = true;
         PlaySound(fuseSound);
         yield return new WaitForSeconds(fuseSound.length);
         //yield return new WaitForSeconds(1);
@@ -148,7 +151,7 @@ public class Bomb : InteractableObject
         var hits = Physics2D.OverlapCircleAll(transform.position, effectAreaRadius * transform.lossyScale.x);
         foreach (var hit in hits)//gets all rigidbodies within effectAreaRadius
         {
-            if (!hit.isTrigger)
+            if (!hit.isTrigger && hit.gameObject.activeInHierarchy)
             {
                 objsWithinRange.Add(hit.attachedRigidbody);
             }
@@ -157,12 +160,12 @@ public class Bomb : InteractableObject
         List<Rigidbody2D> usedObjs = new List<Rigidbody2D>();
         foreach(var obj in objsWithinRange)//apply the force to each unique rigidbody only once
         {
-            if (!usedObjs.Contains(obj) && obj.bodyType == RigidbodyType2D.Dynamic && obj != rb)
+            if (obj != null && !usedObjs.Contains(obj) && obj.bodyType == RigidbodyType2D.Dynamic && obj != rb)
             {
                 Vector2 closestPoint = obj.ClosestPoint(new Vector2(transform.position.x, transform.position.y));
                 Vector2 forceVector = (closestPoint - new Vector2(transform.position.x, transform.position.y));
                 float distance = forceVector.magnitude;
-                forceVector = forceVector.normalized * forceValue * transform.lossyScale.magnitude * transform.lossyScale.magnitude / (distance + 0.001f);
+                forceVector = forceVector.normalized * forceValue * transform.lossyScale.magnitude * transform.lossyScale.magnitude / (distance + 0.01f);
                 obj.AddForceAtPosition(forceVector, closestPoint, ForceMode2D.Impulse);
                 usedObjs.Add(obj);
             }
