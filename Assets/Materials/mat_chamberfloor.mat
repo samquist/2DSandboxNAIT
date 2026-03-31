@@ -112,7 +112,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: a046cf64df1f93546b8bb36888b212a6, type: 3}
-        m_Scale: {x: 12, y: 12}
+        m_Scale: {x: 10, y: 10}
         m_Offset: {x: 0, y: 0}
     - _MainTexSynthesized:
         m_Texture: {fileID: 0}

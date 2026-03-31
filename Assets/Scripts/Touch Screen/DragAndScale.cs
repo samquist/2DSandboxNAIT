@@ -25,7 +25,7 @@ public class DragAndScale : MonoBehaviour
 
     [Header("Rotation Controls")]
     [Tooltip("Rotation speed for two-finger twist gesture")]
-    [SerializeField] private float twistSensitivity = 1.2f;
+    [SerializeField] private float twistSensitivity = 1f;
 
     [Tooltip("Invert twist direction")]
     [SerializeField] private bool invertTwistDirection = false;
@@ -164,7 +164,7 @@ public class DragAndScale : MonoBehaviour
         transform.localScale = newScale;
 
         // Rotation
-        if (Mathf.Abs(deltaRotationDegrees) > 1.5f)
+        if (Mathf.Abs(deltaRotationDegrees) > .01f)
         {
             float rotationAmount = deltaRotationDegrees * twistSensitivity;
             if (invertTwistDirection)
