@@ -10,6 +10,7 @@ public class SpawnManager : MonoBehaviour
     public TMP_Text materialText;
     public TouchDragScaleManager dragManager;
     public GameObject prefabParent;
+    public Transform spawnPoint;
 
     [Header("Object Pools")]
 
@@ -23,6 +24,11 @@ public class SpawnManager : MonoBehaviour
         }
 
         materialText.text = material.ToString();
+
+        if (spawnPoint == null)
+        {
+            spawnPoint = transform;
+        }
     }
 
     public void SpawnObject(string objName)
@@ -38,7 +44,7 @@ public class SpawnManager : MonoBehaviour
             case ObjectType.WHEEL:
                 try
                 {
-                    dragManager.LoadObjectOnPointer(GetNextObject(wheels));
+                    SpawnNextObject(wheels);
                 }
                 catch (Exception e)
                 {
@@ -48,7 +54,7 @@ public class SpawnManager : MonoBehaviour
             case ObjectType.CONVEYOR:
                 try
                 {
-                    dragManager.LoadObjectOnPointer(GetNextObject(conveyors));
+                    SpawnNextObject(conveyors);
                 }
                 catch (Exception e)
                 {
@@ -58,7 +64,7 @@ public class SpawnManager : MonoBehaviour
             case ObjectType.ROCKET:
                 try
                 {
-                    dragManager.LoadObjectOnPointer(GetNextObject(rockets));
+                    SpawnNextObject(rockets);
                 }
                 catch (Exception e)
                 {
@@ -68,7 +74,7 @@ public class SpawnManager : MonoBehaviour
             case ObjectType.SPRING:
                 try
                 {
-                    dragManager.LoadObjectOnPointer(GetNextObject(springs));
+                    SpawnNextObject(springs);
                 }
                 catch (Exception e)
                 {
@@ -78,7 +84,7 @@ public class SpawnManager : MonoBehaviour
             case ObjectType.PIN:
                 try
                 {
-                    dragManager.LoadObjectOnPointer(GetNextObject(pins));
+                    SpawnNextObject(pins);
                 }
                 catch (Exception e)
                 {
@@ -88,7 +94,7 @@ public class SpawnManager : MonoBehaviour
             case ObjectType.BOMB:
                 try
                 {
-                    dragManager.LoadObjectOnPointer(GetNextObject(bombs));
+                    SpawnNextObject(bombs);
                 }
                 catch (Exception e)
                 {
@@ -101,7 +107,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public GameObject GetNextObject(Collider2D[] objs)
+    public void SpawnNextObject(Collider2D[] objs)
     {
         GameObject obj = null;
 
@@ -115,13 +121,16 @@ public class SpawnManager : MonoBehaviour
             }
         }
         if (!flag)
-            return null;
+        {
+            Debug.Log("No object could be loaded");
+            return;
+        }
 
         GameObject fullObj = Instantiate(prefabParent);
         obj.transform.parent = fullObj.transform;
-        obj.transform.localPosition = Vector3.zero;
+        fullObj.transform.position = spawnPoint.position;
         obj.gameObject.SetActive(true);
-        return fullObj;
+        fullObj.SetActive(true);
     }
 
     public void NextMaterial()
@@ -132,7 +141,7 @@ public class SpawnManager : MonoBehaviour
 
     public void PreviousMaterial()
     {
-        material = (ObjectMaterial)(((int)material - 1) % 5);
+        material = (ObjectMaterial)(((int)material - 1 + 5) % 5);
         materialText.text = material.ToString();
     }
 }

@@ -450,6 +450,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4156856748295521649}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7867240952546321318}
   m_SourcePrefab: {fileID: 100100000, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
 --- !u!1 &3539821581222361293 stripped
 GameObject:
@@ -521,6 +524,21 @@ MonoBehaviour:
   springModel: {fileID: 3700057951774454294}
   bottomRB: {fileID: 8695047083836792386}
   topRB: {fileID: 7152644871837496200}
+--- !u!114 &7867240952546321318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539821581222361293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724fbb838588de64bb75a6dddb713ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectResetter
+  startingPosition: {x: 0, y: 0, z: 0}
+  startingRotation: {x: 0, y: 0, z: 0, w: 1}
+  startingScale: {x: 1, y: 1, z: 1}
 --- !u!4 &4203028700862964343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}

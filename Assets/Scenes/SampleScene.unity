@@ -2222,6 +2222,7 @@ MonoBehaviour:
   materialText: {fileID: 802149957}
   dragManager: {fileID: 1937797676}
   prefabParent: {fileID: 9112895209353804737, guid: 14ec049c9ef1b3840b1e988839a88396, type: 3}
+  spawnPoint: {fileID: 0}
   cubes: []
   rectangles: []
   triangles: []
@@ -12338,14 +12339,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1116305629485142150}
         m_TargetAssemblyTypeName: UIScript, Assembly-CSharp
-        m_MethodName: ResumeGame
-        m_Mode: 1
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 1
 --- !u!224 &8924985728212899182

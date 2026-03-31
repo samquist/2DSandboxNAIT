@@ -177,7 +177,7 @@ public class Wheel : InteractableObject
         }
     }
 
-    private void DetachFromBlock()
+    public void DetachFromBlock()
     {
         if (!isAttached) return;
 

@@ -8,6 +8,11 @@ public class Spring : MonoBehaviour
     public Transform topBlock, bottomBlock, springModel;
     public Rigidbody2D bottomRB, topRB;
 
+    private void OnEnable()
+    {
+        topRB = GetComponentInParent<Rigidbody2D>();
+    }
+
     private void Update()
     {
         Vector3 forceVector = bottomBlock.position - topBlock.position;
@@ -18,7 +23,7 @@ public class Spring : MonoBehaviour
         springModel.localPosition = new Vector3(springModel.localPosition.x, -0.55f * springModel.localScale.y, springModel.localPosition.z);
 
         bottomBlock.localEulerAngles = Vector3.zero;
-        //bottomBlock.localPosition = new Vector3(0, bottomBlock.localPosition.y, bottomBlock.localPosition.z);
+        bottomBlock.localPosition = new Vector3(bottomBlock.localPosition.z, -Mathf.Abs(bottomBlock.localPosition.y), bottomBlock.localPosition.z);
     }
 
     public float CalculateRestorativeForce(float l)

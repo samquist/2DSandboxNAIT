@@ -78,6 +78,12 @@ public class TouchDragScaleManager : MonoBehaviour
             scrollAction.performed -= OnScrollPerformed;
         }
 
+        touchContact.started -= OnTouchDown;
+        touchContact.canceled -= OnPrimaryUp;
+        mouseContact.started -= OnMouseDown;
+        mouseContact.canceled -= OnPrimaryUp;
+        scrollAction.performed -= OnScrollPerformed;
+
         touchPosition?.Disable();
         mousePosition?.Disable();
         touchContact?.Disable();
@@ -332,27 +338,5 @@ public class TouchDragScaleManager : MonoBehaviour
         {
             selectedObject.OnPinchEnd();
         }
-    }
-
-    public void LoadObjectOnPointer(GameObject fullObj)
-    {
-        if (selectedObject != null || currentInteractableObject != null) return;
-
-        if (fullObj == null)
-        {
-            Debug.Log("No object could be loaded");
-            return;
-        }
-
-        Vector2 screenPos = isUsingTouch
-            ? touchPosition?.ReadValue<Vector2>() ?? Vector2.zero
-            : mousePosition?.ReadValue<Vector2>() ?? Vector2.zero;
-
-        Vector3 pointerWorld = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 10));
-
-        fullObj.transform.position = new Vector3(pointerWorld.x, pointerWorld.y, 0);
-        fullObj.SetActive(true);
-
-        //OnPrimaryDown(screenPos);
     }
 }

@@ -195,6 +195,12 @@ public class Bomb : InteractableObject
             jet.DetachFromBlock();
         }
 
+        Wheel wheel = transform.parent.GetComponentInChildren<Wheel>();
+        if (wheel != null)
+        {
+            wheel.DetachFromBlock();
+        }
+
         foreach (var obj in GetComponentsInChildren<MeshRenderer>())//disable all bomb meshes
         {
             obj.enabled = false;

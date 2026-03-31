@@ -230,15 +230,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.011102855
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4707626
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
       propertyPath: m_LocalRotation.w
@@ -307,6 +307,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8172528578015590326}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6488893910689348523}
   m_SourcePrefab: {fileID: 100100000, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
 --- !u!4 &7209018499633755653 stripped
 Transform:
@@ -372,7 +375,6 @@ MonoBehaviour:
   effectAreaRadius: 4
   forceValue: 7.5
   holdTimer: 0
-  dragAndScale: {fileID: 974360576747281880}
   scrollStepSize: 0.1
 --- !u!82 &8172528578015590326
 AudioSource:
@@ -471,3 +473,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6488893910689348523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8016482713317141695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724fbb838588de64bb75a6dddb713ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectResetter
+  startingPosition: {x: 0, y: 0, z: 0.5}
+  startingRotation: {x: 0, y: 0, z: 0, w: 0}
+  startingScale: {x: 1, y: 1, z: 1}

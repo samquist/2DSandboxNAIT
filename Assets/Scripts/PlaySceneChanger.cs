@@ -10,16 +10,16 @@ public class PlayScene : MonoBehaviour
 
     public void GoToLevel2()
     {
-        SceneManager.LoadScene("SCENE2");
+        //SceneManager.LoadScene("SCENE2");
     }
 
     public void GoToLevel3()
     {
-        SceneManager.LoadScene("SCENE3");
+        //SceneManager.LoadScene("SCENE3");
     }
 
     public void GoToLevel4()
     {
-        SceneManager.LoadScene("SCENE4");
+        //SceneManager.LoadScene("SCENE4");
     }
 }

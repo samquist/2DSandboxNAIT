@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIScript : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class UIScript : MonoBehaviour
     {
         PauseUI.SetActive(false);
         Time.timeScale = 1.0f;
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(sceneName);
     }
 
     public void QuitGame()
