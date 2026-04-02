@@ -112,16 +112,14 @@ public class Wheel : InteractableObject
         {
             IgnoreAllBlockColliders(false);
             rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
 
             if (col != null)
             {
                 col.isTrigger = isTriggerWhenNotAttached;
             }
         }
-    }
-
-    public override void OnPinchEnd()
-    {
     }
 
     private bool TryGetNearestBlock(out DragAndScale block)
@@ -308,10 +306,10 @@ public class Wheel : InteractableObject
         if (parentIsDragged)
         {
             if (col != null) col.enabled = false;
-            if (rb.bodyType == RigidbodyType2D.Kinematic)
-            {
-                rb.bodyType = RigidbodyType2D.Kinematic;
-            }
+
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
 
             Vector2 desired = attachedBlock.transform.TransformPoint(wheelJoint.connectedAnchor);
             transform.position = new Vector3(desired.x, desired.y, transform.position.z);

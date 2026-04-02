@@ -31,7 +31,7 @@ public class DragAndScale : MonoBehaviour
     [SerializeField] private bool invertTwistDirection = false;
 
     [Header("PC Keyboard Rotation")]
-    [SerializeField] private float rotateSpeedKeyboard = 180f;
+    [SerializeField] public float rotateSpeedKeyboard = 180f;
 
     private Camera mainCam;
     private Rigidbody2D rb;
@@ -94,6 +94,8 @@ public class DragAndScale : MonoBehaviour
         smoothedVelocity = Vector2.Lerp(smoothedVelocity, rawVelocity, velocitySmoothing * dt);
 
         lastWorldPos = targetPos;
+
+        ApplyKeyboardRotation(Time.deltaTime);
     }
 
     public void OnGrabEnd()
@@ -200,18 +202,60 @@ public class DragAndScale : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void ApplyKeyboardRotation(float deltaTime)
     {
-        if (isDragged && !isLockedByPin)
+        if (isDragged)
         {
             if (Input.GetKey(KeyCode.Q))
             {
-                transform.Rotate(0f, 0f, rotateSpeedKeyboard * Time.deltaTime, Space.Self);
+                transform.Rotate(0f, 0f, rotateSpeedKeyboard * deltaTime, Space.Self);
             }
+
             if (Input.GetKey(KeyCode.E))
             {
-                transform.Rotate(0f, 0f, -rotateSpeedKeyboard * Time.deltaTime, Space.Self);
+                transform.Rotate(0f, 0f, -rotateSpeedKeyboard * deltaTime, Space.Self);
             }
         }
+    }
+
+    public void ApplyScrollScaling(InputAction.CallbackContext ctx, float scrollStepSize)
+    {
+        Vector2 scrollDelta = ctx.ReadValue<Vector2>();
+        float scrollY = scrollDelta.y;
+
+        if (Mathf.Abs(scrollY) <= 0.1f) return;
+
+        float direction = Mathf.Sign(scrollY);
+        float scaleDelta = direction * scrollStepSize;
+
+        float scaleFactor = (transform.localScale.x + scaleDelta) / transform.localScale.x;
+
+        if (scaleFactor * highestScale > maxScale)
+        {
+            scaleFactor = maxScale / highestScale;
+        }
+        else if (scaleFactor * lowestScale < minScale)
+        {
+            scaleFactor = minScale / lowestScale;
+        }
+
+        Vector3 newScale = transform.localScale * scaleFactor;
+        highestScale *= scaleFactor;
+        lowestScale *= scaleFactor;
+
+        newScale.x = Mathf.Clamp(newScale.x, minScale, maxScale);
+        newScale.y = newScale.x;
+        newScale.z = newScale.x;
+
+        transform.localScale = newScale;
+
+        Vector3 currentPosition = transform.position;
+        Vector3 newPosition = currentPosition + new Vector3(scaleDelta, scaleDelta, 0) / 2f;
+        transform.position = newPosition;
+    }
+
+    public Rigidbody2D GetRigidbody()
+    {
+        return rb;
     }
 }
