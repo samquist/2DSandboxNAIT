@@ -17,9 +17,6 @@ public class Jetpack : InteractableObject
     [Header("Behavior")]
     [SerializeField] private float placedLocalZ = 0f;
 
-    [Header("Rotation (Scroll Wheel)")]
-    [SerializeField] private float scrollRotationDegreesPerStep = 15f;
-
     [Header("Audio & VFX")]
     [SerializeField] private AudioClip attachSound;
     [SerializeField] private AudioClip thrustStartSound;
@@ -32,18 +29,37 @@ public class Jetpack : InteractableObject
     [SerializeField] private float maxTapMovementDistance = 0.45f;
     [SerializeField] private float maxTapDuration = 0.28f;
 
+    [Header("Removal (Long Hold on Block)")]
+    [SerializeField] private float holdToRemoveDuration = 1.2f;
+    [SerializeField] private float maxPositionDelta = 0.02f;
+    [SerializeField] private float maxRotationDelta = 0.5f;
+    [SerializeField] private float maxScaleDelta = 0.001f;
+    [SerializeField] private float wiggleStartAfter = 0.4f;
+    [SerializeField] private float maxWiggleSpeed = 25f;
+    [SerializeField] private float maxWiggleAmplitude = 8f;
+
+    [Header("Scaling")]
+    [SerializeField] private float scrollStepSize = 0.1f;
+
     private Rigidbody2D rb;
     private AudioSource audioSource;
     private Rigidbody2D attachedBlockRb;
     private bool isPlaced;
     private bool isThrustActive;
     private DragAndScale lockedBlock;
-    private InputAction scrollAction;
-    private Coroutine loopStartCoroutine;
 
     private Vector3 grabStartWorldPosition;
     private float grabStartTime;
     private bool mightBeTap = false;
+
+    private float holdTimer;
+    private bool isHoldingForRemoval;
+    private Quaternion originalRotation;
+    private Vector3 originalScale;
+    private Vector3 lastBlockPosition;
+    private float lastBlockRotation;
+    private float lastBlockScale;
+    private Coroutine loopStartCoroutine;
 
     private void Awake()
     {
@@ -51,57 +67,13 @@ public class Jetpack : InteractableObject
         rb.bodyType = RigidbodyType2D.Kinematic;
         audioSource = GetComponent<AudioSource>();
 
+        originalRotation = transform.localRotation;
+        originalScale = transform.localScale;
+
         if (flameEffect != null)
         {
             flameEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
-
-        var manager = FindFirstObjectByType<TouchDragScaleManager>();
-        if (manager != null && manager.inputActions != null)
-        {
-            var playerMap = manager.inputActions.FindActionMap("Player");
-            if (playerMap != null)
-            {
-                scrollAction = playerMap.FindAction("Scroll");
-            }
-        }
-    }
-
-    private void OnEnable()
-    {
-        if (scrollAction != null)
-        {
-            scrollAction.performed += OnScrollPerformed;
-            scrollAction.Enable();
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (scrollAction != null)
-        {
-            scrollAction.performed -= OnScrollPerformed;
-            scrollAction.Disable();
-        }
-
-        if (loopStartCoroutine != null)
-        {
-            StopCoroutine(loopStartCoroutine);
-            loopStartCoroutine = null;
-        }
-    }
-
-    public override void OnScrollPerformed(InputAction.CallbackContext ctx)
-    {
-        if (!isDragging && !isPlaced) return;
-
-        Vector2 scrollDelta = ctx.ReadValue<Vector2>();
-        float scrollY = scrollDelta.y;
-
-        if (Mathf.Abs(scrollY) < 0.1f) return;
-
-        float rotationThisStep = Mathf.Sign(scrollY) * scrollRotationDegreesPerStep;
-        transform.Rotate(0f, 0f, rotationThisStep, Space.Self);
     }
 
     public override void OnGrabBegin()
@@ -112,6 +84,8 @@ public class Jetpack : InteractableObject
         grabStartWorldPosition = transform.position;
         grabStartTime = Time.time;
         mightBeTap = true;
+        isHoldingForRemoval = false;
+        holdTimer = 0f;
 
         if (attachSound != null)
         {
@@ -121,19 +95,73 @@ public class Jetpack : InteractableObject
 
     public override void OnGrabUpdate(Vector2 screenPos)
     {
-        if (!isDragging || isPlaced) return;
+        if (!isDragging) return;
 
-        var cam = Camera.main;
-        float depth = Vector3.Dot(transform.position - cam.transform.position, cam.transform.forward);
-        var worldPos = cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, depth));
-
-        float dist = Vector3.Distance(worldPos, grabStartWorldPosition);
-        if (dist > maxTapMovementDistance * 0.7f)
+        if (!isPlaced)
         {
-            mightBeTap = false;
-        }
+            var cam = Camera.main;
+            float depth = Vector3.Dot(transform.position - cam.transform.position, cam.transform.forward);
+            var worldPos = cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, depth));
 
-        transform.position = new Vector3(worldPos.x, worldPos.y, transform.position.z);
+            float dist = Vector3.Distance(worldPos, grabStartWorldPosition);
+            if (dist > maxTapMovementDistance * 0.7f)
+                mightBeTap = false;
+
+            transform.position = new Vector3(worldPos.x, worldPos.y, transform.position.z);
+        }
+        else if (lockedBlock != null)
+        {
+            if (!lockedBlock.isDragged)
+            {
+                lockedBlock.OnGrabBegin(screenPos);
+                lastBlockPosition = lockedBlock.transform.position;
+                lastBlockRotation = lockedBlock.transform.eulerAngles.z;
+                lastBlockScale = lockedBlock.transform.localScale.x;
+            }
+            lockedBlock.OnGrabUpdate(screenPos);
+
+            Vector3 currentBlockPos = lockedBlock.transform.position;
+            float positionDelta = Vector3.Distance(currentBlockPos, lastBlockPosition);
+            float rotationDelta = Mathf.Abs(Mathf.DeltaAngle(lockedBlock.transform.eulerAngles.z, lastBlockRotation));
+            float scaleDelta = Mathf.Abs(lockedBlock.transform.localScale.x - lastBlockScale);
+
+            if (positionDelta > maxPositionDelta || rotationDelta > maxRotationDelta || scaleDelta > maxScaleDelta)
+            {
+                holdTimer = 0f;
+                isHoldingForRemoval = false;
+                transform.localRotation = originalRotation;
+            }
+            else
+            {
+                if (!isHoldingForRemoval)
+                {
+                    isHoldingForRemoval = true;
+                    holdTimer = 0f;
+                }
+
+                holdTimer += Time.deltaTime;
+
+                if (holdTimer >= wiggleStartAfter)
+                {
+                    float t = Mathf.Clamp01((holdTimer - wiggleStartAfter) / (holdToRemoveDuration - wiggleStartAfter));
+                    float amp = Mathf.Lerp(0f, maxWiggleAmplitude, t);
+                    float speed = Mathf.Lerp(0f, maxWiggleSpeed, t);
+                    float angle = Mathf.Sin(Time.time * speed) * amp;
+
+                    transform.localRotation = originalRotation * Quaternion.Euler(0, 0, angle);
+                }
+
+                if (holdTimer >= holdToRemoveDuration)
+                {
+                    DetachFromBlockButKeepHolding(screenPos);
+                    return;
+                }
+            }
+
+            lastBlockPosition = currentBlockPos;
+            lastBlockRotation = lockedBlock.transform.eulerAngles.z;
+            lastBlockScale = lockedBlock.transform.localScale.x;
+        }
     }
 
     public override void OnGrabEnd()
@@ -141,29 +169,36 @@ public class Jetpack : InteractableObject
         if (!isDragging) return;
 
         isDragging = false;
+        isHoldingForRemoval = false;
+        holdTimer = 0f;
+        transform.localRotation = originalRotation;
 
-        if (isPlaced && mightBeTap && WasQuickTap())
+        if (isPlaced)
         {
-            ToggleThrust();
+            if (mightBeTap && WasQuickTap())
+            {
+                ToggleThrust();
+            }
+
+            if (lockedBlock != null && lockedBlock.isDragged)
+            {
+                lockedBlock.OnGrabEnd();
+            }
         }
-
-        mightBeTap = false;
-
-        if (!isPlaced && TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter))
+        else if (TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter))
         {
             AttachToBlock(blockParent, hitCenter);
         }
+
+        mightBeTap = false;
     }
 
     private bool WasQuickTap()
     {
         if (!mightBeTap) return false;
-
         float duration = Time.time - grabStartTime;
         float distance = Vector3.Distance(transform.position, grabStartWorldPosition);
-
-        return duration <= maxTapDuration &&
-               distance <= maxTapMovementDistance;
+        return duration <= maxTapDuration && distance <= maxTapMovementDistance;
     }
 
     private bool TryGetNearestBlockCenter(out DragAndScale blockParent, out Vector3 hitCenter)
@@ -211,6 +246,82 @@ public class Jetpack : InteractableObject
         }
     }
 
+    public void DetachFromBlock()
+    {
+        if (!isPlaced) return;
+
+        var worldPosBefore = transform.position;
+
+        transform.SetParent(null, true);
+        transform.position = new Vector3(worldPosBefore.x, worldPosBefore.y, worldPosBefore.z);
+        transform.localRotation = originalRotation;
+        transform.localScale = originalScale;
+
+        isPlaced = false;
+        isThrustActive = false;
+
+        rb.bodyType = RigidbodyType2D.Kinematic;
+
+        if (lockedBlock != null)
+        {
+            lockedBlock.UnlockFromPin();
+            lockedBlock = null;
+        }
+
+        attachedBlockRb = null;
+
+        if (flameEffect != null)
+        {
+            flameEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
+
+        if (audioSource.isPlaying && audioSource.clip == thrustLoopSound)
+        {
+            audioSource.Stop();
+            audioSource.loop = false;
+        }
+    }
+
+    private void DetachFromBlockButKeepHolding(Vector2 screenPos)
+    {
+        if (!isPlaced) return;
+
+        if (lockedBlock != null)
+        {
+            lockedBlock.UnlockFromPin();
+            lockedBlock = null;
+        }
+
+        var worldPosBefore = transform.position;
+        transform.SetParent(null, true);
+        transform.position = new Vector3(worldPosBefore.x, worldPosBefore.y, worldPosBefore.z);
+        transform.localRotation = originalRotation;
+        transform.localScale = originalScale;
+
+        isPlaced = false;
+        isThrustActive = false;
+
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        attachedBlockRb = null;
+
+        if (flameEffect != null)
+        {
+            flameEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
+
+        if (audioSource.isPlaying && audioSource.clip == thrustLoopSound)
+        {
+            audioSource.Stop();
+            audioSource.loop = false;
+        }
+
+        isHoldingForRemoval = false;
+        holdTimer = 0f;
+
+        OnGrabBegin();
+        OnGrabUpdate(screenPos);
+    }
+
     private void FixedUpdate()
     {
         if (!isPlaced || !isThrustActive || attachedBlockRb == null) return;
@@ -236,6 +347,7 @@ public class Jetpack : InteractableObject
                 {
                     StopCoroutine(loopStartCoroutine);
                 }
+
                 loopStartCoroutine = StartCoroutine(StartLoopAfterDelay());
             }
 
@@ -284,22 +396,12 @@ public class Jetpack : InteractableObject
         loopStartCoroutine = null;
     }
 
-    public void DetachFromBlock()
+    public override void OnScrollPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isPlaced)
-        {
-            return;
-        }
-
-        var worldPosBefore = transform.position;
-
-        transform.SetParent(null, true);
-
-        transform.position = new Vector3(worldPosBefore.x, worldPosBefore.y, worldPosBefore.z);
-
-        isPlaced = false;
-        rb.bodyType = RigidbodyType2D.Kinematic;
-
-        lockedBlock = null;
+        if (lockedBlock == null || !isPlaced) return;
+        lockedBlock.ApplyScrollScaling(ctx, scrollStepSize);
+        holdTimer = 0f;
+        isHoldingForRemoval = false;
+        transform.localRotation = originalRotation;
     }
 }
