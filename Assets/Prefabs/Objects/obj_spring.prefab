@@ -102,6 +102,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TopBlock
       objectReference: {fileID: 0}
+    - target: {fileID: 1459205679427683698, guid: 2741e21c555a7b14a9284b9cf0e2702a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2237149341107445704, guid: 2741e21c555a7b14a9284b9cf0e2702a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

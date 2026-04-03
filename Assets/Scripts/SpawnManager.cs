@@ -62,6 +62,7 @@ public class SpawnManager : MonoBehaviour
                 }
                 break;
             case ObjectType.ROCKET:
+            case ObjectType.JETPACK:
                 try
                 {
                     SpawnNextObject(rockets);
@@ -127,8 +128,8 @@ public class SpawnManager : MonoBehaviour
         }
 
         GameObject fullObj = Instantiate(prefabParent);
-        obj.transform.parent = fullObj.transform;
         fullObj.transform.position = spawnPoint.position;
+        obj.transform.parent = fullObj.transform;
         obj.gameObject.SetActive(true);
         fullObj.SetActive(true);
     }
@@ -164,6 +165,7 @@ public enum ObjectType
     WHEEL,
     CONVEYOR,
     ROCKET,
+    JETPACK,
     SPRING,
     PIN,
     BOMB

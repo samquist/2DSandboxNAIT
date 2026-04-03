@@ -54,6 +54,16 @@ public class PinTriggerCenter : InteractableObject
         originalScale = transform.localScale;
     }
 
+    private void OnEnable()
+    {
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        
+        foreach (var rigBod in GetComponentsInParent<Rigidbody2D>())
+        {
+            rigBod.bodyType = RigidbodyType2D.Kinematic;
+        }
+    }
+
     public override void OnGrabBegin()
     {
         isDragging = true;

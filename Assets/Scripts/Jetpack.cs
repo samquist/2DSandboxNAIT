@@ -76,6 +76,21 @@ public class Jetpack : InteractableObject
         }
     }
 
+    private void OnEnable()
+    {
+        rb.bodyType = RigidbodyType2D.Kinematic;
+
+        foreach (var rigBod in GetComponentsInParent<Rigidbody2D>())
+        {
+            rigBod.bodyType = RigidbodyType2D.Kinematic;
+        }
+
+        if (flameEffect != null)
+        {
+            flameEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
+    }
+
     public override void OnGrabBegin()
     {
         isDragging = true;
