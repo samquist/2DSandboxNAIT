@@ -52,12 +52,11 @@ MonoBehaviour:
   maxScale: 5
   minPosition: 0.025
   maxPosition: 0.25
+  lowestScale: 0
+  highestScale: 0
   isDragged: 0
   isPinched: 0
-  longPressDuration: 0.55
-  rotateDeadZonePixels: 20
-  rotateSpeedTouchDrag: 180
-  twistSensitivity: 1.2
+  twistSensitivity: 1
   invertTwistDirection: 0
   rotateSpeedKeyboard: 180
 --- !u!50 &7752907533739240364
@@ -75,7 +74,7 @@ Rigidbody2D:
   m_Mass: 2
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -221,7 +220,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 7141581341195d041a3049dadf100e97, type: 2}
+      objectReference: {fileID: 2100000, guid: 8bbf370ebb9f32d45b2502df6d8e2a0c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -271,7 +270,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3dc4f57054b21bb4496830462cda3e30, type: 2}
+  m_Material: {fileID: 6200000, guid: 271a0d991ae340a4c967d0e9e1a5f64d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

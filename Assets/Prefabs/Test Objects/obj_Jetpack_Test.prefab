@@ -56,7 +56,7 @@ MonoBehaviour:
   highestScale: 0
   isDragged: 0
   isPinched: 0
-  twistSensitivity: 1.2
+  twistSensitivity: 1
   invertTwistDirection: 0
   rotateSpeedKeyboard: 180
 --- !u!50 &5753627687111554681
