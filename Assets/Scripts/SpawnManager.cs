@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
 
     [Header("Object Pools")]
 
-    public Collider2D[] cubes, rectangles, triangles, spheres, wheels, conveyors, rockets, springs, pins, bombs;
+    public Collider2D[] cubes, rectangles, triangles, spheres, wheels_left, wheels_right, conveyors_left, conveyors_right, rockets, springs, pins, bombs;
 
     private void Awake()
     {
@@ -41,20 +41,40 @@ public class SpawnManager : MonoBehaviour
 
         switch (type)
         {
-            case ObjectType.WHEEL:
+            case ObjectType.WHEEL_LEFT:
                 try
                 {
-                    SpawnNextObject(wheels);
+                    SpawnNextObject(wheels_left);
                 }
                 catch (Exception e)
                 {
                     Debug.LogException(e);
                 }
                 break;
-            case ObjectType.CONVEYOR:
+            case ObjectType.WHEEL_RIGHT:
                 try
                 {
-                    SpawnNextObject(conveyors);
+                    SpawnNextObject(wheels_right);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+                break;
+            case ObjectType.CONVEYOR_LEFT:
+                try
+                {
+                    SpawnNextObject(conveyors_left);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+                break;
+            case ObjectType.CONVEYOR_RIGHT:
+                try
+                {
+                    SpawnNextObject(conveyors_right);
                 }
                 catch (Exception e)
                 {
@@ -162,8 +182,10 @@ public enum ObjectType
     RECTANGLE,
     TRIANGLE,
     SPHERE,
-    WHEEL,
-    CONVEYOR,
+    WHEEL_LEFT,
+    WHEEL_RIGHT,
+    CONVEYOR_LEFT,
+    CONVEYOR_RIGHT,
     ROCKET,
     JETPACK,
     SPRING,

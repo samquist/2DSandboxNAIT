@@ -62,6 +62,38 @@ public class Wheel : InteractableObject
         }
     }
 
+    private void OnEnable()
+    {
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        wheelJoint.enabled = false;
+
+        foreach (var rigBod in GetComponentsInParent<Rigidbody2D>())
+        {
+            rigBod.bodyType = RigidbodyType2D.Kinematic;
+        }
+
+        if (col != null)
+        {
+            col.isTrigger = isTriggerWhenNotAttached;
+        }
+
+        if (rollingAudioSource == null)
+        {
+            rollingAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+        if (rollingClip != null)
+        {
+            rollingAudioSource.clip = rollingClip;
+            rollingAudioSource.loop = true;
+            rollingAudioSource.playOnAwake = false;
+            rollingAudioSource.volume = 0f;
+        }
+        else
+        {
+            Debug.LogWarning("Wheel rolling sound: No AudioClip assigned!", this);
+        }
+    }
+
     public override void OnGrabBegin()
     {
         isDragging = true;
@@ -156,7 +188,7 @@ public class Wheel : InteractableObject
         Rigidbody2D blockRb = block.GetComponent<Rigidbody2D>();
 
         rb.bodyType = RigidbodyType2D.Dynamic;
-        blockRb.bodyType = RigidbodyType2D.Dynamic;
+        //blockRb.bodyType = RigidbodyType2D.Dynamic;
 
         IgnoreAllBlockColliders(false);
         IgnoreBlockColliders(block, true);
