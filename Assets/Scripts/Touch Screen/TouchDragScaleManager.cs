@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -221,7 +224,18 @@ public class TouchDragScaleManager : MonoBehaviour
 
     private void OnPrimaryDown(Vector2 screenPos)
     {
+        //check if input was over a ui element
+        var eventData = new PointerEventData(EventSystem.current);
+        eventData.position = screenPos;
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        if (results.Where(r => r.gameObject.layer == 9).Count() > 0)
+        {
+            return;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
+
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
         if (hit.collider == null) return;

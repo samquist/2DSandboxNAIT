@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class DestroyZone : MonoBehaviour
 {
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        ObjectResetter[] or = collision.rigidbody.GetComponentsInChildren<ObjectResetter>();
+        ObjectResetter[] or = other.attachedRigidbody.GetComponentsInChildren<ObjectResetter>();
 
         if (or.Length != 0)
         {
@@ -13,9 +13,9 @@ public class DestroyZone : MonoBehaviour
                 or[i].DeactivateObject();
             }
         }
-        else
-        {
-            Destroy(collision.gameObject);
-        }
+        //else
+        //{
+        //    Destroy(collision.gameObject);
+        //}
     }
 }

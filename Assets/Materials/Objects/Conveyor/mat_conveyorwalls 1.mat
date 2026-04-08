@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_conveyorwalls
+  m_Name: mat_conveyorwalls 1
   m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -112,8 +112,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: d7ef41de563ecca438c08808a099838b, type: 3}
-        m_Scale: {x: 22.4, y: 9.3}
-        m_Offset: {x: 0.01, y: 0}
+        m_Scale: {x: -0.4, y: 1}
+        m_Offset: {x: -0.31, y: 0.34}
     - _MainTexSynthesized:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
