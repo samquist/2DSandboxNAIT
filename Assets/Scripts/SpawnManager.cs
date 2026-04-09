@@ -11,9 +11,29 @@ public class SpawnManager : MonoBehaviour
     public TouchDragScaleManager dragManager;
     public GameObject prefabParent;
     public Transform spawnPoint;
+    private Dictionary<ObjectMaterial, Tuple<Material, PhysicsMaterial2D>> materialDictionary;
+    private Dictionary<ObjectMaterial, Tuple<float, float, float, float, float, float>> behavioursDictionary; //Tuple<VelocitySmoothing = 10, MinThrowSpeed = 0.5, Mass = 1, LinearDamping = 0, AngularDamping = 0.05, GravityScale = 1>
+    [Header("Foam")]
+    [SerializeField] private Material foamTexture;
+    [SerializeField] private PhysicsMaterial2D foamMaterial;
 
-    [Header("Object Pools")]
+    [Header("Ice")]
+    [SerializeField] private Material iceTexture;
+    [SerializeField] private PhysicsMaterial2D iceMaterial;
 
+    [Header("Rubber")]
+    [SerializeField] private Material rubberTexture;
+    [SerializeField] private PhysicsMaterial2D rubberMaterial;
+
+    [Header("Metal")]
+    [SerializeField] private Material metalTexture;
+    [SerializeField] private PhysicsMaterial2D metalMaterial;
+
+    [Header("Wood")]
+    [SerializeField] private Material woodTexture;
+    [SerializeField] private PhysicsMaterial2D woodMaterial;
+
+    [Header("Object Pool")]
     public Collider2D[] cubes, rectangles, triangles, spheres, wheels_left, wheels_right, conveyors_left, conveyors_right, rockets, springs, pins, bombs;
 
     private void Awake()
@@ -23,12 +43,30 @@ public class SpawnManager : MonoBehaviour
             dragManager = FindAnyObjectByType<TouchDragScaleManager>();
         }
 
-        materialText.text = material.ToString();
-
         if (spawnPoint == null)
         {
             spawnPoint = transform;
         }
+
+        materialText.text = material.ToString();
+
+        materialDictionary = new Dictionary<ObjectMaterial, Tuple<Material, PhysicsMaterial2D>>
+        {
+            { ObjectMaterial.ICE, new Tuple<Material, PhysicsMaterial2D>(iceTexture, iceMaterial) },
+            { ObjectMaterial.FOAM, new Tuple<Material, PhysicsMaterial2D>(foamTexture, foamMaterial) },
+            { ObjectMaterial.RUBBER, new Tuple<Material, PhysicsMaterial2D>(rubberTexture, rubberMaterial) },
+            { ObjectMaterial.METAL, new Tuple<Material, PhysicsMaterial2D>(metalTexture, metalMaterial) },
+            { ObjectMaterial.WOOD, new Tuple<Material, PhysicsMaterial2D>(woodTexture, woodMaterial) }
+        };
+
+        behavioursDictionary = new Dictionary<ObjectMaterial, Tuple<float, float, float, float, float, float>>
+        {//Tuple<VelocitySmoothing = 10, MinThrowSpeed = 0.5, Mass = 1, LinearDamping = 0, AngularDamping = 0.05, GravityScale = 1>
+            { ObjectMaterial.ICE, new Tuple<float, float, float, float, float, float>(10f, 0.5f, 1f, 0f, 0.05f, 1f)},
+            { ObjectMaterial.FOAM, new Tuple<float, float, float, float, float, float>(10f, 0.5f, 1f, 0f, 0.05f, 0.75f)},
+            { ObjectMaterial.RUBBER, new Tuple<float, float, float, float, float, float>(10f, 0.5f, 1f, 0f, 0.05f, 1f)},
+            { ObjectMaterial.METAL, new Tuple<float, float, float, float, float, float>(5f, 0.5f, 2f, 0f, 0.05f, 1.5f)},
+            { ObjectMaterial.WOOD, new Tuple<float, float, float, float, float, float>(10f, 0.5f, 1f, 0f, 0.05f, 1f)}
+        };
     }
 
     public void SpawnObject(string objName)
@@ -122,8 +160,45 @@ public class SpawnManager : MonoBehaviour
                     Debug.LogException(e);
                 }
                 break;
-            default:
-
+            case ObjectType.CUBE:
+                try
+                {
+                    SpawnNextShape(cubes);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+                break;
+            case ObjectType.RECTANGLE:
+                try
+                {
+                    SpawnNextShape(rectangles);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+                break;
+            case ObjectType.TRIANGLE:
+                try
+                {
+                    SpawnNextShape(triangles);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+                break;
+            case ObjectType.SPHERE:
+                try
+                {
+                    SpawnNextShape(spheres);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
                 break;
         }
     }
@@ -150,6 +225,45 @@ public class SpawnManager : MonoBehaviour
         GameObject fullObj = Instantiate(prefabParent);
         fullObj.transform.position = spawnPoint.position;
         obj.transform.parent = fullObj.transform;
+        obj.gameObject.SetActive(true);
+        fullObj.SetActive(true);
+    }
+
+    public void SpawnNextShape(Collider2D[] objs)
+    {
+        //Debug.Log($"Spawing shape from {objs}");
+        GameObject obj = null;
+
+        bool flag = false;
+        for (int i = 0; i < objs.Length && !flag; i++)
+        {
+            if (!objs[i].gameObject.activeSelf)
+            {
+                obj = objs[i].gameObject;
+                flag = true;
+            }
+        }
+        if (!flag)
+        {
+            Debug.Log("No object could be loaded");
+            return;
+        }
+
+        GameObject fullObj = Instantiate(prefabParent);
+        fullObj.transform.position = spawnPoint.position;
+        obj.transform.parent = fullObj.transform;
+
+        obj.GetComponent<Renderer>().material = materialDictionary[material].Item1;
+        obj.GetComponent<Collider2D>().sharedMaterial = materialDictionary[material].Item2;
+
+        //Tuple<VelocitySmoothing = 10, MinThrowSpeed = 0.5, Mass = 1, LinearDamping = 0, AngularDamping = 0.05, GravityScale = 1>
+        fullObj.GetComponent<DragAndScale>().velocitySmoothing = behavioursDictionary[material].Item1;
+        fullObj.GetComponent<DragAndScale>().minThrowSpeed = behavioursDictionary[material].Item2;
+        fullObj.GetComponent<Rigidbody2D>().mass = behavioursDictionary[material].Item3;
+        fullObj.GetComponent<Rigidbody2D>().linearDamping = behavioursDictionary[material].Item4;
+        fullObj.GetComponent<Rigidbody2D>().angularDamping = behavioursDictionary[material].Item5;
+        fullObj.GetComponent<Rigidbody2D>().gravityScale = behavioursDictionary[material].Item6;
+
         obj.gameObject.SetActive(true);
         fullObj.SetActive(true);
     }

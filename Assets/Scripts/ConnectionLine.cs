@@ -33,12 +33,12 @@ public class ConnectionLine : MonoBehaviour
     private void SetRotation()
     {
         //transform.rotation = Quaternion.LookRotation(p2.position - p1.position);
-        transform.eulerAngles =new Vector3(0, 0, GetAngle(new Vector2(p1.position.x, p1.position.y), new Vector2(p2.position.x, p2.position.y)));
+        transform.eulerAngles = new Vector3(0, 0, GetAngle(new Vector2(p1.position.x, p1.position.y), new Vector2(p2.position.x, p2.position.y)));
     }
 
     private void SetScale()
     {
-        body.transform.localScale = new Vector3((p1.position - p2.position).magnitude,  body.transform.localScale.y, body.transform.localScale.z);
+        body.transform.localScale = new Vector3(Vector2.Distance(p1.position, p2.position),  body.transform.localScale.y, body.transform.localScale.z);
     }
 
     private float GetAngle(Vector3 p1, Vector3 p2)

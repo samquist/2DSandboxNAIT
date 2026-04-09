@@ -52,11 +52,10 @@ MonoBehaviour:
   maxScale: 5
   minPosition: 0.025
   maxPosition: 0.25
+  lowestScale: 0
+  highestScale: 0
   isDragged: 0
   isPinched: 0
-  longPressDuration: 0.55
-  rotateDeadZonePixels: 20
-  rotateSpeedTouchDrag: 180
   twistSensitivity: 1.2
   invertTwistDirection: 0
   rotateSpeedKeyboard: 180
@@ -344,9 +343,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: mod_tri
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
-    - {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 27268d0e0af56e1418c283f5d8857d2c, type: 3}

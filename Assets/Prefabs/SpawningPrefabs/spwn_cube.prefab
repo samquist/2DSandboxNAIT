@@ -294,7 +294,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
       propertyPath: m_Name
-      value: TestForConnectionPoints
+      value: spwn_cube
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
       propertyPath: m_LocalScale.x
@@ -318,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -375,6 +379,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2484326632876090693}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8977539374525295965}
   m_SourcePrefab: {fileID: 100100000, guid: 50f3287fed001b5448f381f96f25a84c, type: 3}
 --- !u!4 &8620803140231594747 stripped
 Transform:
@@ -432,3 +439,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8977539374525295965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620803140231634651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724fbb838588de64bb75a6dddb713ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectResetter
+  startingPosition: {x: 0, y: 0, z: 0.5}
+  startingRotation: {x: 0, y: 0, z: 0, w: 1}
+  startingScale: {x: 1, y: 1, z: 1}

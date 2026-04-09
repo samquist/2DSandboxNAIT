@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 public class DragAndScale : MonoBehaviour
 {
     [Header("Throw Behaviour")]
-    [SerializeField] private float velocitySmoothing = 8f;
-    [SerializeField] private float minThrowSpeed = 0.5f;
+    [SerializeField] public float velocitySmoothing = 8f;
+    [SerializeField] public float minThrowSpeed = 0.5f;
 
     [Header("Scale Behaviour")]
     [SerializeField] public float minScale = 0.5f;
@@ -47,6 +47,13 @@ public class DragAndScale : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         AddAllConnectionPoints();
 
+        lowestScale = transform.localScale.x;
+        highestScale = transform.localScale.x;
+    }
+
+    private void OnEnable()
+    {
+        AddAllConnectionPoints();
         lowestScale = transform.localScale.x;
         highestScale = transform.localScale.x;
     }
