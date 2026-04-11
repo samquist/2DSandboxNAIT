@@ -91,6 +91,7 @@ MonoBehaviour:
   regularColor: {r: 0, g: 0.34509805, b: 1, a: 0.5019608}
   highlightedColor: {r: 0, g: 1, b: 0, a: 1}
   connectionLinePrefab: {fileID: 977958157918811430, guid: 0c994b416bd99f2408b7b0ccdc138b71, type: 3}
+  prefabParent: {fileID: 9112895209353804737, guid: 14ec049c9ef1b3840b1e988839a88396, type: 3}
 --- !u!1 &3747212241394456892
 GameObject:
   m_ObjectHideFlags: 0

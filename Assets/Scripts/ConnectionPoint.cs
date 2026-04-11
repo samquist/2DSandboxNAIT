@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,13 +13,17 @@ public class ConnectionPoint : MonoBehaviour
     [SerializeField] private Color regularColor;
     [SerializeField] private Color highlightedColor;
     [SerializeField] private GameObject connectionLinePrefab;
+    [SerializeField] private GameObject prefabParent;
     private GameObject connectionLine;
+    private SpawnManager spawnManager;
 
     private void Awake()
     {
         GetComponentInChildren<SpriteRenderer>().color = regularColor;
         if (hasAngle && tangentDegrees == -1)
             SetRelativeAngle();
+
+        spawnManager = FindAnyObjectByType<SpawnManager>();
     }
 
     public void Connect()//called by Drag & Scale
@@ -33,6 +38,40 @@ public class ConnectionPoint : MonoBehaviour
         connectedTo.LockConnection();
 
         Destroy(connectionLine);
+    }
+
+    public void DisconnectWholeObject()
+    {
+        if (!isConnected) return;
+
+        Transform originalParent = transform.parent.parent;
+
+        foreach (ConnectionPoint c in transform.parent.parent.GetComponentsInChildren<ConnectionPoint>())
+        {
+            if (c.isConnected)
+                c.UnlockConnection();
+        }
+
+        Collider2D[] temp = transform.parent.parent.GetComponentsInChildren<Collider2D>();
+        List<Collider2D> objectColliders = new List<Collider2D>();
+
+        foreach (Collider2D collider in temp)
+        {
+            if(!collider.isTrigger) objectColliders.Add(collider);
+        }
+
+        foreach (Collider2D collider in objectColliders)
+        {
+            GameObject fullObj = Instantiate(prefabParent);
+            fullObj.transform.position = collider.transform.position;
+            fullObj.transform.localScale = new Vector3(collider.transform.lossyScale.z, collider.transform.localScale.z, collider.transform.localScale.z);
+            collider.transform.SetParent(fullObj.transform);
+
+            spawnManager.SetObjectParameters(fullObj, collider.GetComponent<Renderer>().sharedMaterial);
+            fullObj.SetActive(true);
+        }
+
+        Destroy(originalParent.gameObject);
     }
 
     public void CheckForPin()
@@ -79,6 +118,14 @@ public class ConnectionPoint : MonoBehaviour
         canConnect = false;
     }
 
+    public void UnlockConnection()
+    {
+        connectedTo = null;
+        toConnectTo = null;
+        isConnected = false;
+        canConnect = true;
+    }
+
     public void Snap()
     {
         if (hasAngle && toConnectTo.hasAngle)
@@ -98,7 +145,7 @@ public class ConnectionPoint : MonoBehaviour
         //Debug.Log($"Other Tangent: {otherTangent} Other Parent: {toConnectTo.transform.parent.localEulerAngles.z} Other Local Tangent: {toConnectTo.tangentDegrees}");
         //Debug.Log($"This Tangent: {transform.parent.localEulerAngles.z + tangentDegrees} This Parent: {transform.parent.localEulerAngles.z} This Local Tangent: {tangentDegrees}");
 
-        transform.parent.parent.localEulerAngles = new Vector3(0, 0, otherTangent - 180 - tangentDegrees);
+        transform.parent.parent.localEulerAngles = new Vector3(0, 0, otherTangent - 180 - tangentDegrees - transform.parent.localEulerAngles.z);
 
         //Debug.Log($"This Tangent: {transform.parent.localEulerAngles.z + tangentDegrees} This Parent: {transform.parent.localEulerAngles.z} This Local Tangent: {tangentDegrees}");
     }

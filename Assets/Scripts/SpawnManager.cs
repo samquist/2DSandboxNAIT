@@ -256,16 +256,32 @@ public class SpawnManager : MonoBehaviour
         obj.GetComponent<Renderer>().material = materialDictionary[material].Item1;
         obj.GetComponent<Collider2D>().sharedMaterial = materialDictionary[material].Item2;
 
-        //Tuple<VelocitySmoothing = 10, MinThrowSpeed = 0.5, Mass = 1, LinearDamping = 0, AngularDamping = 0.05, GravityScale = 1>
-        fullObj.GetComponent<DragAndScale>().velocitySmoothing = behavioursDictionary[material].Item1;
-        fullObj.GetComponent<DragAndScale>().minThrowSpeed = behavioursDictionary[material].Item2;
-        fullObj.GetComponent<Rigidbody2D>().mass = behavioursDictionary[material].Item3;
-        fullObj.GetComponent<Rigidbody2D>().linearDamping = behavioursDictionary[material].Item4;
-        fullObj.GetComponent<Rigidbody2D>().angularDamping = behavioursDictionary[material].Item5;
-        fullObj.GetComponent<Rigidbody2D>().gravityScale = behavioursDictionary[material].Item6;
+        SetObjectParameters(fullObj, material);
 
         obj.gameObject.SetActive(true);
         fullObj.SetActive(true);
+    }
+
+    public void SetObjectParameters(GameObject obj, ObjectMaterial material)
+    {//Tuple<VelocitySmoothing = 10, MinThrowSpeed = 0.5, Mass = 1, LinearDamping = 0, AngularDamping = 0.05, GravityScale = 1>
+        obj.GetComponent<DragAndScale>().velocitySmoothing = behavioursDictionary[material].Item1;
+        obj.GetComponent<DragAndScale>().minThrowSpeed = behavioursDictionary[material].Item2;
+        obj.GetComponent<Rigidbody2D>().mass = behavioursDictionary[material].Item3;
+        obj.GetComponent<Rigidbody2D>().linearDamping = behavioursDictionary[material].Item4;
+        obj.GetComponent<Rigidbody2D>().angularDamping = behavioursDictionary[material].Item5;
+        obj.GetComponent<Rigidbody2D>().gravityScale = behavioursDictionary[material].Item6;
+    }
+
+    public void SetObjectParameters(GameObject obj, Material material)
+    {
+        foreach (var temp in materialDictionary)
+        {
+            if (temp.Value.Item1 == material)
+            {
+                SetObjectParameters(obj, temp.Key);
+                return;
+            }
+        }
     }
 
     public void NextMaterial()
