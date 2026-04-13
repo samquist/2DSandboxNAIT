@@ -115,9 +115,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragAndScale
   velocitySmoothing: 10
   minThrowSpeed: 0.5
-  minScale: 0.5
-  maxScale: 5
-  minPosition: 0.025
+  minScale: 1
+  maxScale: 3
+  minPosition: 0.05
   maxPosition: 0.25
   lowestScale: 0
   highestScale: 0
@@ -161,6 +161,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3149603448399727161}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -248,6 +252,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d958e03795efae4e8cc603dd21d92f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOnCollision
+  splashSound: {fileID: 8300000, guid: cabb17621ec2db04c98736a1582001f8, type: 3}
+  minSplashSpeed: 3
+  volumeScale: 1.5
+  splashCooldown: 0.15
 --- !u!61 &3745884010182713568
 BoxCollider2D:
   m_ObjectHideFlags: 0

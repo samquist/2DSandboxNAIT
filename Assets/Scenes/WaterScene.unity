@@ -75154,12 +75154,24 @@ MonoBehaviour:
   dragManager: {fileID: 881523481}
   prefabParent: {fileID: 9112895209353804737, guid: 14ec049c9ef1b3840b1e988839a88396, type: 3}
   spawnPoint: {fileID: 0}
+  foamTexture: {fileID: 0}
+  foamMaterial: {fileID: 0}
+  iceTexture: {fileID: 0}
+  iceMaterial: {fileID: 0}
+  rubberTexture: {fileID: 0}
+  rubberMaterial: {fileID: 0}
+  metalTexture: {fileID: 0}
+  metalMaterial: {fileID: 0}
+  woodTexture: {fileID: 0}
+  woodMaterial: {fileID: 0}
   cubes: []
   rectangles: []
   triangles: []
   spheres: []
-  wheels: []
-  conveyors: []
+  wheels_left: []
+  wheels_right: []
+  conveyors_left: []
+  conveyors_right: []
   rockets: []
   springs: []
   pins: []
@@ -75513,7 +75525,6 @@ MonoBehaviour:
   UseFixedTimestep: 0
   _SimulationGUID: 448fdfaa-ee10-409d-884f-4fc9b1f505a6
   SDFColliders:
-  - {fileID: 839637784}
   - {fileID: 167264394}
   Manipulators:
   - {fileID: 1790717886}
@@ -75532,7 +75543,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1790717888}
-  - {fileID: 839637786}
   - {fileID: 1523998497}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77379,73 +77389,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6943cc86cfa15e446ba63800cfb2a902, type: 3}
---- !u!1 &839637783
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 839637786}
-  - component: {fileID: 839637785}
-  - component: {fileID: 839637784}
-  m_Layer: 0
-  m_Name: Zibra Liquid Analytic Collider Box
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &839637784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 839637783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa33ef4a18052b40b7b1ccd35d822a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Manipulators.ZibraLiquidCollider
-  CurrentInteractionMode: 0
-  ParticleSpecies: 0
-  Friction: 0
-  ForceInteraction: 0
-  ForceInteractionCallback:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &839637785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 839637783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12e1948b31becfb4a9cc7647516c70e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZibraAI.ZibraEffects::com.zibra.common.SDFObjects.AnalyticSDF
-  InvertSDF: 0
-  SurfaceDistance: 0
-  ChosenSDFType: 1
---- !u!4 &839637786
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 839637783}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.063, y: -3.228, z: 0}
-  m_LocalScale: {x: 2.0925, y: 3, z: 3}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 295846182}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &881523480
 GameObject:
   m_ObjectHideFlags: 0

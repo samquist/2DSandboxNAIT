@@ -1,8 +1,8 @@
-
 using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -11,27 +11,42 @@ public class SpawnManager : MonoBehaviour
     public TouchDragScaleManager dragManager;
     public GameObject prefabParent;
     public Transform spawnPoint;
+
     private Dictionary<ObjectMaterial, Tuple<Material, PhysicsMaterial2D>> materialDictionary;
-    private Dictionary<ObjectMaterial, Tuple<float, float, float, float, float, float>> behavioursDictionary; //Tuple<VelocitySmoothing = 10, MinThrowSpeed = 0.5, Mass = 1, LinearDamping = 0, AngularDamping = 0.05, GravityScale = 1>
+    private Dictionary<ObjectMaterial, Tuple<float, float, float, float, float, float>> behavioursDictionary;
+    private Dictionary<ObjectMaterial, AudioClip> audioDictionary;
+    private Dictionary<ObjectMaterial, AudioMixerGroup> mixerGroupDictionary;
+
     [Header("Foam")]
     [SerializeField] private Material foamTexture;
     [SerializeField] private PhysicsMaterial2D foamMaterial;
+    [SerializeField] private AudioClip foamImpact;
+    [SerializeField] private AudioMixerGroup foamGroup;
 
     [Header("Ice")]
     [SerializeField] private Material iceTexture;
     [SerializeField] private PhysicsMaterial2D iceMaterial;
+    [SerializeField] private AudioClip iceImpact;
+    [SerializeField] private AudioMixerGroup iceGroup;
 
     [Header("Rubber")]
     [SerializeField] private Material rubberTexture;
     [SerializeField] private PhysicsMaterial2D rubberMaterial;
+    [SerializeField] private AudioClip rubberImpact;
+    [SerializeField] private AudioMixerGroup rubberGroup;
 
     [Header("Metal")]
     [SerializeField] private Material metalTexture;
     [SerializeField] private PhysicsMaterial2D metalMaterial;
+    [SerializeField] private AudioClip metalImpact;
+    [SerializeField] private AudioMixerGroup metalGroup;
 
     [Header("Wood")]
     [SerializeField] private Material woodTexture;
     [SerializeField] private PhysicsMaterial2D woodMaterial;
+    [SerializeField] private AudioClip woodImpact;
+    [SerializeField] private AudioMixerGroup woodGroup;
+
 
     [Header("Object Pool")]
     public Collider2D[] cubes, rectangles, triangles, spheres, wheels_left, wheels_right, conveyors_left, conveyors_right, rockets, springs, pins, bombs;
@@ -39,7 +54,7 @@ public class SpawnManager : MonoBehaviour
     private void Awake()
     {
         if (dragManager == null)
-        {
+        { 
             dragManager = FindAnyObjectByType<TouchDragScaleManager>();
         }
 
@@ -67,7 +82,26 @@ public class SpawnManager : MonoBehaviour
             { ObjectMaterial.METAL, new Tuple<float, float, float, float, float, float>(5f, 0.5f, 2f, 0f, 0.05f, 1.5f)},
             { ObjectMaterial.WOOD, new Tuple<float, float, float, float, float, float>(10f, 0.5f, 1f, 0f, 0.05f, 1f)}
         };
+
+        audioDictionary = new Dictionary<ObjectMaterial, AudioClip>
+        {
+            { ObjectMaterial.METAL, metalImpact },
+            { ObjectMaterial.WOOD, woodImpact },
+            { ObjectMaterial.FOAM, foamImpact },
+            { ObjectMaterial.RUBBER, rubberImpact },
+            { ObjectMaterial.ICE, iceImpact }
+        };
+
+        mixerGroupDictionary = new Dictionary<ObjectMaterial, AudioMixerGroup>
+        {
+            { ObjectMaterial.WOOD, woodGroup },
+            { ObjectMaterial.METAL, metalGroup },
+            { ObjectMaterial.RUBBER, rubberGroup },
+            { ObjectMaterial.FOAM, foamGroup },
+            { ObjectMaterial.ICE, iceGroup }
+        };
     }
+
 
     public void SpawnObject(string objName)
     {
@@ -270,6 +304,29 @@ public class SpawnManager : MonoBehaviour
         obj.GetComponent<Rigidbody2D>().linearDamping = behavioursDictionary[material].Item4;
         obj.GetComponent<Rigidbody2D>().angularDamping = behavioursDictionary[material].Item5;
         obj.GetComponent<Rigidbody2D>().gravityScale = behavioursDictionary[material].Item6;
+
+        var audioOnCollision = obj.GetComponent<AudioOnCollision>();
+        if (audioOnCollision == null)
+        {
+            audioOnCollision = obj.GetComponentInChildren<AudioOnCollision>(true);
+        }
+
+        if (audioOnCollision != null)
+        {
+            if (audioDictionary.TryGetValue(material, out AudioClip clip) && clip != null)
+            {
+                audioOnCollision.ImpactClip = clip;
+            }
+
+            if (mixerGroupDictionary.TryGetValue(material, out AudioMixerGroup group) && group != null)
+            {
+                if (audioOnCollision.GetComponent<AudioSource>() is AudioSource source)
+                {
+                    source.outputAudioMixerGroup = group;
+                }
+                audioOnCollision.outputGroup = group;
+            }
+        }
     }
 
     public void SetObjectParameters(GameObject obj, Material material)

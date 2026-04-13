@@ -334,15 +334,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7994f88e75de7aa459075743fb658fa1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1383.7788
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7994f88e75de7aa459075743fb658fa1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7994f88e75de7aa459075743fb658fa1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7994f88e75de7aa459075743fb658fa1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -503,6 +503,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d958e03795efae4e8cc603dd21d92f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOnCollision
+  impactClip: {fileID: 0}
+  maxVolume: 1
+  velocityThreshold: 0.5
+  maxVelocityForFullVolume: 25
+  cooldownTime: 0.15
 --- !u!95 &2632318363865615311
 Animator:
   serializedVersion: 7

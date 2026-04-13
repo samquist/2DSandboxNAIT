@@ -142,9 +142,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragAndScale
   velocitySmoothing: 8
   minThrowSpeed: 0.5
-  minScale: 0.5
-  maxScale: 5
-  minPosition: 0.025
+  minScale: 1
+  maxScale: 3
+  minPosition: 0.05
   maxPosition: 0.25
   lowestScale: 0
   highestScale: 0

@@ -339,9 +339,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragAndScale
   velocitySmoothing: 10
   minThrowSpeed: 0.5
-  minScale: 0.5
-  maxScale: 5
-  minPosition: 0.025
+  minScale: 1
+  maxScale: 3
+  minPosition: 0.05
   maxPosition: 0.25
   lowestScale: 0
   highestScale: 0
@@ -547,6 +547,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d958e03795efae4e8cc603dd21d92f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOnCollision
+  splashSound: {fileID: 0}
+  minSplashSpeed: 3
+  volumeScale: 1.5
+  splashCooldown: 0.15
 --- !u!95 &4467723526695444069
 Animator:
   serializedVersion: 7
@@ -626,7 +630,7 @@ SurfaceEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 183
+    m_Bits: 247
   m_Speed: -1
   m_SpeedVariation: -10
   m_ForceScale: 0.04

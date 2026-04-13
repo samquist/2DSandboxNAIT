@@ -8,6 +8,7 @@ TagManager:
   - ConnectionPoint
   - Model
   - DontMoveOnConnect
+  - Water
   layers:
   - Default
   - TransparentFX
