@@ -185,6 +185,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d958e03795efae4e8cc603dd21d92f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOnCollision
+  impactClip: {fileID: 0}
+  outputGroup: {fileID: 0}
+  maxVolume: 1
+  velocityThreshold: 0.5
+  maxVelocityForFullVolume: 25
+  cooldownTime: 0.15
 --- !u!61 &8514378461877016987
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -357,7 +363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3040583156903784000, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.625
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3040583156903784000, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_LocalScale.y
@@ -435,7 +441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3040583156903784000, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.625
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3040583156903784000, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_LocalScale.y
@@ -513,7 +519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3040583156903784000, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.625
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3040583156903784000, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_LocalScale.y
@@ -591,7 +597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3040583156903784000, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.625
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3040583156903784000, guid: 274cdcf3d3f7a7d478f3ceea8933fa71, type: 3}
       propertyPath: m_LocalScale.y

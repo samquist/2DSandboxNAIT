@@ -28,7 +28,7 @@ public class RemoveConnections : MonoBehaviour
 
     public void RemoveAllConnections()
     {
-        ConnectionPoint[] allPoints = FindObjectsByType<ConnectionPoint>(FindObjectsSortMode.None);
+        ConnectionPoint[] allPoints = FindObjectsByType<ConnectionPoint>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
         foreach (ConnectionPoint point in allPoints)
         {
