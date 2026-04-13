@@ -46,7 +46,7 @@ public class ConnectionPoint : MonoBehaviour
 
         Transform originalParent = transform.parent.parent;
 
-        foreach (ConnectionPoint c in transform.parent.parent.GetComponentsInChildren<ConnectionPoint>())
+        foreach (ConnectionPoint c in transform.parent.parent.GetComponentsInChildren<ConnectionPoint>(true))
         {
             if (c.isConnected)
                 c.UnlockConnection();
@@ -64,7 +64,7 @@ public class ConnectionPoint : MonoBehaviour
         {
             GameObject fullObj = Instantiate(prefabParent);
             fullObj.transform.position = collider.transform.position;
-            fullObj.transform.localScale = new Vector3(collider.transform.lossyScale.z, collider.transform.localScale.z, collider.transform.localScale.z);
+            fullObj.transform.localScale = new Vector3(collider.transform.lossyScale.z, collider.transform.lossyScale.z, collider.transform.lossyScale.z);
             collider.transform.SetParent(fullObj.transform);
 
             spawnManager.SetObjectParameters(fullObj, collider.GetComponent<Renderer>().sharedMaterial);
@@ -124,6 +124,7 @@ public class ConnectionPoint : MonoBehaviour
         toConnectTo = null;
         isConnected = false;
         canConnect = true;
+        UnHighlightConnection();
     }
 
     public void Snap()

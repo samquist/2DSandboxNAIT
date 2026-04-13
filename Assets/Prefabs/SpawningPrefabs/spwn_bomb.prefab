@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 9097081200447709476}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.011102855, y: 0.4707626, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -115,6 +115,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6919495715445340481, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5462459340299439052, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
       propertyPath: m_Name
       value: spwn_bomb
@@ -139,6 +147,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: -8225298662145710648, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
+    - target: {fileID: 3757605618590527910, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116037399274432481, guid: 832fa07973b2c0d4bbc7328c418c7993, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -201,8 +217,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.46410078}
-  m_Radius: 0.4977793
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!114 &8617726545384180488
 MonoBehaviour:
   m_ObjectHideFlags: 0

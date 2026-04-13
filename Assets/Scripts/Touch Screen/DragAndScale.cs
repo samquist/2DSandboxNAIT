@@ -61,7 +61,7 @@ public class DragAndScale : MonoBehaviour
     public void AddAllConnectionPoints()
     {
         connectionPoints = new List<ConnectionPoint>();
-        ConnectionPoint[] all = GetComponentsInChildren<ConnectionPoint>();
+        ConnectionPoint[] all = GetComponentsInChildren<ConnectionPoint>(true);
         for (int i = 0; i < all.Length; i++)
         {
             connectionPoints.Add(all[i]);
