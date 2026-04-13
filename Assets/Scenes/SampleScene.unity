@@ -11858,8 +11858,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7112371586100305035}
   blueprintPages: {fileID: 331567457}
-  openSound: {fileID: 8300000, guid: a15b11d1e12d67845b7683f3fb531590, type: 3}
-  closeSound: {fileID: 8300000, guid: 89450e9deb31b114db6e8d15f09aa59f, type: 3}
+  openSound: {fileID: 8300000, guid: f9cc35eea97182e45a60cba8e8055257, type: 3}
+  closeSound: {fileID: 8300000, guid: 0ce39216ed8477e4ab78f3311c631e4c, type: 3}
 --- !u!114 &325807581594808845
 MonoBehaviour:
   m_ObjectHideFlags: 0
