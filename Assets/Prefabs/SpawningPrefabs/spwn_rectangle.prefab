@@ -76,6 +76,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 34824887b6d0de943a520d83d10097b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1383.7788
       objectReference: {fileID: 0}
@@ -181,11 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d958e03795efae4e8cc603dd21d92f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOnCollision
-  impactClip: {fileID: 0}
-  maxVolume: 1
-  velocityThreshold: 0.5
-  maxVelocityForFullVolume: 25
-  cooldownTime: 0.15
 --- !u!61 &8514378461877016987
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -343,7 +342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectResetter
   startingPosition: {x: 0, y: 0, z: 0.5}
   startingRotation: {x: 0, y: 0, z: 0, w: 1}
-  startingScale: {x: 1.6, y: 0.3, z: 1}
+  startingScale: {x: 2, y: 0.3, z: 1}
 --- !u!1001 &1275928878780317313
 PrefabInstance:
   m_ObjectHideFlags: 0
