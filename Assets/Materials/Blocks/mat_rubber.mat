@@ -111,7 +111,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ba42b5c043f63cb4c978942e3219bfaa, type: 3}
+        m_Texture: {fileID: 2800000, guid: f33c38b696548724483ed6821051da8a, type: 3}
         m_Scale: {x: 3.1, y: 3.05}
         m_Offset: {x: -0.09, y: -0.03}
     - _MainTexSynthesized:
@@ -131,7 +131,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 47241ab22254c3e45b12c419d1955938, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8ea7570ce1a748c489af3d29cdd1a86f, type: 3}
         m_Scale: {x: 3.1, y: 3.1}
         m_Offset: {x: -0.09, y: -0.03}
     - _NormalMapForMatCap:
