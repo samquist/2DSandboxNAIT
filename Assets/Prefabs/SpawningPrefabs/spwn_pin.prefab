@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6812113974274014730, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -599921668195307679, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -599921668195307679, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -46,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.61
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -81,6 +89,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 43c172a9eb02b5c4892fbddb7a22a89a, type: 2}
     - target: {fileID: 1560305555711216283, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560305555711216283, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 69a1933b8dcc2a54fa00803482a1556f, type: 2}
@@ -106,7 +118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7332054404666874609, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0274
+      value: -0.0689
       objectReference: {fileID: 0}
     - target: {fileID: 7332054404666874609, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -142,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8489711321141375282, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0372
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8489711321141375282, guid: 5e467033354bb224fb50bee751a7547c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -390,6 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724fbb838588de64bb75a6dddb713ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectResetter
-  startingPosition: {x: 0, y: 0, z: 0.61}
+  startingPosition: {x: 0, y: 0, z: -0.5}
   startingRotation: {x: 0, y: 0, z: 0, w: 1}
   startingScale: {x: 15, y: 15, z: 15}

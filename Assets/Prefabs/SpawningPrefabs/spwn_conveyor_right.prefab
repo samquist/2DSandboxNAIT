@@ -140,7 +140,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 2.8, y: 0.8, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5210841436807545942}
@@ -503,7 +503,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d958e03795efae4e8cc603dd21d92f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOnCollision
-  impactClip: {fileID: 0}
+  impactClip: {fileID: 8300000, guid: efa486b2c175ad04ca5282caaa717f40, type: 3}
+  outputGroup: {fileID: -5586299966535820241, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
   maxVolume: 1
   velocityThreshold: 0.5
   maxVelocityForFullVolume: 25
@@ -587,7 +588,7 @@ SurfaceEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 183
+    m_Bits: 1207
   m_Speed: 1
   m_SpeedVariation: 10
   m_ForceScale: 0.04
@@ -605,7 +606,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2458310100724175795, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 2685822deace9744ab171272ff19fa8b, type: 3}
+  m_Resource: {fileID: 8300000, guid: efa486b2c175ad04ca5282caaa717f40, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
