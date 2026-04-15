@@ -216,7 +216,7 @@ public class Jetpack : InteractableObject
         return duration <= maxTapDuration && distance <= maxTapMovementDistance;
     }
 
-    private bool TryGetNearestBlockCenter(out DragAndScale blockParent, out Vector3 hitCenter)
+    public bool TryGetNearestBlockCenter(out DragAndScale blockParent, out Vector3 hitCenter)
     {
         blockParent = null;
         hitCenter = Vector3.zero;
@@ -245,7 +245,7 @@ public class Jetpack : InteractableObject
         return blockParent != null;
     }
 
-    private void AttachToBlock(DragAndScale blockParent, Vector3 hitCenter)
+    public void AttachToBlock(DragAndScale blockParent, Vector3 hitCenter)
     {
         transform.SetParent(blockParent.transform, true);
         transform.position = new Vector3(hitCenter.x, hitCenter.y, placedLocalZ);
@@ -275,7 +275,7 @@ public class Jetpack : InteractableObject
         isPlaced = false;
         isThrustActive = false;
 
-        rb.bodyType = RigidbodyType2D.Kinematic;
+        //rb.bodyType = RigidbodyType2D.Kinematic;
 
         if (lockedBlock != null)
         {

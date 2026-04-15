@@ -2042,7 +2042,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 517.5, y: 0}
+  m_AnchoredPosition: {x: 637.5, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &331567459
@@ -6772,14 +6772,6 @@ MonoBehaviour:
   - {fileID: 2094039722}
   - {fileID: 2118050752}
   - {fileID: 2164044325194730558}
-  - {fileID: 1333191561}
-  - {fileID: 1472094201}
-  - {fileID: 1626753159}
-  - {fileID: 1877162084}
-  - {fileID: 2002878686}
-  - {fileID: 2029821727}
-  - {fileID: 2084423080}
-  - {fileID: 2124107732}
   Manipulators:
   - {fileID: 1769239395}
 --- !u!4 &968986935
@@ -8377,17 +8369,6 @@ PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 4344590209855657012, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
   m_PrefabInstance: {fileID: 924865821}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1333191561 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 248248702066870845, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
-  m_PrefabInstance: {fileID: 924865821}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa33ef4a18052b40b7b1ccd35d822a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Manipulators.ZibraLiquidCollider
 --- !u!114 &1343358522 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6181957738493588349, guid: 2741e21c555a7b14a9284b9cf0e2702a, type: 3}
@@ -8991,17 +8972,6 @@ PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 4344590209855657012, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
   m_PrefabInstance: {fileID: 1472094191}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1472094201 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 248248702066870845, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
-  m_PrefabInstance: {fileID: 1472094191}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa33ef4a18052b40b7b1ccd35d822a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Manipulators.ZibraLiquidCollider
 --- !u!1001 &1472997622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10105,17 +10075,6 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 1660792523632199161, guid: 46e4dbd3d74ff2f40a7369bd6ab00211, type: 3}
   m_PrefabInstance: {fileID: 1613522323}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1626753159 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 248248702066870845, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
-  m_PrefabInstance: {fileID: 437144121}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa33ef4a18052b40b7b1ccd35d822a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Manipulators.ZibraLiquidCollider
 --- !u!1001 &1626912678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11638,17 +11597,6 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 1660792523632199161, guid: 46e4dbd3d74ff2f40a7369bd6ab00211, type: 3}
   m_PrefabInstance: {fileID: 1858779277}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1877162084 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 248248702066870845, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
-  m_PrefabInstance: {fileID: 1065977253}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa33ef4a18052b40b7b1ccd35d822a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Manipulators.ZibraLiquidCollider
 --- !u!1001 &1893268817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12499,17 +12447,6 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 8514378461877016987, guid: 76f7c6d63d3383c4eaac4844d821e2c2, type: 3}
   m_PrefabInstance: {fileID: 2002337738}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2002878686 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 248248702066870845, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
-  m_PrefabInstance: {fileID: 336230168}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa33ef4a18052b40b7b1ccd35d822a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Manipulators.ZibraLiquidCollider
 --- !u!1001 &2006678817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12784,17 +12721,6 @@ PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 4344590209855657012, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
   m_PrefabInstance: {fileID: 2029821717}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2029821727 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 248248702066870845, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
-  m_PrefabInstance: {fileID: 2029821717}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa33ef4a18052b40b7b1ccd35d822a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Manipulators.ZibraLiquidCollider
 --- !u!1001 &2055799665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13025,17 +12951,6 @@ PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 4344590209855657012, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
   m_PrefabInstance: {fileID: 1652777144}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2084423080 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 248248702066870845, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
-  m_PrefabInstance: {fileID: 1652777144}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa33ef4a18052b40b7b1ccd35d822a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Manipulators.ZibraLiquidCollider
 --- !u!114 &2094039722 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 198605145373927323, guid: 76f7c6d63d3383c4eaac4844d821e2c2, type: 3}
@@ -13367,17 +13282,6 @@ PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 4344590209855657012, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
   m_PrefabInstance: {fileID: 2124107722}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2124107732 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 248248702066870845, guid: 63c78c2d2bc4bd94fbdf857fb0a9fb26, type: 3}
-  m_PrefabInstance: {fileID: 2124107722}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa33ef4a18052b40b7b1ccd35d822a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZibraAI.ZibraEffects.Liquid::com.zibra.liquid.Manipulators.ZibraLiquidCollider
 --- !u!61 &2127534277 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 8514378461877016987, guid: 76f7c6d63d3383c4eaac4844d821e2c2, type: 3}
@@ -16735,7 +16639,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 830, y: 0}
+  m_AnchoredPosition: {x: 950, y: 0}
   m_SizeDelta: {x: 238, y: 585}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5312361013594408820

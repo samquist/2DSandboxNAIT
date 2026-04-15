@@ -4,7 +4,7 @@ public class ObjectResetter : MonoBehaviour
 {
     [SerializeField] private Vector3 startingPosition = Vector3.zero;
     [SerializeField] private Quaternion startingRotation = Quaternion.identity;
-    [SerializeField] private Vector3 startingScale = Vector3.one;
+    [SerializeField] public Vector3 startingScale = Vector3.one;
 
     public void ResetTransform()
     {
@@ -21,20 +21,17 @@ public class ObjectResetter : MonoBehaviour
     public void DeactivateObject()
     {
         //remove all attached objects
-        PinTriggerCenter pin = transform.parent.GetComponentInChildren<PinTriggerCenter>();
-        if (pin != null)
+        foreach (PinTriggerCenter pin in transform.parent.GetComponentsInChildren<PinTriggerCenter>())
         {
             pin.DetachFromBlock();
         }
-
-        Jetpack jet = transform.parent.GetComponentInChildren<Jetpack>();
-        if (jet != null)
+        
+        foreach (Jetpack jet in transform.parent.GetComponentsInChildren<Jetpack>())
         {
             jet.DetachFromBlock();
         }
 
-        Wheel wheel = transform.parent.GetComponentInChildren<Wheel>();
-        if (wheel != null)
+        foreach (Wheel wheel in transform.parent.GetComponentsInChildren<Wheel>())
         {
             wheel.DetachFromBlock();
         }

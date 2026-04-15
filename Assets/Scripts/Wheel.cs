@@ -154,7 +154,7 @@ public class Wheel : InteractableObject
         }
     }
 
-    private bool TryGetNearestBlock(out DragAndScale block)
+    public bool TryGetNearestBlock(out DragAndScale block)
     {
         block = null;
 
@@ -183,7 +183,7 @@ public class Wheel : InteractableObject
         return block != null;
     }
 
-    private void AttachToBlock(DragAndScale block)
+    public void AttachToBlock(DragAndScale block)
     {
         Rigidbody2D blockRb = block.GetComponent<Rigidbody2D>();
 
@@ -200,6 +200,8 @@ public class Wheel : InteractableObject
 
         isAttached = true;
         attachedBlock = block;
+
+        transform.SetParent(attachedBlock.transform);
 
         if (col != null)
         {
@@ -225,6 +227,8 @@ public class Wheel : InteractableObject
 
         isAttached = false;
         attachedBlock = null;
+
+        transform.SetParent(null);
 
         if (col != null)
         {

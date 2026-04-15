@@ -32,7 +32,7 @@ public class ConnectionPoint : MonoBehaviour
 
         ConnectObjects();
 
-        CheckForPin();
+        CheckForAttachedObjects();
 
         LockConnection();
         connectedTo.LockConnection();
@@ -46,42 +46,72 @@ public class ConnectionPoint : MonoBehaviour
 
         Transform originalParent = transform.parent.parent;
 
-        foreach (ConnectionPoint c in transform.parent.parent.GetComponentsInChildren<ConnectionPoint>(true))
+        PinTriggerCenter[] pins = originalParent.GetComponentsInChildren<PinTriggerCenter>();
+        Jetpack[] jets = originalParent.GetComponentsInChildren<Jetpack>();
+        Wheel[] wheels = originalParent.GetComponentsInChildren<Wheel>();
+
+        foreach (ConnectionPoint c in originalParent.GetComponentsInChildren<ConnectionPoint>(true))
         {
             if (c.isConnected)
                 c.UnlockConnection();
         }
 
-        Collider2D[] temp = transform.parent.parent.GetComponentsInChildren<Collider2D>();
-        List<Collider2D> objectColliders = new List<Collider2D>();
+        ObjectResetter[] objs = originalParent.GetComponentsInChildren<ObjectResetter>();
 
-        foreach (Collider2D collider in temp)
-        {
-            if(!collider.isTrigger) objectColliders.Add(collider);
-        }
-
-        foreach (Collider2D collider in objectColliders)
+        foreach (ObjectResetter obj in objs)
         {
             GameObject fullObj = Instantiate(prefabParent);
-            fullObj.transform.position = collider.transform.position;
-            fullObj.transform.localScale = new Vector3(collider.transform.lossyScale.z, collider.transform.lossyScale.z, collider.transform.lossyScale.z);
-            collider.transform.SetParent(fullObj.transform);
+            fullObj.transform.position = obj.transform.position;
+            fullObj.transform.localScale = new Vector3(obj.transform.lossyScale.x / obj.startingScale.x, obj.transform.lossyScale.y / obj.startingScale.y, obj.transform.lossyScale.z / obj.startingScale.z);
+            obj.transform.SetParent(fullObj.transform);
 
-            spawnManager.SetObjectParameters(fullObj, collider.GetComponent<Renderer>().sharedMaterial);
+            if (obj.GetComponent<InteractableObject>() == null) spawnManager.SetObjectParameters(fullObj, obj.GetComponent<Renderer>().sharedMaterial);
             fullObj.SetActive(true);
+        }
+
+        foreach (Jetpack jet in jets)
+        {
+            jet.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter);
+            jet.AttachToBlock(blockParent, hitCenter);
+        }
+        foreach (Wheel wheel in wheels)
+        {
+            wheel.TryGetNearestBlock(out var blockParent);
+            wheel.AttachToBlock(blockParent);
+        }
+        foreach (PinTriggerCenter pin in pins)
+        {
+            pin.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter);
+            pin.AttachToBlock(blockParent, hitCenter);
         }
 
         Destroy(originalParent.gameObject);
     }
 
-    public void CheckForPin()
+    public void CheckForAttachedObjects()
     {
-        PinTriggerCenter pin = transform.parent.parent.GetComponentInChildren<PinTriggerCenter>();
-        if (pin != null)
+        Transform originalParent = transform.parent.parent;
+        PinTriggerCenter[] pins = originalParent.GetComponentsInChildren<PinTriggerCenter>();
+        Jetpack[] jets = originalParent.GetComponentsInChildren<Jetpack>();
+        Wheel[] wheels = originalParent.GetComponentsInChildren<Wheel>();
+
+        foreach (Jetpack jet in jets)
         {
-            pin.transform.SetParent(transform.parent.parent, true);
-            pin.lockedBlock = transform.parent.parent.GetComponent<DragAndScale>();
-            transform.parent.parent.GetComponent<DragAndScale>().LockByPin();
+            jet.DetachFromBlock();
+            jet.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter);
+            jet.AttachToBlock(blockParent, hitCenter);
+        }
+        foreach (Wheel wheel in wheels)
+        {
+            wheel.DetachFromBlock();
+            wheel.TryGetNearestBlock(out DragAndScale blockParent);
+            wheel.AttachToBlock(blockParent);
+        }
+        foreach (PinTriggerCenter pin in pins)
+        {
+            pin.DetachFromBlock();
+            pin.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter);
+            pin.AttachToBlock(blockParent, hitCenter);
         }
     }
 

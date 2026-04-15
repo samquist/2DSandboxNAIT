@@ -226,7 +226,7 @@ public class PinTriggerCenter : InteractableObject
         OnGrabUpdate(screenPos);
     }
 
-    private bool TryGetNearestBlockCenter(out DragAndScale blockParent, out Vector3 hitCenter)
+    public bool TryGetNearestBlockCenter(out DragAndScale blockParent, out Vector3 hitCenter)
     {
         blockParent = null;
         hitCenter = new Vector3();
