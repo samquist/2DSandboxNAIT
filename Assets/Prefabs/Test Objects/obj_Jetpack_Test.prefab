@@ -275,7 +275,7 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 1
-  thrustForce: 20
+  thrustForce: 25
   thrustLocalDirection: {x: 0, y: 1}
   placedLocalZ: -0.5
   attachSound: {fileID: 8300000, guid: 03d76da4545c95d4484767bacd947044, type: 3}
