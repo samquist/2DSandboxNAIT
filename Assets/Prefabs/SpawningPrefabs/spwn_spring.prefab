@@ -532,8 +532,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79fc67b5db407f04d9c88f13567172ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spring
-  K: 10000
-  friction: 0.05
+  K: 15000
+  friction: 0.1
   topBlock: {fileID: 2237149341107445704}
   bottomBlock: {fileID: 792182173195424582}
   springModel: {fileID: 5520078612546061171}

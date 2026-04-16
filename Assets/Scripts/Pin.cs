@@ -238,13 +238,11 @@ public class PinTriggerCenter : InteractableObject
 
         foreach (var hit in hits)
         {
-            Debug.Log($"{hit.gameObject.name} {hit.transform.position} {(transform.position - hit.transform.position).sqrMagnitude}");
-
             var candidate = hit.GetComponentInParent<DragAndScale>();
-            if (candidate == null || hit.isTrigger) continue;
+            if (candidate == null || hit.isTrigger || hit.GetComponent<ObjectResetter>() == null || hit.GetComponent<PinTriggerCenter>() != null) continue;
 
-            var blockCenter = hit.transform.position;
-            var distSq = (transform.position - blockCenter).sqrMagnitude;
+            Vector2 blockCenter = hit.transform.position;
+            var distSq = ((Vector2)transform.position - blockCenter).magnitude;
 
             if (distSq < bestDistSq)
             {
