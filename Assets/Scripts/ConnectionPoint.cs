@@ -32,10 +32,10 @@ public class ConnectionPoint : MonoBehaviour
 
         ConnectObjects();
 
-        CheckForAttachedObjects();
-
         LockConnection();
         connectedTo.LockConnection();
+
+        CheckForAttachedObjects();
 
         Destroy(connectionLine);
     }
@@ -71,18 +71,18 @@ public class ConnectionPoint : MonoBehaviour
 
         foreach (Jetpack jet in jets)
         {
-            jet.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter);
-            jet.AttachToBlock(blockParent, hitCenter);
+            if (jet.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter))
+                jet.AttachToBlock(blockParent, hitCenter);
         }
         foreach (Wheel wheel in wheels)
         {
-            wheel.TryGetNearestBlock(out var blockParent);
-            wheel.AttachToBlock(blockParent);
+            if (wheel.TryGetNearestBlock(out DragAndScale blockParent))
+                wheel.AttachToBlock(blockParent);
         }
         foreach (PinTriggerCenter pin in pins)
         {
-            pin.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter);
-            pin.AttachToBlock(blockParent, hitCenter);
+            if (pin.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter))
+                pin.AttachToBlock(blockParent, hitCenter);
         }
 
         Destroy(originalParent.gameObject);
@@ -98,20 +98,20 @@ public class ConnectionPoint : MonoBehaviour
         foreach (Jetpack jet in jets)
         {
             jet.DetachFromBlock();
-            jet.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter);
-            jet.AttachToBlock(blockParent, hitCenter);
+            if (jet.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter))
+                jet.AttachToBlock(blockParent, hitCenter);
         }
         foreach (Wheel wheel in wheels)
         {
             wheel.DetachFromBlock();
-            wheel.TryGetNearestBlock(out DragAndScale blockParent);
-            wheel.AttachToBlock(blockParent);
+            if (wheel.TryGetNearestBlock(out DragAndScale blockParent))
+                wheel.AttachToBlock(blockParent);
         }
         foreach (PinTriggerCenter pin in pins)
         {
             pin.DetachFromBlock();
-            pin.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter);
-            pin.AttachToBlock(blockParent, hitCenter);
+            if (pin.TryGetNearestBlockCenter(out var blockParent, out Vector3 hitCenter))
+                pin.AttachToBlock(blockParent, hitCenter);
         }
     }
 

@@ -238,6 +238,8 @@ public class PinTriggerCenter : InteractableObject
 
         foreach (var hit in hits)
         {
+            Debug.Log($"{hit.gameObject.name} {hit.transform.position} {(transform.position - hit.transform.position).sqrMagnitude}");
+
             var candidate = hit.GetComponentInParent<DragAndScale>();
             if (candidate == null || hit.isTrigger) continue;
 

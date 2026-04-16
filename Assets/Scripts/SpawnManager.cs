@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -100,8 +101,9 @@ public class SpawnManager : MonoBehaviour
             { ObjectMaterial.FOAM, foamGroup },
             { ObjectMaterial.ICE, iceGroup }
         };
-    }
 
+        StartCoroutine(DestroyEmptyObjectsEverySecond());
+    }
 
     public void SpawnObject(string objName)
     {
@@ -351,6 +353,21 @@ public class SpawnManager : MonoBehaviour
     {
         material = (ObjectMaterial)(((int)material - 1 + 5) % 5);
         materialText.text = material.ToString();
+    }
+
+    private IEnumerator DestroyEmptyObjectsEverySecond()
+    {
+        while (true)
+        {
+            foreach (var obj in FindObjectsByType<DragAndScale>(FindObjectsSortMode.None))
+            {
+                if (obj.GetComponent<Collider2D>() == null && obj.GetComponentInChildren<Collider2D>() == null)
+                {
+                    Destroy(obj.gameObject);
+                }
+            }
+            yield return new WaitForSeconds(1);
+        }
     }
 }
 
