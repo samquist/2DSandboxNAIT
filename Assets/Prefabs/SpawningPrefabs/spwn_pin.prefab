@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d7169614d44ced48b09d3323eed5e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pin
-  maxSnapDistance: 0.01
+  maxSnapDistance: 0.3
   blockLayer:
     serializedVersion: 2
     m_Bits: 1

@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -61,7 +63,7 @@ public class ConnectionPoint : MonoBehaviour
         foreach (ObjectResetter obj in objs)
         {
             GameObject fullObj = Instantiate(prefabParent);
-            fullObj.transform.position = obj.transform.position;
+            fullObj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, 0);
             fullObj.transform.localScale = new Vector3(obj.transform.lossyScale.x / obj.startingScale.x, obj.transform.lossyScale.y / obj.startingScale.y, obj.transform.lossyScale.z / obj.startingScale.z);
             obj.transform.SetParent(fullObj.transform);
 
@@ -88,8 +90,9 @@ public class ConnectionPoint : MonoBehaviour
         Destroy(originalParent.gameObject);
     }
 
-    public void CheckForAttachedObjects()
+    public async void CheckForAttachedObjects()
     {
+        await Task.Delay(1000 / 60);
         Transform originalParent = transform.parent.parent;
         PinTriggerCenter[] pins = originalParent.GetComponentsInChildren<PinTriggerCenter>();
         Jetpack[] jets = originalParent.GetComponentsInChildren<Jetpack>();
@@ -171,7 +174,7 @@ public class ConnectionPoint : MonoBehaviour
 
     public void RotateForSnap()
     {
-        float otherTangent = toConnectTo.transform.parent.localEulerAngles.z + toConnectTo.transform.parent.parent.localEulerAngles.z + toConnectTo.tangentDegrees;
+        float otherTangent = toConnectTo.transform.parent.eulerAngles.z + toConnectTo.tangentDegrees;
 
         //Debug.Log($"Other Tangent: {otherTangent} Other Parent: {toConnectTo.transform.parent.localEulerAngles.z} Other Local Tangent: {toConnectTo.tangentDegrees}");
         //Debug.Log($"This Tangent: {transform.parent.localEulerAngles.z + tangentDegrees} This Parent: {transform.parent.localEulerAngles.z} This Local Tangent: {tangentDegrees}");
