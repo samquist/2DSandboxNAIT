@@ -6498,7 +6498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &968986930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19031,7 +19031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GravityController
   gravitySlider: {fileID: 2083541549996172836}
   baseGravity: -9.81
-  liquidParameters: {fileID: 968986932}
+  liquidParameters: {fileID: 0}
 --- !u!114 &8914306258178739339
 MonoBehaviour:
   m_ObjectHideFlags: 0
