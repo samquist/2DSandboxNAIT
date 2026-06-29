@@ -3848,6 +3848,52 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 7691420944333105936, guid: 2741e21c555a7b14a9284b9cf0e2702a, type: 3}
   m_PrefabInstance: {fileID: 661997114}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &672783729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 672783730}
+  - component: {fileID: 672783731}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &672783730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672783729}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 875372385}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &672783731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672783729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c6e33a04eaadd46801cd520d9dcdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioController
+  mainMixer: {fileID: 24100000, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
+  volume: 1
 --- !u!1001 &687307875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5199,6 +5245,7 @@ Transform:
   - {fileID: 1735518885}
   - {fileID: 1871219613}
   - {fileID: 65510457}
+  - {fileID: 672783730}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &876640685
@@ -7816,7 +7863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1129433538}
   - component: {fileID: 1129433540}
-  - component: {fileID: 1129433539}
+  - component: {fileID: 1129433541}
   m_Layer: 9
   m_Name: AudioSlider
   m_TagString: Untagged
@@ -7846,19 +7893,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -45}
   m_SizeDelta: {x: 240, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1129433539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129433537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8c6e33a04eaadd46801cd520d9dcdb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioController
-  mainMixer: {fileID: 24100000, guid: 76821bd0f8d2d5942bbff733f8d9c3b4, type: 2}
 --- !u!114 &1129433540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7910,7 +7944,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1129433539}
+      - m_Target: {fileID: 672783731}
         m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 0
@@ -7922,6 +7956,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1129433541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129433537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 049deed6a2162b4498ebb2ec9e5ea482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioSliderSet
 --- !u!1001 &1133837565
 PrefabInstance:
   m_ObjectHideFlags: 0
